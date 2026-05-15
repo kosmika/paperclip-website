@@ -7,7 +7,7 @@
     <div class="tickets-two-col" id="tickets-section">
       <!-- Left: copy + bullets -->
       <div class="tickets-copy">
-        <span class="section-badge">Ticket System</span>
+        <span class="section-badge section-badge--g06">Ticket System</span>
         <h2 class="heading-serif feature-heading">Every conversation traced.<br />Every decision explained.</h2>
         <p class="feature-sub">
           You communicate with agents through tickets. Every instruction, every response,
@@ -238,6 +238,10 @@
     justify-content: center;
     padding: var(--space-md);
     overflow: hidden;
+  }
+
+  :global([data-theme="light"]) .tickets-visual {
+    background: var(--parchment);
   }
 
   /* ── Mock ticket card ── */

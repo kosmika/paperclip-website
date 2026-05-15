@@ -5,7 +5,7 @@
   <div class="container">
     <hr class="section-divider" />
     <div class="governance-header">
-      <span class="section-badge">Governance</span>
+      <span class="section-badge section-badge--g10">Governance</span>
       <h2 class="heading-serif governance-heading">You're in charge.</h2>
       <p class="governance-sub">Approve hires. Approve strategy. Override anything.</p>
     </div>
@@ -15,15 +15,16 @@
           You operate as the board of directors. Agents can't hire new agents without your approval.
           The CEO can't execute a strategy you haven't reviewed. You can pause any agent, reassign
           any task, adjust any budget — at any time.
+          <br><br>
+          You have full control over every agent in the org. Autonomy is a privilege you grant,
+          not a default.
+        
+          
         </p>
       </div>
       <div class="governance-block">
         <p class="governance-actions">
-          Pause. Resume. Override. Reassign. Terminate.
-        </p>
-        <p>
-          You have full control over every agent in the org.
-          Autonomy is a privilege you grant, not a default.
+          Pause.<br />Resume.<br />Override.<br />Reassign.<br />Terminate.
         </p>
       </div>
     </div>
@@ -59,12 +60,16 @@
     color: var(--color-text-muted);
   }
 
-  .governance-actions {
+  .governance-block p.governance-actions {
     font-family: var(--font-mono);
-    font-size: 0.95rem !important;
+    font-size: 22px;
     letter-spacing: 0.02em;
-    color: var(--color-text) !important;
-    margin-bottom: var(--space-sm);
+    color: var(--color-text);
+    margin-top: -10px;
+    margin-bottom: 0;
+    line-height: 2.5;
+    text-align: left;
+    padding-left: 102px;
   }
 
   @media (max-width: 768px) {

@@ -56,7 +56,7 @@
 }
 
 /* ── Dark callout sections stay dark regardless of page theme ── */
-/* Apply data-theme="dark" directly on Footer and CTA elements  */
+/* Apply data-theme="dark" directly on Footer (CTA follows document theme)  */
 
 /* ── Legacy aliases — let untouched components inherit new tokens ── */
 :root {

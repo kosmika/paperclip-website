@@ -2,6 +2,9 @@
 ---
 
 <section class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <img src="/hero-blend-row.png" alt="" width="1200" height="675" decoding="async" fetchpriority="high" />
+  </div>
   <div class="container hero-inner">
     <h1 class="hero-headline">
       The app people use to<br />manage AI agents for work
@@ -21,12 +24,30 @@
 
 <style>
   .hero {
-    background: var(--bg);
+    position: relative;
+    overflow: hidden;
     padding: clamp(5rem, 10vw, 10rem) 0 clamp(4rem, 8vw, 8rem);
-    transition: background 300ms ease-out;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .hero-bg img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: scale-down;
+    object-position: center calc(50% + 300px);
+    transform: rotate(180deg);
   }
 
   .hero-inner {
+    position: relative;
+    z-index: 1;
     max-width: 900px;
     text-align: center;
   }
@@ -38,6 +59,7 @@
     letter-spacing: -0.035em;
     line-height: 0.98;
     color: var(--ink-t);
+    margin-top: 124px;
     margin-bottom: 1.5rem;
   }
 

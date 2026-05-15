@@ -6,7 +6,7 @@
     <hr class="section-divider" />
     <div class="feature-header">
       <div>
-        <span class="section-badge">Open Source</span>
+        <span class="section-badge section-badge--g09">Open Source</span>
         <h2 class="heading-serif feature-heading">Extensible, adaptable,<br />open source.</h2>
         <p class="feature-sub">
           Paperclip is built to be extended. Add capabilities through extensions,
@@ -132,7 +132,7 @@
   }
 
   .pillar-card {
-    background: var(--parchment);
+    background: var(--color-surface);
     border-radius: var(--radius);
     padding: var(--space-md);
     border: 1.5px solid transparent;
@@ -146,6 +146,10 @@
   #extensions-section:global(.is-visible) .pillar-card {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  :global([data-theme="light"]) .pillar-card {
+    background: var(--parchment);
   }
 
   .pillar-card:hover {

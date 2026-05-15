@@ -94,16 +94,95 @@ h4 {
   padding: var(--space-section) 0;
 }
 
+.features-section.section,
+.feature-section.section,
+.governance.section,
+.faq-section.section {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
 /* ── Section badge (eyebrow label) ── */
 .section-badge {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  padding: 0.4rem 0.9rem;
+  border-radius: 9999px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
   font-weight: 500;
-  color: var(--mono);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-bottom: var(--space-md);
+  color: var(--mono);
+}
+
+.section-badge[class*="section-badge--g"] {
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
+}
+
+.section-badge--g01 {
+  background: linear-gradient(90deg, #f7cfdc, #1f7a3a);
+  color: #fff;
+}
+
+.section-badge--g02 {
+  background: linear-gradient(90deg, #c9a9e8, #ee79a1);
+  color: #fff;
+}
+
+.section-badge--g03 {
+  background: linear-gradient(90deg, #28164b, #7a1530);
+  color: #fff;
+}
+
+.section-badge--g04 {
+  background: linear-gradient(90deg, #f3e6c4, #e3a21a);
+  color: #3d3010;
+  text-shadow: none;
+}
+
+.section-badge--g05 {
+  background: linear-gradient(90deg, #1f4dd6, #3aa35c);
+  color: #fff;
+}
+
+.section-badge--g06 {
+  background: linear-gradient(90deg, #e94b27, #5a1122);
+  color: #fff;
+}
+
+.section-badge--g07 {
+  background: linear-gradient(90deg, #7eb6e3, #ee79a1);
+  color: #fff;
+}
+
+.section-badge--g08 {
+  background: linear-gradient(90deg, #9ce8a7, #bd7ff0);
+  color: #2a2340;
+  text-shadow: none;
+}
+
+.section-badge--g09 {
+  background: linear-gradient(90deg, #f3b49e, #1f4ed4);
+  color: #fff;
+}
+
+.section-badge--g10 {
+  background: linear-gradient(90deg, #f2d95f, #4fbcba);
+  color: #1a3a38;
+  text-shadow: none;
+}
+
+.section-badge--g11 {
+  background: linear-gradient(90deg, #c2c2e8, #5e3450);
+  color: #fff;
+}
+
+.section-badge--g12 {
+  background: linear-gradient(90deg, #4db9b7, #3aa35c);
+  color: #fff;
 }
 
 /* ── heading-serif is now Inter Tight (was Instrument Serif) ── */
