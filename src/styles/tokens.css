@@ -10,7 +10,7 @@
 
   /* ── Semantic tokens — light mode ── */
   --bg:       var(--steel);
-  --surface:  #F0ECE7;
+  --surface:  var(--bond);
   --cream:    var(--manila);
   --ink-t:    var(--ink);
   --mono:     var(--graphite);

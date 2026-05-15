@@ -460,6 +460,10 @@
 
   .org-row--three {
     padding-top: 20px;
+    /* constrain to exact card+gap width so the % bar formula hits card centers */
+    max-width: calc(3 * 180px + 20px);
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .org-row--three .org-card {
@@ -469,8 +473,10 @@
   }
 
   .org-row--two {
-    max-width: 62%;
+    max-width: calc(2 * 180px + 10px);
     padding-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .org-row--two .org-card {
@@ -479,7 +485,7 @@
     max-width: 180px;
   }
 
-  /* Horizontal bar for 3-child row — inset math assumes equal-width cards + 10px gaps (see flex on .org-card) */
+  /* Horizontal bar for 3-child row — left/right = half of one card width within the constrained row */
   .org-row--three::before {
     content: '';
     position: absolute;
@@ -491,7 +497,7 @@
     z-index: 1;
   }
 
-  /* Drop lines — from bar to card top, NOT into the card */
+  /* Drop lines — from bar to card top */
   .org-row--three .org-card::before {
     content: '';
     position: absolute;
