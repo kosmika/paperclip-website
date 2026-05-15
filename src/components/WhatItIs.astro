@@ -2,7 +2,7 @@
 const items = [
   {
     label: 'An org chart for agents.',
-    detail: 'Hierarchies, roles, reporting lines. Your agents don\u2019t freelance \u2014 they have a boss, a title, and a job description.',
+    detail: 'Hierarchies, roles, reporting lines. Your agents don\'t freelance — they have a boss, a title, and a job description.',
   },
   {
     label: 'A governance layer.',
@@ -10,7 +10,7 @@ const items = [
   },
   {
     label: 'A cost control system.',
-    detail: 'Every agent has a budget. Every tool call has a price. You see where money goes before it\u2019s gone.',
+    detail: 'Every agent has a budget. Every tool call has a price. You see where money goes before it\'s gone.',
   },
   {
     label: 'Full observability.',
@@ -28,7 +28,7 @@ const items = [
     <hr class="section-divider" />
     <div class="what-is-header">
       <span class="section-badge">Identity</span>
-      <h2 class="heading-serif what-is-heading">What Paperclip is.</h2>
+      <h2 class="what-is-heading">What Paperclip is.</h2>
     </div>
     <div class="what-is-grid">
       {items.map((item, i) => (
@@ -48,21 +48,25 @@ const items = [
   }
 
   .what-is-heading {
-    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-family: 'Inter Tight', sans-serif;
+    font-size: clamp(32px, 4vw, 56px);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--ink-t);
   }
 
   .what-is-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1px;
-    background: var(--color-border);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: var(--r-md);
     overflow: hidden;
   }
 
   .what-is-item {
-    background: var(--color-bg);
+    background: var(--surface);
     padding: var(--space-lg) var(--space-md);
   }
 
@@ -71,15 +75,17 @@ const items = [
   }
 
   .what-is-label {
-    font-family: var(--font-sans);
+    font-family: 'Inter Tight', sans-serif;
     font-weight: 600;
-    font-size: 1.05rem;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+    color: var(--ink-t);
     margin-bottom: 0.4rem;
   }
 
   .what-is-detail {
-    color: var(--color-text-muted);
-    font-size: 0.93rem;
+    color: var(--mono);
+    font-size: 0.875rem;
     line-height: 1.6;
   }
 

@@ -46,10 +46,11 @@
 
 <style>
   .terminal {
-    background: #1a1a1a;
-    border-radius: var(--radius);
+    background: #1F1D1A;
+    border-radius: var(--r-md);
     overflow: hidden;
     text-align: left;
+    border: 1px solid #2F2C28;
   }
 
   .terminal-header {
@@ -57,7 +58,8 @@
     align-items: center;
     gap: 12px;
     padding: 10px 14px;
-    background: #222;
+    background: #161412;
+    border-bottom: 1px solid #2F2C28;
   }
 
   .terminal-dots {
@@ -69,46 +71,46 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: #3a3a3a;
+    background: #3a3836;
   }
 
   .terminal-tabs {
     display: flex;
     gap: 2px;
     margin-left: auto;
-    background: #1a1a1a;
-    border-radius: 6px;
+    background: #1F1D1A;
+    border-radius: var(--r-sm);
     padding: 2px;
   }
 
   .terminal-tab {
-    font-family: var(--font-mono);
+    font-family: 'JetBrains Mono', monospace;
     font-size: 0.72rem;
-    color: #666;
+    color: #6A6560;
     background: none;
     border: none;
     padding: 3px 10px;
-    border-radius: 4px;
+    border-radius: var(--r-sm);
     cursor: pointer;
-    transition: color 0.2s, background 0.2s;
+    transition: color var(--t-micro) ease, background var(--t-micro) ease;
   }
 
   .terminal-tab:hover {
-    color: #999;
+    color: #9A958A;
   }
 
   .terminal-tab.active {
-    color: #f0f0f0;
-    background: #333;
+    color: var(--manila);
+    background: #2F2C28;
   }
 
   .terminal-body {
     display: none;
     align-items: center;
     padding: 1.1rem 1.25rem;
-    font-family: var(--font-mono);
-    font-size: 0.95rem;
-    color: #f0f0f0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--manila);
   }
 
   .terminal-pane.active {
@@ -116,7 +118,7 @@
   }
 
   .terminal-prompt {
-    color: #888;
+    color: #6A6560;
     margin-right: 0.6rem;
   }
 
@@ -130,21 +132,21 @@
     justify-content: center;
     background: none;
     border: none;
-    color: #666;
+    color: #6A6560;
     cursor: pointer;
     padding: 4px;
-    border-radius: 4px;
-    transition: color 0.2s;
+    border-radius: var(--r-sm);
+    transition: color var(--t-micro) ease;
     flex-shrink: 0;
   }
 
   .copy-btn:hover {
-    color: #aaa;
+    color: #9A958A;
   }
 
   .copy-btn :global(.check-icon) {
     display: none;
-    color: #4ade80;
+    color: var(--success);
   }
 
   .copy-btn.copied :global(.copy-icon) {
@@ -153,7 +155,7 @@
 
   .copy-btn.copied :global(.check-icon) {
     display: block;
-    animation: copy-pop 0.3s ease;
+    animation: copy-pop 0.3s var(--ease-enter);
   }
 
   @keyframes copy-pop {

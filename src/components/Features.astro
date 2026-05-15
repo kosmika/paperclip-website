@@ -52,7 +52,7 @@ const features = [
   <div class="container">
     <div class="features-header">
       <span class="section-badge">Features</span>
-      <h2 class="heading-serif features-heading">Everything you need to run<br />an autonomous company.</h2>
+      <h2 class="features-heading">Everything you need to run<br />an autonomous company.</h2>
     </div>
     <div class="features-grid">
       {features.map((f) => (
@@ -118,25 +118,33 @@ const features = [
   }
 
   .features-heading {
-    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-family: 'Inter Tight', sans-serif;
+    font-size: clamp(32px, 4vw, 56px);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: var(--ink-t);
   }
 
   .features-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1px;
-    background: var(--color-border);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: var(--r-md);
     overflow: hidden;
   }
 
   .feature-card {
-    background: var(--color-bg);
+    background: var(--surface);
     padding: var(--space-lg) var(--space-md);
     opacity: 0;
     transform: translateY(16px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition:
+      opacity var(--t-medium) var(--ease-enter),
+      transform var(--t-medium) var(--ease-enter),
+      background var(--t-short) ease;
   }
 
   .feature-card.is-visible {
@@ -144,21 +152,27 @@ const features = [
     transform: translateY(0);
   }
 
+  .feature-card:hover {
+    background: var(--input-bg);
+  }
+
   .feature-icon {
-    color: var(--color-text-muted);
+    color: var(--mono);
     margin-bottom: var(--space-sm);
   }
 
   .feature-title {
-    font-family: var(--font-sans);
+    font-family: 'Inter Tight', sans-serif;
     font-weight: 600;
-    font-size: 1.05rem;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+    color: var(--ink-t);
     margin-bottom: 0.4rem;
   }
 
   .feature-desc {
-    color: var(--color-text-muted);
-    font-size: 0.93rem;
+    color: var(--mono);
+    font-size: 0.875rem;
     line-height: 1.6;
   }
 

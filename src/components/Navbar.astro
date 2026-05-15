@@ -50,37 +50,31 @@ try {
 
 <style>
   .navbar {
-    position: absolute;
+    position: sticky;
     top: 0;
     left: 0;
     right: 0;
     z-index: 100;
-    padding: 12px 20px 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--rule);
+    transition: background 300ms ease-out, border-color 300ms ease-out;
   }
 
   .navbar-inner {
     display: flex;
     align-items: center;
-    justify-content: center;
-    height: 76px;
-    max-width: 680px;
+    justify-content: space-between;
+    height: 60px;
+    max-width: var(--max-width);
     margin: 0 auto;
-    padding: 0 28px;
-    border-radius: 38px;
-    background: rgba(7, 11, 23, 0.72);
-    backdrop-filter: blur(20px) saturate(1.4);
-    -webkit-backdrop-filter: blur(20px) saturate(1.4);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    box-shadow:
-      0 12px 36px rgba(0, 0, 0, 0.28),
-      inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    padding: 0 var(--space-md);
   }
 
   .navbar-left,
   .navbar-right {
     display: flex;
     align-items: center;
-    gap: 1.25rem;
+    gap: 1.5rem;
     flex: 1;
   }
 
@@ -96,22 +90,22 @@ try {
     display: flex;
     align-items: center;
     gap: 0.45rem;
+    font-family: 'Inter Tight', sans-serif;
     font-weight: 600;
     font-size: 0.95rem;
-    color: #fff;
-    padding: 0 1.5rem;
+    color: var(--ink-t);
     white-space: nowrap;
   }
 
   .navbar-link {
     font-size: 0.85rem;
     font-weight: 450;
-    color: rgba(255, 255, 255, 0.9);
-    transition: color 0.2s;
+    color: var(--mono);
+    transition: color var(--t-micro) ease;
   }
 
   .navbar-link:hover {
-    color: #fff;
+    color: var(--ink-t);
   }
 
   .navbar-link--icon {
@@ -126,44 +120,47 @@ try {
     gap: 0.35rem;
     font-size: 0.8rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.96);
-    background: rgba(255, 255, 255, 0.08);
+    color: var(--bg);
+    background: var(--ink-t);
     padding: 0.45rem 1rem;
-    border-radius: var(--radius-pill);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    transition: background 0.2s, color 0.2s;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--ink-t);
+    transition: background var(--t-short) var(--ease-enter), color var(--t-short) var(--ease-enter);
+  }
+
+  .navbar-cta:hover {
+    background: var(--bond);
+    color: var(--ink);
+    border-color: var(--bond);
+  }
+
+  :global([data-theme="dark"]) .navbar-cta {
+    color: var(--charcoal);
+    background: var(--cream);
+    border-color: var(--cream);
+  }
+
+  :global([data-theme="dark"]) .navbar-cta:hover {
+    background: transparent;
+    color: var(--cream);
+    border-color: var(--cream);
   }
 
   .navbar-cta-count {
     font-size: 0.75rem;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.86);
-    background: rgba(255, 255, 255, 0.08);
-    padding: 0.1rem 0.45rem;
-    border-radius: 9999px;
+    opacity: 0.7;
     margin-left: 0.1rem;
-  }
-
-  .navbar-cta:hover {
-    background: rgba(255, 255, 255, 0.16);
-    color: #fff;
   }
 
   @media (max-width: 768px) {
     .navbar-inner {
-      height: 56px;
-      padding: 0 20px;
-      border-radius: 28px;
-      max-width: 100%;
-    }
-
-    .navbar-logo {
-      padding: 0 1rem;
+      height: 52px;
     }
 
     .navbar-left,
     .navbar-right {
-      gap: 0.75rem;
+      gap: 1rem;
     }
 
     .navbar-link {
@@ -174,39 +171,9 @@ try {
       font-size: 0.75rem;
       padding: 0.35rem 0.75rem;
     }
-
-    .navbar-cta-count {
-      font-size: 0.7rem;
-      padding: 0.05rem 0.35rem;
-    }
   }
 
   @media (max-width: 480px) {
-    .navbar {
-      padding: 8px 12px 0;
-    }
-
-    .navbar-inner {
-      height: 48px;
-      padding: 0 14px;
-      border-radius: 24px;
-    }
-
-    .navbar-logo {
-      padding: 0 0.5rem;
-      font-size: 0.85rem;
-    }
-
-    .navbar-left,
-    .navbar-right {
-      gap: 0.5rem;
-    }
-
-    .navbar-link {
-      font-size: 0.75rem;
-    }
-
-    /* Hide llms.txt and GitHub link on small mobile to prevent overflow */
     .navbar-link--secondary,
     .navbar-link--icon {
       display: none;
@@ -221,10 +188,6 @@ try {
     .navbar-cta svg {
       width: 11px;
       height: 11px;
-    }
-
-    .navbar-cta-count {
-      font-size: 0.65rem;
     }
   }
 </style>
