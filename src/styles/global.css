@@ -97,9 +97,19 @@ h4 {
 .features-section.section,
 .feature-section.section,
 .governance.section,
-.faq-section.section {
+.faq-section.section,
+.how-it-works.section {
   padding-top: 50px;
   padding-bottom: 50px;
+}
+
+.faq-section.section {
+  padding-bottom: 100px;
+}
+
+#heartbeat-section {
+  padding-top: 100px;
+  padding-bottom: 100px;
 }
 
 /* ── Section badge (eyebrow label) ── */
