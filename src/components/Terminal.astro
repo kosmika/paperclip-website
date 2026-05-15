@@ -104,6 +104,10 @@
     background: #2F2C28;
   }
 
+  :global([data-theme="light"]) .terminal-tab.active {
+    color: var(--bond);
+  }
+
   .terminal-body {
     display: none;
     align-items: center;
@@ -124,6 +128,10 @@
 
   .terminal-cmd {
     flex: 1;
+  }
+
+  :global([data-theme="light"]) .terminal-cmd {
+    color: var(--bond);
   }
 
   .copy-btn {

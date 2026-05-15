@@ -5,7 +5,7 @@ import Terminal from './Terminal.astro';
 <section id="get-started" class="cta-section" data-theme="dark">
   <div class="container cta-inner">
     <span class="section-badge cta-badge">Get started</span>
-    <h2 class="cta-heading">From zero to autonomous company<br />in one command.</h2>
+    <h2 class="cta-heading">Hire a team of agents<br />in one command.</h2>
     <div class="cta-terminal">
       <Terminal />
     </div>
@@ -51,6 +51,11 @@ import Terminal from './Terminal.astro';
   .cta-terminal {
     max-width: 420px;
     margin: 0 auto var(--space-xl);
+  }
+
+  :global([data-theme="light"]) .cta-terminal :global(.terminal-tab.active),
+  :global([data-theme="light"]) .cta-terminal :global(.terminal-cmd) {
+    color: var(--manila);
   }
 
   .cta-sub {

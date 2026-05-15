@@ -125,13 +125,20 @@ try {
     padding: 0.45rem 1rem;
     border-radius: var(--r-pill);
     border: 1px solid var(--ink-t);
-    transition: background var(--t-short) var(--ease-enter), color var(--t-short) var(--ease-enter);
+    transition:
+      background var(--t-short) var(--ease-enter),
+      color var(--t-short) var(--ease-enter),
+      border-color var(--t-short) var(--ease-enter);
   }
 
   .navbar-cta:hover {
     background: var(--bond);
     color: var(--ink);
     border-color: var(--bond);
+  }
+
+  :global([data-theme="light"]) .navbar-cta:hover {
+    border-color: var(--ink);
   }
 
   :global([data-theme="dark"]) .navbar-cta {

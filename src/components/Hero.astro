@@ -4,7 +4,7 @@
 <section class="hero">
   <div class="container hero-inner">
     <h1 class="hero-headline">
-      Paperclip<br />The human control plane<br />for AI labor
+      The app people use to<br />manage AI agents for work
     </h1>
     <p class="hero-lede">
       Hire AI employees, set goals, automate jobs <span class="nowrap">and your business runs itself.</span>
@@ -33,7 +33,7 @@
 
   .hero-headline {
     font-family: 'Inter Tight', sans-serif;
-    font-size: clamp(48px, 7.5vw, 104px);
+    font-size: 60px;
     font-weight: 600;
     letter-spacing: -0.035em;
     line-height: 0.98;
@@ -81,6 +81,10 @@
     background: var(--bond);
     color: var(--ink);
     border-color: var(--bond);
+  }
+
+  :global([data-theme="light"]) .hero-btn-primary:hover {
+    border-color: var(--ink);
   }
 
   :global([data-theme="dark"]) .hero-btn-primary {

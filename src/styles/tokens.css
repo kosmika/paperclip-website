@@ -3,18 +3,20 @@
   --bond:     #FFFFFF;
   --manila:   #F3E6C4;
   --steel:    #D8DCDF;
+  --stone:    #e0dcd6;
+  --parchment: #f0ece7;
   --aluminum: #A8AEB2;
   --graphite: #52585D;
   --charcoal: #141413;
   --ink:      #0A0A0A;
 
   /* ── Semantic tokens — light mode ── */
-  --bg:       var(--steel);
+  --bg:       var(--bond);
   --surface:  var(--bond);
   --cream:    var(--manila);
   --ink-t:    var(--ink);
   --mono:     var(--graphite);
-  --rule:     var(--aluminum);
+  --rule:     var(--stone);
   --input-bg: var(--bond);
 
   /* ── Status ── */

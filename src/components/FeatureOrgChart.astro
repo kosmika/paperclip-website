@@ -7,14 +7,14 @@
     <div class="orgchart-two-col">
       <!-- Left: copy + works-with -->
       <div class="orgchart-copy">
-        <span class="section-badge">Bring Your Own Agent</span>
+        <span class="section-badge">Model-Agnostic</span>
         <h2 class="heading-serif feature-heading">Bring your own bot.</h2>
         <p class="feature-sub">
           Your Clawdbot, Cursor, and Codex — organized under one org structure, pointed at one goal.
           If it can receive a heartbeat, it's hired.
         </p>
         <div class="works-with">
-          <span class="works-with-label heading-serif">Works with any agent</span>
+          <span class="works-with-label body">Works with any agent</span>
           <div class="works-with-logos">
             <!-- Row 1: OpenClaw, Claude, Codex -->
             <div class="logo-item">
@@ -104,7 +104,7 @@
               </div>
               <div class="org-card__body">
                 <span class="org-card__name">CEO</span>
-                <span class="org-card__model"><span class="org-card__dot"></span>Claude</span>
+                <span class="org-card__model"><span class="org-card__dot"></span>Hermes</span>
               </div>
             </div>
           </div>
@@ -128,7 +128,7 @@
               </div>
               <div class="org-card__body">
                 <span class="org-card__name">CTO</span>
-                <span class="org-card__model"><span class="org-card__dot"></span>Cursor</span>
+                <span class="org-card__model"><span class="org-card__dot"></span>Codex</span>
               </div>
             </div>
             <div class="org-card" data-role="coo" style="--i:3">
@@ -151,9 +151,8 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
               </div>
               <div class="org-card__body">
-                <span class="org-card__name">CodexCoder</span>
-                <span class="org-card__title">Engineer</span>
-                <span class="org-card__model"><span class="org-card__dot"></span>Codex</span>
+                <span class="org-card__name">Frontend Eng</span>
+                <span class="org-card__model"><span class="org-card__dot"></span>Cursor</span>
               </div>
             </div>
             <div class="org-card" data-role="eng2" style="--i:5">
@@ -161,8 +160,7 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
               </div>
               <div class="org-card__body">
-                <span class="org-card__name">ClaudeCoder</span>
-                <span class="org-card__title">Engineer</span>
+                <span class="org-card__name">Backend Eng</span>
                 <span class="org-card__model"><span class="org-card__dot"></span>Claude</span>
               </div>
             </div>
@@ -357,8 +355,6 @@
 
   .works-with-label {
     display: block;
-    font-style: italic;
-    font-size: 0.95rem;
     color: var(--color-text-muted);
     margin-bottom: var(--space-sm);
   }
@@ -375,12 +371,6 @@
     flex-direction: column;
     align-items: center;
     gap: 0.4rem;
-    filter: grayscale(1) opacity(0.5);
-    transition: filter 0.3s ease;
-  }
-
-  .logo-item:hover {
-    filter: grayscale(0) opacity(1);
   }
 
   .logo-icon {
@@ -421,13 +411,17 @@
 
   /* ── Org chart visual ── */
   .orgchart-visual {
-    background: var(--color-surface);
+    background: #f0ece7;
     border-radius: var(--radius-lg);
     display: flex;
     align-items: stretch;
     justify-content: center;
     padding: var(--space-md);
     overflow: hidden;
+  }
+
+  :global([data-theme="dark"]) .orgchart-visual {
+    background: var(--color-surface);
   }
 
   /* ── Org tree structure ── */
@@ -492,8 +486,8 @@
     top: 0;
     left: calc((100% - 20px) / 6);
     right: calc((100% - 20px) / 6);
-    height: 2px;
-    background: var(--aluminum);
+    height: 1.5px;
+    background: var(--color-border);
     z-index: 1;
   }
 
@@ -504,9 +498,9 @@
     top: -20px;
     left: 50%;
     transform: translate(-50%, 0);
-    width: 2px;
+    width: 1.5px;
     height: 20px;
-    background: var(--aluminum);
+    background: var(--color-border);
     z-index: 2;
   }
 
@@ -517,8 +511,8 @@
     top: 0;
     left: calc((100% - 10px) / 4);
     right: calc((100% - 10px) / 4);
-    height: 2px;
-    background: var(--aluminum);
+    height: 1.5px;
+    background: var(--color-border);
     z-index: 1;
   }
 
@@ -529,20 +523,37 @@
     top: -20px;
     left: 50%;
     transform: translate(-50%, 0);
-    width: 2px;
+    width: 1.5px;
     height: 20px;
-    background: var(--aluminum);
+    background: var(--color-border);
     z-index: 2;
   }
 
   /* Vertical stems — 1px overlap with rows to avoid hairline gaps (esp. mobile / high-DPI) */
   .org-stem {
-    width: 2px;
+    width: 1.5px;
     height: 20px;
-    background: var(--aluminum);
+    background: var(--color-border);
     margin-bottom: -1px;
     position: relative;
     z-index: 1;
+  }
+
+  :global([data-theme="light"]) .org-row--three::before,
+  :global([data-theme="light"]) .org-row--two::before {
+    height: 1px;
+    background: var(--stone);
+  }
+
+  :global([data-theme="light"]) .org-row--three .org-card::before,
+  :global([data-theme="light"]) .org-row--two .org-card::before {
+    width: 1px;
+    background: var(--stone);
+  }
+
+  :global([data-theme="light"]) .org-stem {
+    width: 1px;
+    background: var(--stone);
   }
 
   /* ── Org card ── */
@@ -555,8 +566,13 @@
     padding: 12px 14px;
     background: var(--color-bg);
     border: 1.5px solid var(--color-border);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-pill);
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  :global([data-theme="light"]) .org-card {
+    background: var(--bond);
+    border: 1px solid var(--stone);
   }
 
   /* Live state (global — toggled via JS) */
@@ -592,6 +608,10 @@
     margin-top: 1px;
   }
 
+  :global([data-theme="light"]) .org-card__icon {
+    background: var(--steel);
+  }
+
   .org-card__icon svg {
     width: 16px;
     height: 16px;
@@ -612,12 +632,6 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-
-  .org-card__title {
-    font-size: 0.7rem;
-    color: var(--color-text-secondary);
-    line-height: 1.3;
   }
 
   .org-card__model {

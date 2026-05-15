@@ -82,6 +82,11 @@
     padding: var(--space-lg);
   }
 
+  :global([data-theme="light"]) .feature-graphic {
+    background: var(--parchment);
+    border: 1px solid var(--stone);
+  }
+
   .feature-copy {
     padding-top: var(--space-sm);
   }
@@ -109,6 +114,10 @@
     padding: 1rem 1.25rem;
     opacity: 0;
     transform: translateY(12px);
+  }
+
+  :global([data-theme="light"]) .goal-level {
+    background: var(--bond);
   }
 
   .goal-level.visible {
