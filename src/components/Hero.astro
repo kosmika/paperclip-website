@@ -3,7 +3,7 @@
 
 <section class="hero">
   <div class="hero-bg" aria-hidden="true">
-    <img src="/hero-blend-row.png" alt="" width="1200" height="675" decoding="async" fetchpriority="high" />
+    <img src="/paperclip_blendRow_1230631627_1200x675.svg" alt="" width="1200" height="675" decoding="async" fetchpriority="high" />
   </div>
   <div class="container hero-inner">
     <h1 class="hero-headline">
@@ -34,15 +34,27 @@
     inset: 0;
     z-index: 0;
     pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .hero-bg img {
     display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: scale-down;
-    object-position: center calc(50% + 300px);
-    transform: rotate(180deg);
+    width: auto;
+    height: auto;
+    max-width: min(1200px, 100%);
+    max-height: 100%;
+    object-fit: contain;
+    --hero-bg-y: -250px;
+    transform: translateY(var(--hero-bg-y));
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-bg img {
+      will-change: auto;
+    }
   }
 
   .hero-inner {
@@ -141,3 +153,52 @@
     }
   }
 </style>
+
+<script>
+  const HERO_BG_BASE_Y = -250;
+  const HERO_BG_PARALLAX_RATE = 0.35;
+
+  let teardownHeroBgParallax: (() => void) | undefined;
+
+  function initHeroBgParallax() {
+    teardownHeroBgParallax?.();
+
+    const hero = document.querySelector('.hero');
+    const img = hero?.querySelector('.hero-bg img');
+    if (!(hero instanceof HTMLElement) || !(img instanceof HTMLImageElement)) return;
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reducedMotion) {
+      img.style.setProperty('--hero-bg-y', `${HERO_BG_BASE_Y}px`);
+      return;
+    }
+
+    let ticking = false;
+
+    const update = () => {
+      const scrolled = Math.max(0, -hero.getBoundingClientRect().top);
+      const y = HERO_BG_BASE_Y - scrolled * HERO_BG_PARALLAX_RATE;
+      img.style.setProperty('--hero-bg-y', `${y}px`);
+      ticking = false;
+    };
+
+    const requestUpdate = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+
+    update();
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate, { passive: true });
+
+    teardownHeroBgParallax = () => {
+      window.removeEventListener('scroll', requestUpdate);
+      window.removeEventListener('resize', requestUpdate);
+    };
+  }
+
+  initHeroBgParallax();
+  document.addEventListener('astro:page-load', initHeroBgParallax);
+</script>
