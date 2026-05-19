@@ -37,6 +37,15 @@
   --t-micro:  150ms;
   --t-short:  250ms;
   --t-medium: 400ms;
+
+  /* feTurbulence tile size for eyebrow badges (scales with viewport) */
+  --dither-tile-size: 256px;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --dither-tile-size: clamp(104px, 28vw, 168px);
+  }
 }
 
 /* ── Dark mode ── */

@@ -41,10 +41,10 @@
 
   .hero-bg img {
     display: block;
-    width: auto;
+    width: min(1200px, 100%);
     height: auto;
-    max-width: min(1200px, 100%);
-    max-height: 100%;
+    max-width: none;
+    max-height: none;
     object-fit: contain;
     --hero-bg-y: -250px;
     transform: translateY(var(--hero-bg-y));
@@ -151,12 +151,27 @@
     .hero {
       padding: clamp(4rem, 8vw, 6rem) 0 clamp(3rem, 6vw, 5rem);
     }
+
+    /* Keep capsules large; bottom overlaps headline like desktop */
+    .hero-bg img {
+      width: min(1200px, 172vw);
+      --hero-bg-y: -200px;
+    }
+
+    .hero-headline {
+      font-size: clamp(2.25rem, 11.5vw, 3.75rem);
+      margin-top: clamp(4.5rem, 20vw, 6.5rem);
+    }
   }
 </style>
 
 <script>
-  const HERO_BG_BASE_Y = -250;
   const HERO_BG_PARALLAX_RATE = 0.35;
+  const mobileMq = window.matchMedia('(max-width: 768px)');
+
+  function getHeroBgBaseY() {
+    return mobileMq.matches ? -200 : -250;
+  }
 
   let teardownHeroBgParallax: (() => void) | undefined;
 
@@ -169,7 +184,7 @@
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reducedMotion) {
-      img.style.setProperty('--hero-bg-y', `${HERO_BG_BASE_Y}px`);
+      img.style.setProperty('--hero-bg-y', `${getHeroBgBaseY()}px`);
       return;
     }
 
@@ -177,7 +192,7 @@
 
     const update = () => {
       const scrolled = Math.max(0, -hero.getBoundingClientRect().top);
-      const y = HERO_BG_BASE_Y - scrolled * HERO_BG_PARALLAX_RATE;
+      const y = getHeroBgBaseY() - scrolled * HERO_BG_PARALLAX_RATE;
       img.style.setProperty('--hero-bg-y', `${y}px`);
       ticking = false;
     };
@@ -189,13 +204,17 @@
       }
     };
 
+    const onMqChange = () => requestUpdate();
+
     update();
     window.addEventListener('scroll', requestUpdate, { passive: true });
     window.addEventListener('resize', requestUpdate, { passive: true });
+    mobileMq.addEventListener('change', onMqChange);
 
     teardownHeroBgParallax = () => {
       window.removeEventListener('scroll', requestUpdate);
       window.removeEventListener('resize', requestUpdate);
+      mobileMq.removeEventListener('change', onMqChange);
     };
   }
 
