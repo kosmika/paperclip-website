@@ -40,6 +40,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    --hero-bg-y: -250px;
+    transform: translateY(var(--hero-bg-y));
+    will-change: transform;
   }
 
   .hero-bg img {
@@ -49,14 +52,56 @@
     max-width: none;
     max-height: none;
     object-fit: contain;
-    --hero-bg-y: -250px;
-    transform: translateY(var(--hero-bg-y));
-    will-change: transform;
+    opacity: 0;
+    transform: translateY(-24px);
+    animation: heroBgEnter 1100ms var(--ease-enter, cubic-bezier(0.22, 1, 0.36, 1)) 80ms both;
+    will-change: transform, opacity;
+  }
+
+  @keyframes heroBgEnter {
+    from {
+      opacity: 0;
+      transform: translateY(-24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-headline,
+  .hero-lede {
+    opacity: 0.55;
+    transform: translateY(18px);
+    animation: heroHeadlineEnter 900ms var(--ease-enter, cubic-bezier(0.22, 1, 0.36, 1)) 220ms both;
+    will-change: transform, opacity;
+  }
+
+  @keyframes heroHeadlineEnter {
+    from {
+      opacity: 0.55;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-bg img {
+    .hero-bg,
+    .hero-bg img,
+    .hero-headline,
+    .hero-lede {
       will-change: auto;
+    }
+
+    .hero-bg img,
+    .hero-headline,
+    .hero-lede {
+      opacity: 1;
+      transform: none;
+      animation: none;
     }
   }
 
@@ -155,10 +200,13 @@
       padding: clamp(4rem, 8vw, 6rem) 0 clamp(3rem, 6vw, 5rem);
     }
 
+    .hero-bg {
+      --hero-bg-y: -200px;
+    }
+
     /* Keep capsules large; bottom overlaps headline like desktop */
     .hero-bg img {
       width: min(1200px, 172vw);
-      --hero-bg-y: -200px;
     }
 
     .hero-headline {
@@ -182,12 +230,12 @@
     teardownHeroBgParallax?.();
 
     const hero = document.querySelector('.hero');
-    const img = hero?.querySelector('.hero-bg img');
-    if (!(hero instanceof HTMLElement) || !(img instanceof HTMLImageElement)) return;
+    const bg = hero?.querySelector('.hero-bg');
+    if (!(hero instanceof HTMLElement) || !(bg instanceof HTMLElement)) return;
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reducedMotion) {
-      img.style.setProperty('--hero-bg-y', `${getHeroBgBaseY()}px`);
+      bg.style.setProperty('--hero-bg-y', `${getHeroBgBaseY()}px`);
       return;
     }
 
@@ -196,7 +244,7 @@
     const update = () => {
       const scrolled = Math.max(0, -hero.getBoundingClientRect().top);
       const y = getHeroBgBaseY() - scrolled * HERO_BG_PARALLAX_RATE;
-      img.style.setProperty('--hero-bg-y', `${y}px`);
+      bg.style.setProperty('--hero-bg-y', `${y}px`);
       ticking = false;
     };
 
