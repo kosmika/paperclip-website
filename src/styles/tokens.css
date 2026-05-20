@@ -44,7 +44,7 @@
 
 @media (max-width: 768px) {
   :root {
-    --dither-tile-size: clamp(104px, 28vw, 168px);
+    --dither-tile-size: clamp(48px, 12vw, 80px);
   }
 }
 
