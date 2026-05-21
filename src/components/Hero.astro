@@ -58,6 +58,28 @@
     will-change: transform, opacity;
   }
 
+  /* Light mode: soften the hero SVG so the dark H1 reads cleanly. */
+  /* Desaturate the vivid stops, lift the dark navy/purple, and ease overall contrast. */
+  :global([data-theme="light"]) .hero-bg img {
+    filter: saturate(1) brightness(1) contrast(1);
+  }
+
+  /* Light mode: soft white veil behind the headline that further mutes */
+  /* the SVG colors where the H1 sits. Sits between .hero-bg (z:0) and .hero-inner (z:1). */
+  :global([data-theme="light"]) .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 50% 25% at 50% 50%,
+      rgba(255, 255, 255, 0.8) 0%,
+      rgba(255, 255, 255, 0.5) 45%,
+      rgba(255, 255, 255, 0) 78%
+    );
+  }
+
   @keyframes heroBgEnter {
     from {
       opacity: 0;
