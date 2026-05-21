@@ -4,31 +4,37 @@ const features = [
     title: 'Bring Your Own Agent',
     desc: 'Any agent, any runtime, one org chart. If it can receive a heartbeat, it\'s hired.',
     icon: 'plug',
-  },
-  {
-    title: 'Goal Alignment',
-    desc: 'Every task traces back to the company mission. Agents know what to do and why.',
-    icon: 'target',
-  },
-  {
-    title: 'Cost Control',
-    desc: 'Monthly budgets per agent. When they hit the limit, they stop. No runaway costs.',
-    icon: 'dollar',
-  },
-  {
-    title: 'Ticket System',
-    desc: 'Every conversation traced. Every decision explained. Full tool-call tracing and audit log.',
-    icon: 'ticket',
-  },
-  {
-    title: 'Governance',
-    desc: 'You\'re in charge. Approve hires, override strategy, pause or terminate any agent at any time.',
-    icon: 'shield',
+    href: '#orgchart-section',
   },
   {
     title: 'Org Chart',
     desc: 'Hierarchies, roles, reporting lines. Your agents have a boss, a title, and a job description.',
     icon: 'orgchart',
+    href: '#orgchart-section',
+  },
+  {
+    title: 'Goal Alignment',
+    desc: 'Every task traces back to the company mission. Agents know what to do and why.',
+    icon: 'target',
+    href: '#goal-alignment-section',
+  },
+  {
+    title: 'Cost Control',
+    desc: 'Monthly budgets per agent. When they hit the limit, they stop. No runaway costs.',
+    icon: 'dollar',
+    href: '#costs-section',
+  },
+  {
+    title: 'Ticket System',
+    desc: 'Every conversation traced. Every decision explained. Full tool-call tracing and audit log.',
+    icon: 'ticket',
+    href: '#tickets-section',
+  },
+  {
+    title: 'Governance',
+    desc: 'You\'re in charge. Approve hires, override strategy, pause or terminate any agent at any time.',
+    icon: 'shield',
+    href: '#governance-section',
   },
 ];
 ---
@@ -41,7 +47,7 @@ const features = [
     </div>
     <div class="features-grid">
       {features.map((f) => (
-        <div class="feature-card" data-animate>
+        <a class="feature-card" href={f.href} data-animate>
           <div class="feature-icon">
             {f.icon === 'plug' && (
               <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -76,7 +82,7 @@ const features = [
           </div>
           <h3 class="feature-title">{f.title}</h3>
           <p class="feature-desc">{f.desc}</p>
-        </div>
+        </a>
       ))}
     </div>
   </div>
@@ -106,15 +112,28 @@ const features = [
     overflow: hidden;
   }
 
+  /* Default + hover styling mirrors the byob-card from the design preview:
+     cells sit on the page bg by default and lift to surface on hover.
+     We keep the grid's hairline separators (no per-cell border/radius). */
   .feature-card {
-    background: var(--surface);
+    display: block;
+    background: var(--bg);
     padding: var(--space-lg) var(--space-md);
+    color: var(--ink-t);
+    text-decoration: none;
+    cursor: pointer;
     opacity: 0;
     transform: translateY(16px);
     transition:
       opacity var(--t-medium) var(--ease-enter),
       transform var(--t-medium) var(--ease-enter),
-      background var(--t-short) ease;
+      background var(--t-short) var(--ease-enter),
+      color var(--t-short) var(--ease-enter);
+  }
+
+  .feature-card:focus-visible {
+    outline: 2px solid var(--ink-t);
+    outline-offset: -2px;
   }
 
   .feature-card.is-visible {
@@ -123,12 +142,26 @@ const features = [
   }
 
   .feature-card:hover {
-    background: var(--input-bg);
+    background: var(--parchment);
+    color: var(--ink-t);
+  }
+
+  :global([data-theme="dark"]) .feature-card:hover {
+    background: var(--surface);
+  }
+
+  .feature-card:hover .feature-desc {
+    color: var(--mono);
   }
 
   .feature-icon {
     color: var(--mono);
     margin-bottom: var(--space-sm);
+    transition: color var(--t-short) var(--ease-enter);
+  }
+
+  .feature-card:hover .feature-icon {
+    color: var(--ink-t);
   }
 
   .feature-title {
@@ -144,6 +177,7 @@ const features = [
     color: var(--mono);
     font-size: 0.875rem;
     line-height: 1.6;
+    transition: color var(--t-short) var(--ease-enter);
   }
 
   @media (max-width: 768px) {

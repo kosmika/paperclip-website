@@ -1,7 +1,7 @@
 ---
 ---
 
-<section class="governance section">
+<section class="governance section" id="governance-section">
   <div class="container">
     <div class="governance-header">
       <span class="section-badge section-badge--g10">Governance</span>
@@ -22,8 +22,12 @@
         </p>
       </div>
       <div class="governance-block">
-        <p class="governance-actions">
-          Pause.<br />Resume.<br />Override.<br />Reassign.<br />Terminate.
+        <p class="governance-actions" data-animate-actions>
+          <span class="governance-action-line">Pause.</span>
+          <span class="governance-action-line">Resume.</span>
+          <span class="governance-action-line">Override.</span>
+          <span class="governance-action-line">Reassign.</span>
+          <span class="governance-action-line">Terminate.</span>
         </p>
       </div>
     </div>
@@ -71,9 +75,74 @@
     padding-left: 102px;
   }
 
+  .governance-action-line {
+    display: block;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(30px);
+    will-change: transform, opacity;
+  }
+
+  .governance-actions.is-visible .governance-action-line {
+    animation: governanceActionEnter 900ms var(--ease-enter, cubic-bezier(0.22, 1, 0.36, 1)) both;
+  }
+
+  .governance-actions.is-visible .governance-action-line:nth-child(1) { animation-delay: 0ms; }
+  .governance-actions.is-visible .governance-action-line:nth-child(2) { animation-delay: 50ms; }
+  .governance-actions.is-visible .governance-action-line:nth-child(3) { animation-delay: 100ms; }
+  .governance-actions.is-visible .governance-action-line:nth-child(4) { animation-delay: 150ms; }
+  .governance-actions.is-visible .governance-action-line:nth-child(5) { animation-delay: 200ms; }
+
+  @keyframes governanceActionEnter {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .governance-action-line,
+    .governance-actions.is-visible .governance-action-line {
+      opacity: 1;
+      transform: none;
+      animation: none;
+      will-change: auto;
+    }
+  }
+
   @media (max-width: 768px) {
     .governance-content {
       grid-template-columns: 1fr;
     }
   }
 </style>
+
+<script>
+  function initGovernanceActions() {
+    const actions = document.querySelectorAll<HTMLElement>('.governance-actions[data-animate-actions]');
+    if (!actions.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const el = entry.target as HTMLElement;
+          if (entry.isIntersecting) {
+            requestAnimationFrame(() => el.classList.add('is-visible'));
+          } else {
+            el.classList.remove('is-visible');
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -10% 0px' }
+    );
+
+    actions.forEach((el) => observer.observe(el));
+  }
+
+  initGovernanceActions();
+  document.addEventListener('astro:page-load', initGovernanceActions);
+</script>

@@ -1,13 +1,13 @@
 ---
 ---
 
-<section class="feature-section section">
+<section class="feature-section section" id="tickets-section">
   <div class="container">
-    <div class="tickets-two-col" id="tickets-section">
+    <div class="tickets-two-col">
       <!-- Left: copy + bullets -->
       <div class="tickets-copy">
         <span class="section-badge section-badge--g06">Ticket System</span>
-        <h2 class="heading-serif feature-heading">Every conversation traced.<br />Every decision explained.</h2>
+        <h2 class="heading-serif feature-heading">Every conversation traced. Every decision explained.</h2>
         <p class="feature-sub">
           You communicate with agents through tickets. Every instruction, every response,
           every tool call and decision is recorded with full tracing. Nothing happens in the dark.
@@ -139,20 +139,20 @@
 </section>
 
 <script>
-  const ticketsSection = document.getElementById('tickets-section');
-  if (ticketsSection) {
+  const ticketsTwoCol = document.querySelector('.tickets-two-col');
+  if (ticketsTwoCol) {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            ticketsSection.classList.add('is-visible');
-            observer.unobserve(ticketsSection);
+            ticketsTwoCol.classList.add('is-visible');
+            observer.unobserve(ticketsTwoCol);
           }
         });
       },
       { threshold: 0.25 }
     );
-    observer.observe(ticketsSection);
+    observer.observe(ticketsTwoCol);
   }
 
   // Position the parchment-frame notches at the same Y as the rule above "TRACE"
@@ -395,8 +395,8 @@
   }
 
   .msg-avatar--agent {
-    background: #dcfce7;
-    color: #166534;
+    background: var(--color-surface);
+    color: var(--color-text-muted);
   }
 
   .msg-body {
@@ -454,18 +454,21 @@
     align-items: center;
     gap: 10px;
     position: relative;
-    padding: 6px 0;
+    padding: 7px 0;
     padding-left: 18px;
   }
 
-  /* Vertical connector line between steps */
+  /* Vertical connector line between steps — sits between current dot's bottom
+     and next dot's top (assumes equal step heights). */
   .trace-line {
     position: absolute;
     left: 4px;
-    top: 22px;
+    transform: translateX(-50%);
+    top: calc(50% + 8px);
     width: 1.5px;
-    height: calc(100%);
+    height: calc(100% - 16px);
     background: var(--color-border);
+    z-index: 1;
   }
 
   .trace-step:last-child .trace-line {
@@ -474,13 +477,14 @@
 
   .trace-dot {
     position: absolute;
-    left: 0;
+    left: 4px;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translate(-50%, -50%);
     width: 9px;
-    height: 9px;
-    border-radius: 50%;
+    height: 16px;
+    border-radius: 999px;
     flex-shrink: 0;
+    z-index: 2;
   }
 
   .trace-dot--done {

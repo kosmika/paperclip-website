@@ -1,12 +1,12 @@
 ---
 ---
 
-<section class="feature-section section">
+<section class="feature-section section" id="costs-section">
   <div class="container">
     <div class="feature-header">
       <div>
         <span class="section-badge section-badge--g05">Cost Tracking</span>
-        <h2 class="heading-serif feature-heading">Know what every agent costs.<br />Control what every agent spends.</h2>
+        <h2 class="heading-serif feature-heading">Know what every agent costs.<br class="heading-break" /> Control what every agent spends.</h2>
         <p class="feature-sub">
           Every agent gets a monthly budget. When they hit it, they stop. Automatically.
           No runaway costs. No surprise bills. Hard limits, enforced by the system.
@@ -30,7 +30,7 @@
               </div>
               <div class="cost-agent-info">
                 <span class="cost-agent-name">CEO</span>
-                <span class="cost-agent-model">Claude</span>
+                <span class="cost-agent-model">Hermes</span>
               </div>
             </div>
             <div class="cost-col-bar">
@@ -68,7 +68,7 @@
               </div>
               <div class="cost-agent-info">
                 <span class="cost-agent-name">CTO</span>
-                <span class="cost-agent-model">Cursor</span>
+                <span class="cost-agent-model">Codex</span>
               </div>
             </div>
             <div class="cost-col-bar">
@@ -105,8 +105,8 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
               </div>
               <div class="cost-agent-info">
-                <span class="cost-agent-name">CodexCoder</span>
-                <span class="cost-agent-model">Codex</span>
+                <span class="cost-agent-name">Frontend<span class="cost-agent-name-suffix"> Eng</span></span>
+                <span class="cost-agent-model">Cursor</span>
               </div>
             </div>
             <div class="cost-col-bar">
@@ -124,7 +124,7 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
               </div>
               <div class="cost-agent-info">
-                <span class="cost-agent-name">ClaudeCoder</span>
+                <span class="cost-agent-name">Backend<span class="cost-agent-name-suffix"> Eng</span></span>
                 <span class="cost-agent-model">Claude</span>
               </div>
             </div>
@@ -295,8 +295,10 @@
   .cost-col-cost {
     display: flex;
     align-items: baseline;
+    justify-content: flex-end;
     gap: 0.3rem;
     font-variant-numeric: tabular-nums;
+    white-space: nowrap;
   }
 
   .cost-amount {
@@ -336,17 +338,26 @@
 
     .cost-header-row,
     .cost-row {
-      grid-template-columns: 130px 1fr 90px;
+      grid-template-columns: 110px 1fr 80px;
+    }
+
+    .heading-break {
+      display: none;
     }
   }
 
   @media (max-width: 480px) {
     .cost-header-row,
     .cost-row {
-      grid-template-columns: 110px 1fr 80px;
+      grid-template-columns: 80px 1fr 76px;
+      gap: 0.6rem;
     }
 
     .cost-agent-icon {
+      display: none;
+    }
+
+    .cost-agent-name-suffix {
       display: none;
     }
   }
