@@ -154,6 +154,26 @@
     );
     observer.observe(ticketsSection);
   }
+
+  // Position the parchment-frame notches at the same Y as the rule above "TRACE"
+  // (i.e., the bottom border of .ticket-thread).
+  const ticketsVisual = document.querySelector('.tickets-visual');
+  const ticketThread = ticketsVisual?.querySelector('.ticket-thread');
+  if (ticketsVisual && ticketThread) {
+    const updateNotchY = () => {
+      const visualRect = ticketsVisual.getBoundingClientRect();
+      const threadRect = ticketThread.getBoundingClientRect();
+      const y = threadRect.bottom - visualRect.top;
+      (ticketsVisual as HTMLElement).style.setProperty('--notch-y', `${y}px`);
+    };
+    updateNotchY();
+    window.addEventListener('resize', updateNotchY);
+    if (typeof ResizeObserver !== 'undefined') {
+      const ro = new ResizeObserver(updateNotchY);
+      ro.observe(ticketThread);
+      ro.observe(ticketsVisual);
+    }
+  }
 </script>
 
 <style>
@@ -230,17 +250,47 @@
 
   /* ── Visual panel ── */
   .tickets-visual {
+    position: relative;
     background: var(--color-surface);
     border-radius: var(--radius-lg);
     display: flex;
     align-items: stretch;
     justify-content: center;
     padding: var(--space-md);
-    overflow: hidden;
+    overflow: visible;
+    transition: background 300ms ease-out;
   }
 
   :global([data-theme="light"]) .tickets-visual {
     background: var(--parchment);
+  }
+
+  /* Semicircular notches punched out of the parchment frame — gives the panel a physical ticket look.
+     --notch-y is set by JS to align with the horizontal rule above "TRACE".
+     The bg transition matches body's so the notches stay in lockstep with the page bg during theme
+     toggles — otherwise the circles become briefly visible against the in-transition body. */
+  .tickets-visual::before,
+  .tickets-visual::after {
+    content: '';
+    position: absolute;
+    top: var(--notch-y, 50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--color-bg);
+    z-index: 2;
+    pointer-events: none;
+    transition: background 300ms ease-out;
+  }
+
+  .tickets-visual::before {
+    left: 0;
+    transform: translate(-50%, -50%);
+  }
+
+  .tickets-visual::after {
+    right: 0;
+    transform: translate(50%, -50%);
   }
 
   /* ── Mock ticket card ── */
