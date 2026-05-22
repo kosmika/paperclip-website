@@ -241,10 +241,10 @@ import Footer from '../components/Footer.astro';
             <p class="brand-type-meta">Regular 400 &middot; Italic</p>
             <p class="brand-type-desc">The editorial voice. Used for all headings and display text. Weight 400 only — the delicacy of the serif strokes provides natural emphasis without needing bold.</p>
             <div class="brand-type-specimen">
-              <p style="font-family:'Inter Tight',serif;font-size:clamp(2rem,4vw,2.8rem);line-height:1.15;letter-spacing:-0.01em;">Paperclip runs your business.</p>
+              <p style="font-family:var(--font-serif);font-size:clamp(2rem,4vw,2.8rem);line-height:1.15;letter-spacing:-0.01em;">Paperclip runs your business.</p>
             </div>
             <div class="brand-type-tokens">
-              <code>font-family: 'Inter Tight', serif</code>
+              <code>font-family: var(--font-serif)</code>
               <code>line-height: 1.15</code>
               <code>letter-spacing: -0.01em</code>
             </div>
@@ -256,10 +256,10 @@ import Footer from '../components/Footer.astro';
             <p class="brand-type-meta">400 Regular &middot; 500 Medium &middot; 600 Semibold</p>
             <p class="brand-type-desc">The workhorse. Used for body text, labels, navigation, and UI elements. Highly legible at small sizes. Semibold for the wordmark and emphasis.</p>
             <div class="brand-type-specimen">
-              <p style="font-family:'Inter',sans-serif;font-size:1rem;line-height:1.65;color:#4a4a4a;">Open-source orchestration to manage teams of AI Agents. Hire AI employees, set goals, automate jobs and your business runs itself.</p>
+              <p style="font-family:var(--font-sans);font-size:1rem;line-height:1.65;color:#4a4a4a;">Open-source orchestration to manage teams of AI Agents. Hire AI employees, set goals, automate jobs and your business runs itself.</p>
             </div>
             <div class="brand-type-tokens">
-              <code>font-family: 'Inter', sans-serif</code>
+              <code>font-family: var(--font-sans)</code>
               <code>line-height: 1.6–1.7</code>
               <code>font-size: 0.8rem–1.15rem</code>
             </div>
@@ -271,10 +271,10 @@ import Footer from '../components/Footer.astro';
             <p class="brand-type-meta">400 Regular &middot; 500 Medium</p>
             <p class="brand-type-desc">The technical layer. Used in terminal blocks, code snippets, inline tokens, and the CLI. Gives the interface its engineering credibility.</p>
             <div class="brand-type-specimen brand-type-specimen--dark">
-              <p style="font-family:'JetBrains Mono',monospace;font-size:0.92rem;line-height:1.6;color:#f0f0f0;">$ npx paperclip deploy --self-hosted<br><span style="color:#22c55e">✓</span> Company created<br><span style="color:#22c55e">✓</span> CEO agent online</p>
+              <p style="font-family:var(--font-mono);font-size:0.92rem;line-height:1.6;color:#f0f0f0;">$ npx paperclip deploy --self-hosted<br><span style="color:#22c55e">✓</span> Company created<br><span style="color:#22c55e">✓</span> CEO agent online</p>
             </div>
             <div class="brand-type-tokens">
-              <code>font-family: 'JetBrains Mono', monospace</code>
+              <code>font-family: var(--font-mono)</code>
               <code>font-size: 0.92rem–0.95rem</code>
             </div>
           </div>
@@ -283,11 +283,11 @@ import Footer from '../components/Footer.astro';
         <div class="brand-type-scale">
           <h3 class="brand-subsection">Type Scale</h3>
           <div class="brand-scale-table">
-            <div class="brand-scale-row"><span class="brand-scale-label">Hero</span><span class="brand-scale-sample" style="font-family:'Inter Tight',serif;font-size:clamp(1.8rem,4vw,3rem);line-height:1.15;">Paperclip runs your business.</span><code class="brand-scale-size">clamp(2.8rem, 7vw, 4.5rem)</code></div>
-            <div class="brand-scale-row"><span class="brand-scale-label">H2</span><span class="brand-scale-sample" style="font-family:'Inter Tight',serif;font-size:clamp(1.4rem,3vw,2rem);line-height:1.15;">Section heading</span><code class="brand-scale-size">clamp(2rem, 4vw, 2.8rem)</code></div>
-            <div class="brand-scale-row"><span class="brand-scale-label">Body</span><span class="brand-scale-sample" style="font-family:'Inter',sans-serif;font-size:1rem;line-height:1.65;">Body text at standard size</span><code class="brand-scale-size">1rem / 16px</code></div>
-            <div class="brand-scale-row"><span class="brand-scale-label">Small</span><span class="brand-scale-sample" style="font-family:'Inter',sans-serif;font-size:0.8rem;line-height:1.5;font-weight:500;">Labels and badges</span><code class="brand-scale-size">0.8rem / 12.8px</code></div>
-            <div class="brand-scale-row"><span class="brand-scale-label">Mono</span><span class="brand-scale-sample" style="font-family:'JetBrains Mono',monospace;font-size:0.92rem;line-height:1.5;">code --inline</span><code class="brand-scale-size">0.92rem / 14.7px</code></div>
+            <div class="brand-scale-row"><span class="brand-scale-label">Hero</span><span class="brand-scale-sample" style="font-family:var(--font-serif);font-size:clamp(1.8rem,4vw,3rem);line-height:1.15;">Paperclip runs your business.</span><code class="brand-scale-size">clamp(2.8rem, 7vw, 4.5rem)</code></div>
+            <div class="brand-scale-row"><span class="brand-scale-label">H2</span><span class="brand-scale-sample" style="font-family:var(--font-serif);font-size:clamp(1.4rem,3vw,2rem);line-height:1.15;">Section heading</span><code class="brand-scale-size">clamp(2rem, 4vw, 2.8rem)</code></div>
+            <div class="brand-scale-row"><span class="brand-scale-label">Body</span><span class="brand-scale-sample" style="font-family:var(--font-sans);font-size:1rem;line-height:1.65;">Body text at standard size</span><code class="brand-scale-size">1rem / 16px</code></div>
+            <div class="brand-scale-row"><span class="brand-scale-label">Small</span><span class="brand-scale-sample" style="font-family:var(--font-sans);font-size:0.8rem;line-height:1.5;font-weight:500;">Labels and badges</span><code class="brand-scale-size">0.8rem / 12.8px</code></div>
+            <div class="brand-scale-row"><span class="brand-scale-label">Mono</span><span class="brand-scale-sample" style="font-family:var(--font-mono);font-size:0.92rem;line-height:1.5;">code --inline</span><code class="brand-scale-size">0.92rem / 14.7px</code></div>
           </div>
         </div>
       </div>
@@ -421,7 +421,7 @@ import Footer from '../components/Footer.astro';
           <h3 class="brand-subsection">Navbar (Glassmorphism)</h3>
           <div class="brand-navbar-wrapper">
             <div class="brand-navbar-demo">
-              <div class="brand-navbar-left"><span style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;opacity:0.7;">Docs</span><span style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;opacity:0.7;">GitHub</span></div>
+              <div class="brand-navbar-left"><span style="font-family:var(--font-mono);font-size:0.82rem;opacity:0.7;">Docs</span><span style="font-family:var(--font-mono);font-size:0.82rem;opacity:0.7;">GitHub</span></div>
               <div class="brand-navbar-center">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551" /></svg>
                 <span style="font-weight:600;font-size:0.92rem;">Paperclip</span>
