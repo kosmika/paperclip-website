@@ -63,7 +63,7 @@ const mobileSvg = namespaceSvgIds(mobileSvgRaw, 'm-');
     display: flex;
     align-items: center;
     justify-content: center;
-    --hero-bg-y: -250px;
+    --hero-bg-y: -310px;
     transform: translateY(var(--hero-bg-y));
     will-change: transform;
   }
@@ -79,11 +79,15 @@ const mobileSvg = namespaceSvgIds(mobileSvgRaw, 'm-');
   }
 
   /* Inlined SVGs are injected via `set:html` and don't receive Astro's
-     scoping attribute, so selectors targeting them must use :global(svg). */
+     scoping attribute, so selectors targeting them must use :global(svg).
+     flex-shrink: 0 stops the parent flex container from squeezing the
+     SVG below its declared width (needed on mobile where the SVG is
+     wider than the viewport and is meant to overflow). */
   .hero-bg :global(svg) {
     display: block;
     width: min(1200px, 100%);
     height: auto;
+    flex-shrink: 0;
     opacity: 0;
     transform: translateY(-24px);
     animation: heroBgEnter 1100ms var(--ease-enter, cubic-bezier(0.22, 1, 0.36, 1)) 80ms both;
@@ -260,11 +264,9 @@ const mobileSvg = namespaceSvgIds(mobileSvgRaw, 'm-');
     }
 
     .hero-bg {
-      /* Less negative than desktop's -250 to keep a similar ratio of
-         translate-to-SVG-height (desktop ≈ 43% of 576 px; here ≈ 34% of
-         ~385 px), and so the bottom of the capsule columns overlaps the
-         H1 in the same way it does on desktop instead of leaving a gap. */
-      --hero-bg-y: -130px;
+      /* -220px positions the SVG so the capsule bottoms partially clip
+         the top of the H1's first line, mirroring the desktop crop. */
+      --hero-bg-y: -100px;
     }
 
     .hero-bg-svg-desktop {
@@ -275,9 +277,10 @@ const mobileSvg = namespaceSvgIds(mobileSvgRaw, 'm-');
       display: contents;
     }
 
-    /* Keep capsules large; bottom overlaps headline like desktop */
+    /* 155vw makes the capsule cluster (~47% of SVG width) roughly match
+       the width of the H1's first line on a typical mobile viewport. */
     .hero-bg :global(svg) {
-      width: min(1200px, 172vw);
+      width: min(1200px, 150vw);
     }
 
     .hero-headline {
@@ -292,7 +295,7 @@ const mobileSvg = namespaceSvgIds(mobileSvgRaw, 'm-');
   const mobileMq = window.matchMedia('(max-width: 768px)');
 
   function getHeroBgBaseY() {
-    return mobileMq.matches ? -130 : -250;
+    return mobileMq.matches ? -200 : -310;
   }
 
   let teardownHeroBgParallax: (() => void) | undefined;
