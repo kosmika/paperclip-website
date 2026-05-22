@@ -4,46 +4,37 @@ const features = [
     title: 'Bring Your Own Agent',
     desc: 'Any agent, any runtime, one org chart. If it can receive a heartbeat, it\'s hired.',
     icon: 'plug',
-  },
-  {
-    title: 'Goal Alignment',
-    desc: 'Every task traces back to the company mission. Agents know what to do and why.',
-    icon: 'target',
-  },
-  {
-    title: 'Heartbeats',
-    desc: 'Agents wake on a schedule, check work, and act. Delegation flows up and down the org chart.',
-    icon: 'pulse',
-  },
-  {
-    title: 'Cost Control',
-    desc: 'Monthly budgets per agent. When they hit the limit, they stop. No runaway costs.',
-    icon: 'dollar',
-  },
-  {
-    title: 'Multi-Company',
-    desc: 'One deployment, many companies. Complete data isolation. One control plane for your portfolio.',
-    icon: 'building',
-  },
-  {
-    title: 'Ticket System',
-    desc: 'Every conversation traced. Every decision explained. Full tool-call tracing and audit log.',
-    icon: 'ticket',
-  },
-  {
-    title: 'Governance',
-    desc: 'You\'re the board. Approve hires, override strategy, pause or terminate any agent at any time.',
-    icon: 'shield',
+    href: '#orgchart-section',
   },
   {
     title: 'Org Chart',
     desc: 'Hierarchies, roles, reporting lines. Your agents have a boss, a title, and a job description.',
     icon: 'orgchart',
+    href: '#orgchart-section',
   },
   {
-    title: 'Mobile Ready',
-    desc: 'Monitor and manage your autonomous businesses from anywhere.',
-    icon: 'phone',
+    title: 'Goal Alignment',
+    desc: 'Every task traces back to the mission. Agents know what to do and why.',
+    icon: 'target',
+    href: '#goal-alignment-section',
+  },
+  {
+    title: 'Cost Control',
+    desc: 'Monthly budgets per agent. When they hit the limit, they stop. No runaway costs.',
+    icon: 'dollar',
+    href: '#costs-section',
+  },
+  {
+    title: 'Ticket System',
+    desc: 'Every conversation traced. Every decision explained. Full tool-call tracing and audit log.',
+    icon: 'ticket',
+    href: '#tickets-section',
+  },
+  {
+    title: 'Governance',
+    desc: 'You\'re in charge. Approve hires, override strategy, pause or terminate any agent at any time.',
+    icon: 'shield',
+    href: '#governance-section',
   },
 ];
 ---
@@ -51,12 +42,12 @@ const features = [
 <section class="features-section section">
   <div class="container">
     <div class="features-header">
-      <span class="section-badge">Features</span>
-      <h2 class="heading-serif features-heading">Everything you need to run<br />an autonomous company.</h2>
+      <span class="section-badge section-badge--g01">Features</span>
+      <h2 class="features-heading">Everything you need to<br />run a team of agents.</h2>
     </div>
     <div class="features-grid">
       {features.map((f) => (
-        <div class="feature-card" data-animate>
+        <a class="feature-card" href={f.href} data-animate>
           <div class="feature-icon">
             {f.icon === 'plug' && (
               <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -68,19 +59,9 @@ const features = [
                 <circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" />
               </svg>
             )}
-            {f.icon === 'pulse' && (
-              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M2 12h4l3-9 4 18 3-9h6" />
-              </svg>
-            )}
             {f.icon === 'dollar' && (
               <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="10" /><path d="M15 9.354a4 4 0 1 0 0 5.292" /><path d="M12 6v2m0 8v2" />
-              </svg>
-            )}
-            {f.icon === 'building' && (
-              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="4" y="2" width="16" height="20" rx="2" /><path d="M9 22v-4h6v4" /><path d="M8 6h.01M16 6h.01M8 10h.01M16 10h.01M8 14h.01M16 14h.01" />
               </svg>
             )}
             {f.icon === 'ticket' && (
@@ -98,15 +79,10 @@ const features = [
                 <rect x="8" y="2" width="8" height="4" rx="1" /><rect x="2" y="18" width="8" height="4" rx="1" /><rect x="14" y="18" width="8" height="4" rx="1" /><path d="M12 6v6m0 0H6m6 0h6M6 12v6m12-6v6" />
               </svg>
             )}
-            {f.icon === 'phone' && (
-              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="5" y="2" width="14" height="20" rx="3" /><path d="M12 18h.01" />
-              </svg>
-            )}
           </div>
           <h3 class="feature-title">{f.title}</h3>
           <p class="feature-desc">{f.desc}</p>
-        </div>
+        </a>
       ))}
     </div>
   </div>
@@ -118,25 +94,46 @@ const features = [
   }
 
   .features-heading {
-    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-family: 'Inter Tight', sans-serif;
+    font-size: clamp(32px, 4vw, 56px);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: var(--ink-t);
   }
 
   .features-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1px;
-    background: var(--color-border);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: var(--r-md);
     overflow: hidden;
   }
 
+  /* Default + hover styling mirrors the byob-card from the design preview:
+     cells sit on the page bg by default and lift to surface on hover.
+     We keep the grid's hairline separators (no per-cell border/radius). */
   .feature-card {
-    background: var(--color-bg);
+    display: block;
+    background: var(--bg);
     padding: var(--space-lg) var(--space-md);
+    color: var(--ink-t);
+    text-decoration: none;
+    cursor: pointer;
     opacity: 0;
     transform: translateY(16px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition:
+      opacity var(--t-medium) var(--ease-enter),
+      transform var(--t-medium) var(--ease-enter),
+      background var(--t-short) var(--ease-enter),
+      color var(--t-short) var(--ease-enter);
+  }
+
+  .feature-card:focus-visible {
+    outline: 2px solid var(--ink-t);
+    outline-offset: -2px;
   }
 
   .feature-card.is-visible {
@@ -144,22 +141,43 @@ const features = [
     transform: translateY(0);
   }
 
+  .feature-card:hover {
+    background: var(--parchment);
+    color: var(--ink-t);
+  }
+
+  :global([data-theme="dark"]) .feature-card:hover {
+    background: var(--surface);
+  }
+
+  .feature-card:hover .feature-desc {
+    color: var(--mono);
+  }
+
   .feature-icon {
-    color: var(--color-text-muted);
+    color: var(--mono);
     margin-bottom: var(--space-sm);
+    transition: color var(--t-short) var(--ease-enter);
+  }
+
+  .feature-card:hover .feature-icon {
+    color: var(--ink-t);
   }
 
   .feature-title {
-    font-family: var(--font-sans);
+    font-family: 'Inter Tight', sans-serif;
     font-weight: 600;
-    font-size: 1.05rem;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+    color: var(--ink-t);
     margin-bottom: 0.4rem;
   }
 
   .feature-desc {
-    color: var(--color-text-muted);
-    font-size: 0.93rem;
+    color: var(--mono);
+    font-size: 0.875rem;
     line-height: 1.6;
+    transition: color var(--t-short) var(--ease-enter);
   }
 
   @media (max-width: 768px) {

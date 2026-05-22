@@ -1,4 +1,6 @@
 ---
+import ThemeToggle from '../components/ThemeToggle.astro';
+
 interface Props {
   title?: string;
   description?: string;
@@ -8,16 +10,16 @@ interface Props {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://paperclip.ing');
 
 const {
-  title = 'Paperclip — The human control plane for AI labor',
+  title = 'Paperclip – The app people use to manage AI agents for work',
   description = 'Manage a team of AI agents to run your business. Org charts, budgets, governance, and goals — all in one deployment.',
-  ogImage = '/og.jpg',
+  ogImage = '/og-v3.jpg',
 } = Astro.props;
 
 const ogImageURL = new URL(ogImage, canonicalURL.origin).href;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -34,8 +36,8 @@ const ogImageURL = new URL(ogImage, canonicalURL.origin).href;
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageURL} />
     <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="537" />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -47,11 +49,20 @@ const ogImageURL = new URL(ogImage, canonicalURL.origin).href;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Prevent FOUC on theme load -->
+    <script is:inline>
+      (function() {
+        var t = localStorage.getItem('paperclip-theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
   </head>
   <body>
+    <ThemeToggle />
     <slot />
   </body>
 </html>

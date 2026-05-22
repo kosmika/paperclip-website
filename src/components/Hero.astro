@@ -1,19 +1,42 @@
 ---
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+// Inline the hero gradient SVGs so the embedded feTurbulence noise filter
+// rasterizes at the device pixel ratio (sharp on retina). When loaded as
+// <img>, browsers rasterize the SVG — including filter primitives — at
+// the SVG's intrinsic CSS size and then upscale, which makes the dither
+// look blurry on 2x+ displays.
+const publicDir = fileURLToPath(new URL('../../public/', import.meta.url));
+const desktopSvgRaw = fs.readFileSync(`${publicDir}paperclip_blendRow_1230631627_1200x675.svg`, 'utf-8');
+const mobileSvgRaw = fs.readFileSync(`${publicDir}paperclip_blendRow_1200x675-fine.svg`, 'utf-8');
+
+// Both SVGs reuse the same internal IDs (g0..g44, ditherN, ditherMask, pc-caps).
+// With both inlined in the same document the second copy would otherwise steal
+// gradients/masks from the first, so namespace one of them.
+function namespaceSvgIds(svg: string, prefix: string): string {
+  return svg
+    .replace(/\bid="([^"]+)"/g, `id="${prefix}$1"`)
+    .replace(/\burl\(#([^)]+)\)/g, `url(#${prefix}$1)`)
+    .replace(/\bhref="#([^"]+)"/g, `href="#${prefix}$1"`)
+    .replace(/\bxlink:href="#([^"]+)"/g, `xlink:href="#${prefix}$1"`);
+}
+
+const desktopSvg = desktopSvgRaw;
+const mobileSvg = namespaceSvgIds(mobileSvgRaw, 'm-');
 ---
 
 <section class="hero">
-  <div class="hero-image">
-    <picture>
-      <source srcset="/hero-bg.webp" type="image/webp" />
-      <img src="/hero-bg.jpg" alt="" width="1920" height="759" loading="eager" />
-    </picture>
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-bg-svg hero-bg-svg-desktop" set:html={desktopSvg} />
+    <div class="hero-bg-svg hero-bg-svg-mobile" set:html={mobileSvg} />
   </div>
   <div class="container hero-inner">
-    <h1 class="hero-headline heading-serif">
-      Paperclip<br />The human control plane<br />for AI labor
+    <h1 class="hero-headline">
+      A team of agents<br />for every person.
     </h1>
     <p class="hero-lede">
-      Hire AI employees, set goals, automate jobs <span class="nowrap">and your business runs itself.</span>
+      Paperclip is the app people use<br />to manage AI agents for work.
     </p>
     <div class="hero-actions">
       <a href="#get-started" class="hero-btn-primary">Get started</a>
@@ -28,65 +51,147 @@
 <style>
   .hero {
     position: relative;
-  }
-
-  .hero-image {
-    position: relative;
-    width: 100%;
-    height: 65vh;
-    min-height: 340px;
     overflow: hidden;
+    padding: clamp(5rem, 10vw, 10rem) 0 clamp(4rem, 8vw, 8rem);
   }
 
-  .hero-image::after {
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    --hero-bg-y: -310px;
+    transform: translateY(var(--hero-bg-y));
+    will-change: transform;
+  }
+
+  /* Wrapper around each inlined SVG. `display: contents` lets the inner <svg>
+     act as the direct flex child of .hero-bg so the existing centering works. */
+  .hero-bg-svg {
+    display: contents;
+  }
+
+  .hero-bg-svg-mobile {
+    display: none;
+  }
+
+  /* Inlined SVGs are injected via `set:html` and don't receive Astro's
+     scoping attribute, so selectors targeting them must use :global(svg).
+     flex-shrink: 0 stops the parent flex container from squeezing the
+     SVG below its declared width (needed on mobile where the SVG is
+     wider than the viewport and is meant to overflow). */
+  .hero-bg :global(svg) {
+    display: block;
+    width: min(1200px, 100%);
+    height: auto;
+    flex-shrink: 0;
+    opacity: 0;
+    transform: translateY(-24px);
+    animation: heroBgEnter 1100ms var(--ease-enter, cubic-bezier(0.22, 1, 0.36, 1)) 80ms both;
+    will-change: transform, opacity;
+  }
+
+  /* Light mode: soften the hero SVG so the dark H1 reads cleanly. */
+  /* Desaturate the vivid stops, lift the dark navy/purple, and ease overall contrast. */
+  :global([data-theme="light"]) .hero-bg :global(svg) {
+    filter: saturate(1) brightness(1) contrast(1);
+  }
+
+  /* Light mode: soft white veil behind the headline that further mutes */
+  /* the SVG colors where the H1 sits. Sits between .hero-bg (z:0) and .hero-inner (z:1). */
+  :global([data-theme="light"]) .hero::after {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 50%;
-    background: linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.4) 40%, rgba(255,255,255,0.85) 70%, #ffffff 100%);
+    inset: 0;
+    z-index: 0;
     pointer-events: none;
+    background: radial-gradient(
+      ellipse 50% 25% at 50% 50%,
+      rgba(255, 255, 255, 0.8) 0%,
+      rgba(255, 255, 255, 0.5) 45%,
+      rgba(255, 255, 255, 0) 78%
+    );
   }
 
-  .hero-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center center;
-    display: block;
+  @keyframes heroBgEnter {
+    from {
+      opacity: 0;
+      transform: translateY(-24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-headline,
+  .hero-lede {
+    opacity: 0.55;
+    transform: translateY(18px);
+    animation: heroHeadlineEnter 900ms var(--ease-enter, cubic-bezier(0.22, 1, 0.36, 1)) 220ms both;
+    will-change: transform, opacity;
+  }
+
+  @keyframes heroHeadlineEnter {
+    from {
+      opacity: 0.55;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-bg,
+    .hero-headline,
+    .hero-lede {
+      will-change: auto;
+    }
+
+    .hero-bg :global(svg) {
+      will-change: auto;
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+
+    .hero-headline,
+    .hero-lede {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
   }
 
   .hero-inner {
     position: relative;
     z-index: 1;
-    max-width: 780px;
+    max-width: 900px;
     text-align: center;
-    margin-top: -6rem;
-    padding: 0 var(--space-md) var(--space-xl);
   }
 
   .hero-headline {
-    font-size: clamp(2.8rem, 7vw, 4.5rem);
-    margin-bottom: 0.75rem;
-  }
-
-  .hero-sub {
-    font-size: clamp(1.05rem, 2.2vw, 1.25rem);
-    color: var(--color-text-secondary);
-    margin-bottom: 0.5rem;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 60px;
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 0.98;
+    color: var(--ink-t);
+    margin-top: 124px;
+    margin-bottom: 1.5rem;
   }
 
   .hero-lede {
-    font-size: 1rem;
-    color: var(--color-text-muted);
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    color: var(--mono);
     max-width: 520px;
-    margin: 0 auto 1.5rem;
+    margin: 0 auto 2.5rem;
     line-height: 1.6;
-  }
-
-  .nowrap {
-    white-space: nowrap;
   }
 
   .hero-actions {
@@ -97,71 +202,147 @@
     flex-wrap: wrap;
   }
 
+  /* Primary CTA — pill, ink bg */
   .hero-btn-primary {
     display: inline-block;
     font-size: 0.95rem;
     font-weight: 500;
     padding: 0.8rem 2rem;
-    background: var(--color-text);
-    color: var(--color-bg);
-    border-radius: var(--radius-pill);
-    transition: opacity 0.2s;
+    background: var(--ink-t);
+    color: var(--bg);
+    border: 1px solid var(--ink-t);
+    border-radius: var(--r-pill);
+    transition:
+      background var(--t-short) var(--ease-enter),
+      color var(--t-short) var(--ease-enter),
+      border-color var(--t-short) var(--ease-enter);
   }
 
   .hero-btn-primary:hover {
-    opacity: 0.85;
+    background: var(--bond);
+    color: var(--ink);
+    border-color: var(--bond);
   }
 
+  :global([data-theme="light"]) .hero-btn-primary:hover {
+    border-color: var(--ink);
+  }
+
+  :global([data-theme="dark"]) .hero-btn-primary {
+    background: var(--cream);
+    color: var(--charcoal);
+    border-color: var(--cream);
+  }
+
+  :global([data-theme="dark"]) .hero-btn-primary:hover {
+    background: transparent;
+    color: var(--cream);
+    border-color: var(--cream);
+  }
+
+  /* Secondary CTA — 8px rect, transparent */
   .hero-btn-secondary {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
     font-size: 0.95rem;
     padding: 0.8rem 2rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-pill);
-    color: var(--color-text-secondary);
-    transition: color 0.2s, border-color 0.2s;
+    border: 1px solid var(--rule);
+    border-radius: var(--r-md);
+    color: var(--mono);
+    transition: color var(--t-short) ease, border-color var(--t-short) ease;
   }
 
   .hero-btn-secondary:hover {
-    color: var(--color-text);
-    border-color: var(--color-text-muted);
+    color: var(--ink-t);
+    border-color: var(--ink-t);
   }
 
   @media (max-width: 768px) {
-    .hero-image {
-      height: 45vh;
-      min-height: 260px;
+    .hero {
+      padding: clamp(4rem, 8vw, 6rem) 0 clamp(3rem, 6vw, 5rem);
     }
 
-    .hero-inner {
-      margin-top: -4rem;
-      padding-bottom: var(--space-lg);
+    .hero-bg {
+      /* -220px positions the SVG so the capsule bottoms partially clip
+         the top of the H1's first line, mirroring the desktop crop. */
+      --hero-bg-y: -100px;
+    }
+
+    .hero-bg-svg-desktop {
+      display: none;
+    }
+
+    .hero-bg-svg-mobile {
+      display: contents;
+    }
+
+    /* 155vw makes the capsule cluster (~47% of SVG width) roughly match
+       the width of the H1's first line on a typical mobile viewport. */
+    .hero-bg :global(svg) {
+      width: min(1200px, 150vw);
     }
 
     .hero-headline {
-      font-size: clamp(2.2rem, 9vw, 3rem);
-      margin-bottom: 0.5rem;
-    }
-
-    .hero-sub {
-      margin-bottom: 0.4rem;
-    }
-
-    .hero-lede {
-      margin-bottom: 1.25rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .hero-image {
-      height: 38vh;
-      min-height: 220px;
-    }
-
-    .hero-inner {
-      margin-top: -3rem;
+      font-size: clamp(2.25rem, 11.5vw, 3.75rem);
+      margin-top: clamp(4.5rem, 20vw, 6.5rem);
     }
   }
 </style>
+
+<script>
+  const HERO_BG_PARALLAX_RATE = 0.35;
+  const mobileMq = window.matchMedia('(max-width: 768px)');
+
+  function getHeroBgBaseY() {
+    return mobileMq.matches ? -200 : -310;
+  }
+
+  let teardownHeroBgParallax: (() => void) | undefined;
+
+  function initHeroBgParallax() {
+    teardownHeroBgParallax?.();
+
+    const hero = document.querySelector('.hero');
+    const bg = hero?.querySelector('.hero-bg');
+    if (!(hero instanceof HTMLElement) || !(bg instanceof HTMLElement)) return;
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reducedMotion) {
+      bg.style.setProperty('--hero-bg-y', `${getHeroBgBaseY()}px`);
+      return;
+    }
+
+    let ticking = false;
+
+    const update = () => {
+      const scrolled = Math.max(0, -hero.getBoundingClientRect().top);
+      const y = getHeroBgBaseY() - scrolled * HERO_BG_PARALLAX_RATE;
+      bg.style.setProperty('--hero-bg-y', `${y}px`);
+      ticking = false;
+    };
+
+    const requestUpdate = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+
+    const onMqChange = () => requestUpdate();
+
+    update();
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate, { passive: true });
+    mobileMq.addEventListener('change', onMqChange);
+
+    teardownHeroBgParallax = () => {
+      window.removeEventListener('scroll', requestUpdate);
+      window.removeEventListener('resize', requestUpdate);
+      mobileMq.removeEventListener('change', onMqChange);
+    };
+  }
+
+  initHeroBgParallax();
+  document.addEventListener('astro:page-load', initHeroBgParallax);
+</script>

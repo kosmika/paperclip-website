@@ -1,11 +1,10 @@
 ---
 ---
 
-<section class="feature-section section">
+<section class="feature-section section" id="goal-alignment-section">
   <div class="container">
-    <hr class="section-divider" />
     <div class="feature-header">
-      <span class="section-badge">Goal Alignment</span>
+      <span class="section-badge section-badge--g03">Goal Alignment</span>
       <h2 class="heading-serif feature-heading">Keep your agents aligned<br />on the goal.</h2>
     </div>
     <div class="feature-layout">
@@ -14,8 +13,8 @@
           <div class="goal-level goal-level-1">
             <span class="goal-icon">&#9678;</span>
             <div>
-              <span class="goal-label">Company Mission</span>
-              <span class="goal-text">Make $2mm ARR with the #1 AI note-taking app</span>
+              <span class="goal-label">Mission</span>
+              <span class="goal-text">Make $1mm ARR with the #1 AI note-taking app</span>
             </div>
           </div>
           <div class="goal-connector"></div>
@@ -50,7 +49,7 @@
           mission. Your agents will know <em>what</em> to do and <em>why</em>.
         </p>
         <p class="feature-sub">
-          Paperclip <code>SKILLS.md</code> means your agents know how to
+          Paperclip's <code>SKILL.md</code> means your agents know how to
           discover the context they need.
         </p>
       </div>
@@ -82,6 +81,11 @@
     padding: var(--space-lg);
   }
 
+  :global([data-theme="light"]) .feature-graphic {
+    background: var(--parchment);
+    border: 1px solid var(--stone);
+  }
+
   .feature-copy {
     padding-top: var(--space-sm);
   }
@@ -109,6 +113,10 @@
     padding: 1rem 1.25rem;
     opacity: 0;
     transform: translateY(12px);
+  }
+
+  :global([data-theme="light"]) .goal-level {
+    background: var(--bond);
   }
 
   .goal-level.visible {

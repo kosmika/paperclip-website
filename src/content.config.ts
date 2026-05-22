@@ -21,6 +21,7 @@ const blog = defineCollection({
     coverImage: z.string().optional(),
     youtubeId: z.string().optional(),
     draft: z.boolean().default(false),
+    featured: z.boolean().default(false),
   }),
 });
 

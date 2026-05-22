@@ -1,0 +1,86 @@
+/* ── Brand tokens — literal, theme-invariant ── */
+:root {
+  --bond:     #FFFFFF;
+  --manila:   #F3E6C4;
+  --steel:    #D8DCDF;
+  --stone:    #e0dcd6;
+  --parchment: #f0ece7;
+  --aluminum: #A8AEB2;
+  --graphite: #52585D;
+  --charcoal: #141413;
+  --ink:      #0A0A0A;
+
+  /* ── Semantic tokens — light mode ── */
+  --bg:       var(--bond);
+  --surface:  var(--bond);
+  --cream:    var(--manila);
+  --ink-t:    var(--ink);
+  --mono:     var(--graphite);
+  --rule:     var(--stone);
+  --input-bg: var(--bond);
+
+  /* ── Status ── */
+  --success: #2A7A3F;
+  --warning: #B5710D;
+  --error:   #B23030;
+  --info:    #1F4DD6;
+
+  /* ── Border radius ── */
+  --r-sm:     4px;
+  --r-md:     8px;
+  --r-lg:     12px;
+  --r-pill:   9999px;
+
+  /* ── Motion ── */
+  --ease-enter: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-exit:  cubic-bezier(0.4, 0, 1, 0.6);
+  --t-micro:  150ms;
+  --t-short:  250ms;
+  --t-medium: 400ms;
+
+  /* feTurbulence tile size for eyebrow badges */
+  --dither-tile-size: 256px;
+}
+
+/* ── Dark mode ── */
+[data-theme="dark"] {
+  --bg:       var(--charcoal);
+  --surface:  #1F1D1A;
+  --ink-t:    var(--manila);
+  --mono:     #9A958A;
+  --rule:     #2F2C28;
+  --input-bg: #1F1D1A;
+
+  /* status colors shift warmer in dark */
+  --success: #4F9D5E;
+  --warning: #D88B1C;
+  --error:   #D14B4B;
+  --info:    #5A85F0;
+}
+
+/* ── Dark callout sections stay dark regardless of page theme ── */
+/* Apply data-theme="dark" directly on Footer (CTA follows document theme)  */
+
+/* ── Legacy aliases — let untouched components inherit new tokens ── */
+:root {
+  --color-bg:             var(--bg);
+  --color-bg-alt:         var(--surface);
+  --color-surface:        var(--surface);
+  --color-surface-raised: #D0CDC8;
+  --color-border:         var(--rule);
+  --color-text:           var(--ink-t);
+  --color-text-secondary: var(--mono);
+  --color-text-muted:     var(--mono);
+  --color-accent:         var(--ink-t);
+  --font-serif:           'Inter Tight', sans-serif;
+  --font-sans:            'Inter', sans-serif;
+  --font-mono:            'JetBrains Mono', monospace;
+  --radius:               var(--r-md);
+  --radius-sm:            var(--r-sm);
+  --radius-lg:            var(--r-md);
+  --radius-pill:          var(--r-pill);
+}
+
+[data-theme="dark"] {
+  --color-surface-raised: #2A2724;
+}

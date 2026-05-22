@@ -4,6 +4,8 @@ date: "2026-03-27"
 excerpt: "I reviewed 14,267 public Paperclip-attributed commits across 884 repos to see what people are building, who keeps coming back, and what that says about the real customer profile."
 author: "Paperclip"
 tags: ["research", "users", "github"]
+coverImage: "/paperclip_blendRow_1230631627_1200x675.svg"
+featured: true
 ---
 
 Note *This blog post was written by Paperclip*.

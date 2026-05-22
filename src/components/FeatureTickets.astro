@@ -1,14 +1,13 @@
 ---
 ---
 
-<section class="feature-section section">
+<section class="feature-section section" id="tickets-section">
   <div class="container">
-    <hr class="section-divider" />
-    <div class="tickets-two-col" id="tickets-section">
+    <div class="tickets-two-col">
       <!-- Left: copy + bullets -->
       <div class="tickets-copy">
-        <span class="section-badge">Ticket System</span>
-        <h2 class="heading-serif feature-heading">Every conversation traced.<br />Every decision explained.</h2>
+        <span class="section-badge section-badge--g06">Ticket System</span>
+        <h2 class="heading-serif feature-heading">Every conversation traced. Every decision explained.</h2>
         <p class="feature-sub">
           You communicate with agents through tickets. Every instruction, every response,
           every tool call and decision is recorded with full tracing. Nothing happens in the dark.
@@ -140,20 +139,40 @@
 </section>
 
 <script>
-  const ticketsSection = document.getElementById('tickets-section');
-  if (ticketsSection) {
+  const ticketsTwoCol = document.querySelector('.tickets-two-col');
+  if (ticketsTwoCol) {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            ticketsSection.classList.add('is-visible');
-            observer.unobserve(ticketsSection);
+            ticketsTwoCol.classList.add('is-visible');
+            observer.unobserve(ticketsTwoCol);
           }
         });
       },
       { threshold: 0.25 }
     );
-    observer.observe(ticketsSection);
+    observer.observe(ticketsTwoCol);
+  }
+
+  // Position the parchment-frame notches at the same Y as the rule above "TRACE"
+  // (i.e., the bottom border of .ticket-thread).
+  const ticketsVisual = document.querySelector('.tickets-visual');
+  const ticketThread = ticketsVisual?.querySelector('.ticket-thread');
+  if (ticketsVisual && ticketThread) {
+    const updateNotchY = () => {
+      const visualRect = ticketsVisual.getBoundingClientRect();
+      const threadRect = ticketThread.getBoundingClientRect();
+      const y = threadRect.bottom - visualRect.top;
+      (ticketsVisual as HTMLElement).style.setProperty('--notch-y', `${y}px`);
+    };
+    updateNotchY();
+    window.addEventListener('resize', updateNotchY);
+    if (typeof ResizeObserver !== 'undefined') {
+      const ro = new ResizeObserver(updateNotchY);
+      ro.observe(ticketThread);
+      ro.observe(ticketsVisual);
+    }
   }
 </script>
 
@@ -164,7 +183,7 @@
     grid-template-columns: 5fr 7fr;
     gap: var(--space-xl);
     align-items: stretch;
-    padding-top: var(--space-lg);
+    padding-top: 0;
   }
 
   .tickets-copy {
@@ -231,13 +250,47 @@
 
   /* ── Visual panel ── */
   .tickets-visual {
+    position: relative;
     background: var(--color-surface);
     border-radius: var(--radius-lg);
     display: flex;
     align-items: stretch;
     justify-content: center;
     padding: var(--space-md);
-    overflow: hidden;
+    overflow: visible;
+    transition: background 300ms ease-out;
+  }
+
+  :global([data-theme="light"]) .tickets-visual {
+    background: var(--parchment);
+  }
+
+  /* Semicircular notches punched out of the parchment frame — gives the panel a physical ticket look.
+     --notch-y is set by JS to align with the horizontal rule above "TRACE".
+     The bg transition matches body's so the notches stay in lockstep with the page bg during theme
+     toggles — otherwise the circles become briefly visible against the in-transition body. */
+  .tickets-visual::before,
+  .tickets-visual::after {
+    content: '';
+    position: absolute;
+    top: var(--notch-y, 50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--color-bg);
+    z-index: 2;
+    pointer-events: none;
+    transition: background 300ms ease-out;
+  }
+
+  .tickets-visual::before {
+    left: 0;
+    transform: translate(-50%, -50%);
+  }
+
+  .tickets-visual::after {
+    right: 0;
+    transform: translate(50%, -50%);
   }
 
   /* ── Mock ticket card ── */
@@ -342,8 +395,8 @@
   }
 
   .msg-avatar--agent {
-    background: #dcfce7;
-    color: #166534;
+    background: var(--color-surface);
+    color: var(--color-text-muted);
   }
 
   .msg-body {
@@ -401,18 +454,21 @@
     align-items: center;
     gap: 10px;
     position: relative;
-    padding: 6px 0;
+    padding: 7px 0;
     padding-left: 18px;
   }
 
-  /* Vertical connector line between steps */
+  /* Vertical connector line between steps — sits between current dot's bottom
+     and next dot's top (assumes equal step heights). */
   .trace-line {
     position: absolute;
     left: 4px;
-    top: 22px;
+    transform: translateX(-50%);
+    top: calc(50% + 8px);
     width: 1.5px;
-    height: calc(100%);
+    height: calc(100% - 16px);
     background: var(--color-border);
+    z-index: 1;
   }
 
   .trace-step:last-child .trace-line {
@@ -421,13 +477,14 @@
 
   .trace-dot {
     position: absolute;
-    left: 0;
+    left: 4px;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translate(-50%, -50%);
     width: 9px;
-    height: 9px;
-    border-radius: 50%;
+    height: 16px;
+    border-radius: 999px;
     flex-shrink: 0;
+    z-index: 2;
   }
 
   .trace-dot--done {

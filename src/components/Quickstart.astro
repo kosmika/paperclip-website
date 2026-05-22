@@ -8,7 +8,7 @@ import Terminal from './Terminal.astro';
       <h2 class="heading-serif quickstart-heading">Quickstart</h2>
       <p class="quickstart-sub">
         Open source. Self-hosted. Interactive setup walks you through database, auth,
-        and your first company. No Paperclip account required.
+        and starting your first agent team.
       </p>
       <div class="quickstart-links">
         <a href="https://github.com/paperclipai/paperclip" class="quickstart-btn">
@@ -25,6 +25,10 @@ import Terminal from './Terminal.astro';
 </section>
 
 <style>
+  .quickstart.section {
+    padding-top: 26px;
+  }
+
   .quickstart-inner {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -61,15 +65,18 @@ import Terminal from './Terminal.astro';
     gap: 0.5rem;
     font-size: 0.9rem;
     font-weight: 500;
-    color: var(--color-bg);
-    background: var(--color-text);
+    color: var(--bg);
+    background: var(--ink-t);
     padding: 0.6rem 1.3rem;
-    border-radius: var(--radius-pill);
-    transition: opacity 0.2s;
+    border-radius: var(--r-pill);
+    border: 1px solid var(--ink-t);
+    transition: background var(--t-short) var(--ease-enter), color var(--t-short) var(--ease-enter);
   }
 
   .quickstart-btn:hover {
-    opacity: 0.85;
+    background: var(--bond);
+    color: var(--ink);
+    border-color: var(--bond);
   }
 
   .quickstart-link {

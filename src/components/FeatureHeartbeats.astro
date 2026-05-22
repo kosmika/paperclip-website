@@ -17,10 +17,9 @@ const features = [
   <div class="light-glow" aria-hidden="true"></div>
 
   <div class="container">
-    <hr class="section-divider" />
     <div class="feature-layout">
       <div class="feature-copy">
-        <span class="section-badge"><svg class="badge-heart" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Heartbeats</span>
+        <span class="section-badge section-badge--g08">Heartbeats</span>
         <h2 class="heading-serif feature-heading">Heartbeats keep<br />the lights on.</h2>
         <ul class="feature-list">
           {features.map((f) => (
@@ -49,10 +48,10 @@ const features = [
             </div>
           </div>
 
-          <!-- Lane 1: Content Writer (every 4h) -->
+          <!-- Lane 1: Copywriter (every 4h) -->
           <div class="swim-lane" data-agent="writer" style="--lane:0">
             <div class="swim-lane__label">
-              <span class="agent-name">Content Writer</span>
+              <span class="agent-name">Copywriter</span>
               <span class="agent-cadence">every 4h</span>
             </div>
             <div class="swim-lane__track">
@@ -337,17 +336,6 @@ const features = [
 </script>
 
 <style>
-  .badge-heart {
-    flex-shrink: 0;
-    opacity: 0.7;
-    animation: heartPulse 2s ease-in-out infinite;
-  }
-
-  @keyframes heartPulse {
-    0%, 100% { transform: scale(1); opacity: 0.7; }
-    50% { transform: scale(1.18); opacity: 1; }
-  }
-
   .feature-heading {
     font-size: clamp(2rem, 4vw, 2.8rem);
     margin-bottom: var(--space-lg);
@@ -358,7 +346,7 @@ const features = [
     grid-template-columns: 1fr 1.2fr;
     gap: var(--space-xl);
     align-items: center;
-    padding-top: var(--space-2xl);
+    padding-top: 0;
   }
 
   .feature-copy {
@@ -485,7 +473,7 @@ const features = [
     left: 0;
     right: 0;
     height: 2px;
-    background: #b5b0a8;
+    background: var(--rule);
     transform: translateY(-50%);
   }
 
@@ -493,10 +481,10 @@ const features = [
     position: absolute;
     top: 50%;
     width: 10px;
-    height: 10px;
+    height: 20px;
     background: var(--color-bg);
     border: 2px solid #b5b0a8;
-    border-radius: 50%;
+    border-radius: 999px;
     transform: translate(-50%, -50%);
     transition: width 0.3s ease, height 0.3s ease, background 0.3s ease,
                 border-color 0.3s ease, box-shadow 0.3s ease;
@@ -504,8 +492,8 @@ const features = [
   }
 
   .schedule-dot:global(.is-active) {
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 22px;
     background: #22c55e;
     border-color: #22c55e;
     box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
@@ -516,9 +504,9 @@ const features = [
     top: 50%;
     left: 0%;
     width: 8px;
-    height: 8px;
+    height: 16px;
     background: #22c55e;
-    border-radius: 50%;
+    border-radius: 999px;
     transform: translate(-50%, -50%);
     opacity: 0;
     z-index: 3;
@@ -576,16 +564,18 @@ const features = [
     bottom: calc(50% + 16px);
     transform: translateX(-50%) translateY(-16px);
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 5px;
-    padding: 5px 9px;
+    gap: 6px;
+    padding: 7px 9px;
     background: var(--color-bg);
     border: 1.5px solid #f59e0b;
     border-radius: var(--radius-sm);
     font-size: 0.6rem;
     font-weight: 500;
     color: #92400e;
-    white-space: nowrap;
+    text-align: center;
+    line-height: 1.25;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -596,6 +586,12 @@ const features = [
   .ticket-interrupt svg {
     color: #f59e0b;
     flex-shrink: 0;
+  }
+
+  .ticket-interrupt span {
+    display: block;
+    max-width: 8.5rem;
+    white-space: normal;
   }
 
   .ticket-interrupt:global(.is-dropped) {
@@ -635,7 +631,7 @@ const features = [
 
   /* ── Dark section & lamp effect ── */
   .heartbeat-dark {
-    background: #0c0c0c;
+    background: var(--charcoal);
     position: relative;
     overflow: hidden;
   }
@@ -688,7 +684,8 @@ const features = [
 
   .light-glow {
     position: absolute;
-    top: 30px;
+    /* Touches the bottom of the trapezoidal shade: 32px cord + 12px shade */
+    top: 44px;
     left: 50%;
     transform: translateX(-50%);
     width: 90%;
@@ -719,15 +716,11 @@ const features = [
 
   /* Dark theme color overrides */
   .heartbeat-dark .section-badge {
-    display: inline-flex;
-    align-items: center;
     gap: 0.4em;
-    background: rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.7);
   }
 
   .heartbeat-dark .feature-heading {
-    color: #f0ece7;
+    color: var(--manila);
   }
 
   .heartbeat-dark .feature-list-item {
@@ -751,7 +744,7 @@ const features = [
   }
 
   .heartbeat-dark .schedule-dot {
-    background: #0c0c0c;
+    background: var(--charcoal);
     border-color: rgba(255, 255, 255, 0.25);
   }
 
@@ -809,7 +802,11 @@ const features = [
   @media (max-width: 480px) {
     .swim-header,
     .swim-lane {
-      grid-template-columns: 80px 1fr;
+      grid-template-columns: 86px 1fr;
+    }
+
+    .swim-lane__label {
+      padding-right: 8px;
     }
 
     .agent-cadence {
@@ -817,7 +814,9 @@ const features = [
     }
 
     .agent-name {
-      font-size: 0.68rem;
+      font-size: 0.6rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .time-mark {

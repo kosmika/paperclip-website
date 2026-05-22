@@ -2,31 +2,31 @@
 const faqs = [
   {
     q: 'How is Paperclip different from agents like OpenClaw or Claude Code?',
-    a: 'Paperclip uses those agents. It orchestrates them into a company \u2014 with org charts, budgets, goals, governance, and accountability.',
+    a: 'Paperclip uses those agents. It orchestrates them into a team — with org charts, budgets, goals, governance, and accountability.',
   },
   {
     q: 'Can I use my existing agents?',
-    a: 'Yes. Paperclip is unopinionated about agent runtimes. Your agents can be Claude Code sessions, OpenClaw bots, Python scripts, shell commands, HTTP webhooks \u2014 anything that can receive a heartbeat signal. Adapters connect Paperclip to whatever execution environment you use.',
+    a: 'Yes. Paperclip is unopinionated about agent runtimes. Your agents can be Claude Code sessions, OpenClaw bots, Python scripts, shell commands, HTTP webhooks — anything that can receive a heartbeat signal. Adapters connect Paperclip to whatever execution environment you use.',
   },
   {
     q: 'What happens when an agent hits its budget limit?',
     a: 'At 100% budget utilization the agent auto-pauses and new tasks are blocked. You get a soft warning at 80%. As the board, you can override the limit at any time and resume the agent.',
   },
   {
-    q: 'How do I keep agents from doing things I don\u2019t want?',
-    a: 'Paperclip has governance and control modules on what your agents can do to modify Paperclip \u2014 for example, hiring new agents is gated by Board approval by default. However, your agents are your own and you secure them however you want to.',
+    q: 'How do I keep agents from doing things I don\'t want?',
+    a: 'Paperclip has governance and control modules for what your agents can do to modify Paperclip — for example, hiring new agents is gated by Board approval by default. However, your agents are your own and you secure them however you want to.',
   },
   {
     q: 'Do agents run continuously?',
-    a: 'By default, Paperclip runs your agents on scheduled heartbeats and/or notifications like being assigned a task or @-mentioned. But your agent is your own \u2014 you\u2019re free to hook a continuous agent like OpenClaw into Paperclip.',
+    a: 'By default, Paperclip runs your agents on scheduled heartbeats and/or notifications like being assigned a task or @-mentioned. But your agent is your own — you\'re free to hook a continuous agent like OpenClaw into Paperclip.',
   },
   {
     q: 'Why should I use Paperclip instead of just pointing my OpenClaw to Asana or Trello?',
-    a: 'Agent orchestration has subtleties in how you coordinate who has work checked out, how to maintain sessions, monitoring costs, establishing governance \u2014 Paperclip does this for you. Bring-your-own-ticket-system is on the roadmap.',
+    a: 'Agent orchestration has subtleties in how you coordinate who has work checked out, how to maintain sessions, monitoring costs, establishing governance — Paperclip does this for you. Bring-your-own-ticket-system is on the roadmap.',
   },
   {
     q: 'What does a typical setup look like?',
-    a: 'You can run Paperclip as a local instance or a remote deploy. Locally, a single Node.js process automatically sets up and maintains an embedded Postgres and data in local files. When you\u2019re ready for the cloud, Paperclip makes that easy too \u2014 your agents can help using Paperclip\u2019s provided SKILL.md. Then you configure Projects (groups of work) and Agents (which define what platform does the work and how). You set up tasks and the agents take care of the rest.',
+    a: 'You can run Paperclip as a local instance or a remote deploy. Locally, a single Node.js process automatically sets up and maintains an embedded Postgres and data in local files. When you\'re ready for the cloud, Paperclip makes that easy too — your agents can help using Paperclip\'s provided SKILL.md. Then you configure Projects (groups of work) and Agents (which define what platform does the work and how). You set up tasks and the agents take care of the rest.',
   },
   {
     q: 'Can I run multiple companies?',
@@ -34,7 +34,7 @@ const faqs = [
   },
   {
     q: 'Is Paperclip open source?',
-    a: 'Yes. MIT licensed, self-hosted, no Paperclip account required. Interactive setup walks you through database configuration and creating your first company. Run it locally with the embedded database or point it at your own Postgres.',
+    a: 'Yes. MIT licensed, self-hosted, no Paperclip account required. Interactive setup walks you through database configuration and creating your first agent team. Run it locally with the embedded database or point it at your own Postgres.',
   },
 ];
 ---
@@ -42,8 +42,8 @@ const faqs = [
 <section class="faq-section section">
   <div class="container">
     <div class="faq-header">
-      <span class="section-badge">FAQ</span>
-      <h2 class="heading-serif faq-heading">Frequently asked questions.</h2>
+      <span class="section-badge section-badge--g11">FAQ</span>
+      <h2 class="faq-heading">Frequently asked questions.</h2>
     </div>
     <div class="faq-list">
       {faqs.map((item) => (
@@ -67,7 +67,11 @@ const faqs = [
   }
 
   .faq-heading {
-    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-family: 'Inter Tight', sans-serif;
+    font-size: clamp(32px, 4vw, 56px);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--ink-t);
   }
 
   .faq-list {
@@ -75,7 +79,7 @@ const faqs = [
   }
 
   .faq-item {
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--rule);
   }
 
   .faq-question {
@@ -84,14 +88,15 @@ const faqs = [
     justify-content: space-between;
     gap: var(--space-sm);
     padding: var(--space-md) 0;
-    font-family: var(--font-sans);
+    font-family: 'Inter', sans-serif;
     font-weight: 500;
-    font-size: 1.05rem;
+    font-size: 1rem;
     line-height: 1.4;
+    color: var(--ink-t);
     cursor: pointer;
     list-style: none;
     user-select: none;
-    transition: color 0.2s;
+    transition: color var(--t-micro) ease;
   }
 
   .faq-question::-webkit-details-marker {
@@ -103,13 +108,13 @@ const faqs = [
   }
 
   .faq-question:hover {
-    color: var(--color-text-secondary);
+    color: var(--mono);
   }
 
   .faq-chevron {
     flex-shrink: 0;
-    color: var(--color-text-muted);
-    transition: transform 0.25s ease;
+    color: var(--mono);
+    transition: transform var(--t-short) var(--ease-enter);
   }
 
   .faq-item[open] .faq-chevron {
@@ -117,8 +122,8 @@ const faqs = [
   }
 
   .faq-answer {
-    color: var(--color-text-muted);
-    font-size: 0.95rem;
+    color: var(--mono);
+    font-size: 0.9rem;
     line-height: 1.7;
     padding: 0 0 var(--space-md);
     max-width: 640px;

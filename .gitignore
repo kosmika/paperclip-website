@@ -10,3 +10,4 @@ build/
 videos/
 !public/videos/
 !public/videos/full-tour.webm
+.vercel

@@ -1,35 +1,4 @@
-/* ── Design Tokens (Light Mode, Duna-inspired) ── */
-:root {
-  --color-bg: #ffffff;
-  --color-bg-alt: #f5f3f0;
-  --color-surface: #f0ece7;
-  --color-surface-raised: #e8e4de;
-  --color-border: #e0dcd6;
-  --color-text: #1a1a1a;
-  --color-text-secondary: #4a4a4a;
-  --color-text-muted: #888880;
-  --color-accent: #1a1a1a;
-
-  --font-serif: 'Instrument Serif', serif;
-  --font-sans: 'Inter', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-
-  --space-xs: 0.5rem;
-  --space-sm: 1rem;
-  --space-md: 1.5rem;
-  --space-lg: clamp(2rem, calc(1.5rem + 1.5vw), 3rem);
-  --space-xl: clamp(3rem, calc(2rem + 3vw), 5rem);
-  --space-2xl: clamp(4rem, calc(2.5rem + 4.5vw), 7rem);
-  --space-3xl: clamp(5rem, calc(3rem + 6vw), 10rem);
-  --space-section: clamp(5rem, calc(3rem + 5.5vw), 9rem);
-  --space-section-gap: clamp(2rem, 5vw, 6rem);
-
-  --max-width: 1140px;
-  --radius: 16px;
-  --radius-sm: 10px;
-  --radius-pill: 100px;
-  --radius-lg: 24px;
-}
+@import './tokens.css';
 
 /* ── Reset ── */
 *,
@@ -45,13 +14,16 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* offset sticky navbar (60px) + breathing room */
 }
 
 body {
-  font-family: var(--font-sans);
-  background: var(--color-bg);
-  color: var(--color-text);
-  line-height: 1.6;
+  font-family: 'Inter', sans-serif;
+  font-feature-settings: "ss01", "cv11";
+  background: var(--bg);
+  color: var(--ink-t);
+  line-height: 1.55;
+  transition: background 300ms ease-out, color 300ms ease-out;
 }
 
 a {
@@ -68,7 +40,51 @@ img {
   display: block;
 }
 
-/* ── Shared utilities ── */
+/* ── Typography ── */
+h1, h2, h3 {
+  font-family: 'Inter Tight', 'Inter', sans-serif;
+  font-weight: 600;
+  line-height: 1;
+}
+
+h1 {
+  font-size: clamp(48px, 7.5vw, 104px);
+  letter-spacing: -0.035em;
+  line-height: 0.98;
+}
+
+h2 {
+  font-size: clamp(40px, 6vw, 80px);
+  letter-spacing: -0.035em;
+}
+
+h3 {
+  font-size: clamp(28px, 3.5vw, 40px);
+  letter-spacing: -0.025em;
+}
+
+h4 {
+  font-family: 'Inter Tight', 'Inter', sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+/* ── Spacing scale ── */
+:root {
+  --space-xs: 0.5rem;      /* 8px */
+  --space-sm: 1rem;        /* 16px */
+  --space-md: 1.5rem;      /* 24px */
+  --space-lg: clamp(2rem, calc(1.5rem + 1.5vw), 3rem);
+  --space-xl: clamp(3rem, calc(2rem + 3vw), 5rem);
+  --space-2xl: clamp(4rem, calc(2.5rem + 4.5vw), 7rem);
+  --space-3xl: clamp(5rem, calc(3rem + 6vw), 10rem);
+  --space-section: clamp(5rem, calc(3rem + 5.5vw), 9rem);
+  --space-section-gap: clamp(2rem, 5vw, 6rem);
+  --max-width: 1280px;
+}
+
+/* ── Layout utilities ── */
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
@@ -79,45 +95,176 @@ img {
   padding: var(--space-section) 0;
 }
 
-.section-badge {
-  display: inline-block;
-  font-family: var(--font-sans);
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--color-text);
-  background: var(--color-bg-alt);
-  border: none;
-  border-radius: var(--radius-pill);
-  padding: 0.4em 1.1em;
-  margin-bottom: var(--space-md);
+.features-section.section,
+.feature-section.section,
+.governance.section,
+.faq-section.section,
+.how-it-works.section {
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
+.faq-section.section {
+  padding-bottom: 100px;
+}
+
+#heartbeat-section {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+/* ── Section badge (eyebrow label) ── */
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  padding: 0.4rem 0.9rem;
+  border-radius: 9999px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-md);
+  color: var(--mono);
+}
+
+.section-badge[class*="section-badge--g"] {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
+}
+
+/* Dither overlay — same feTurbulence as hero (#ditherN); square tiles avoid stretch banding */
+.section-badge[class*="section-badge--g"]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.95' numOctaves='5' seed='9' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: var(--dither-tile-size) var(--dither-tile-size);
+  background-repeat: repeat;
+  opacity: 0.2;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.section-badge--g01 {
+  background: linear-gradient(90deg, #f7cfdc, #1f7a3a);
+  color: #fff;
+}
+
+.section-badge--g02 {
+  background: linear-gradient(90deg, #c9a9e8, #ee79a1);
+  color: #fff;
+}
+
+.section-badge--g03 {
+  background: linear-gradient(90deg, #28164b, #7a1530);
+  color: #fff;
+}
+
+.section-badge--g04 {
+  background: linear-gradient(90deg, #f3e6c4, #e3a21a);
+  color: #3d3010;
+  text-shadow: none;
+}
+
+.section-badge--g05 {
+  background: linear-gradient(90deg, #1f4dd6, #3aa35c);
+  color: #fff;
+}
+
+.section-badge--g06 {
+  background: linear-gradient(90deg, #e94b27, #5a1122);
+  color: #fff;
+}
+
+.section-badge--g07 {
+  background: linear-gradient(90deg, #7eb6e3, #ee79a1);
+  color: #fff;
+}
+
+.section-badge--g08 {
+  background: linear-gradient(90deg, #9ce8a7, #bd7ff0);
+  color: #2a2340;
+  text-shadow: none;
+}
+
+.section-badge--g09 {
+  background: linear-gradient(90deg, #f3b49e, #1f4ed4);
+  color: #fff;
+}
+
+.section-badge--g10 {
+  background: linear-gradient(90deg, #f2d95f, #4fbcba);
+  color: #1a3a38;
+  text-shadow: none;
+}
+
+.section-badge--g11 {
+  background: linear-gradient(90deg, #c2c2e8, #5e3450);
+  color: #fff;
+}
+
+.section-badge--g12 {
+  background: linear-gradient(90deg, #4db9b7, #3aa35c);
+  color: #fff;
+}
+
+/* ── heading-serif is now Inter Tight (was Instrument Serif) ── */
 .heading-serif {
-  font-family: var(--font-serif);
+  font-family: 'Inter Tight', 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--ink-t);
+}
+
+/* ── Heading helper alias ── */
+.heading-display {
+  font-family: 'Inter Tight', 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  color: var(--ink-t);
+}
+
+/* ── Text utilities ── */
+.body {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
   font-weight: 400;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
-  color: var(--color-text);
+}
+
+.body-lg {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.65;
+  font-weight: 400;
 }
 
 .text-muted {
-  color: var(--color-text-muted);
+  color: var(--mono);
 }
 
 .text-secondary {
-  color: var(--color-text-secondary);
+  color: var(--mono);
 }
 
+/* ── Divider ── */
 .section-divider {
   border: none;
+  border-top: 1px solid var(--rule);
   margin: 0;
-  display: none;
 }
 
-/* ── Placeholder graphic style (Duna-inspired warm rounded cards) ── */
+/* ── Graphic placeholder ── */
 .graphic-placeholder {
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border-radius: var(--r-md);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -129,5 +276,3 @@ img {
   width: 100%;
   height: 100%;
 }
-
-/* clamp() handles responsive spacing — no breakpoint overrides needed */
