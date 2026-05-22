@@ -1,25 +1,4 @@
 ---
-let starCount = '';
-try {
-  const ghToken = import.meta.env.GITHUB_TOKEN;
-  const res = await fetch('https://api.github.com/repos/paperclipai/paperclip', {
-    headers: {
-      'Accept': 'application/vnd.github.v3+json',
-      ...(ghToken ? { 'Authorization': `Bearer ${ghToken}` } : {}),
-    },
-  });
-  if (res.ok) {
-    const data = await res.json();
-    const count = data.stargazers_count;
-    if (typeof count === 'number' && count > 0) {
-      starCount = count >= 1000
-        ? `${(count / 1000).toFixed(1).replace(/\.0$/, '')}k`
-        : String(count);
-    }
-  }
-} catch {
-  // Silently fail — just show "Star" without a count
-}
 ---
 
 <nav class="navbar">
@@ -41,11 +20,62 @@ try {
     <div class="navbar-right">
       <a href="https://github.com/paperclipai/paperclip" class="navbar-cta">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        Star{starCount && <span class="navbar-cta-count">{starCount}</span>}
+        Star<span class="navbar-cta-count" data-star-count hidden></span>
       </a>
     </div>
   </div>
 </nav>
+
+<script is:inline>
+  (function () {
+    var REPO = 'paperclipai/paperclip';
+    var CACHE_KEY = 'paperclip-star-count';
+    var TTL_MS = 5 * 60 * 1000; // 5 minutes
+
+    function format(count) {
+      if (typeof count !== 'number' || count <= 0) return '';
+      return count >= 1000
+        ? (count / 1000).toFixed(1).replace(/\.0$/, '') + 'k'
+        : String(count);
+    }
+
+    function render(text) {
+      if (!text) return;
+      document.querySelectorAll('[data-star-count]').forEach(function (el) {
+        el.textContent = text;
+        el.hidden = false;
+      });
+    }
+
+    // Render cached value immediately if present (avoids flash on subsequent loads)
+    try {
+      var raw = localStorage.getItem(CACHE_KEY);
+      if (raw) {
+        var cached = JSON.parse(raw);
+        if (cached && typeof cached.count === 'number') {
+          render(format(cached.count));
+          if (cached.ts && Date.now() - cached.ts < TTL_MS) return; // fresh, skip fetch
+        }
+      }
+    } catch (_) {}
+
+    fetch('https://api.github.com/repos/' + REPO, {
+      headers: { 'Accept': 'application/vnd.github.v3+json' },
+    })
+      .then(function (res) { return res.ok ? res.json() : null; })
+      .then(function (data) {
+        if (!data || typeof data.stargazers_count !== 'number') return;
+        render(format(data.stargazers_count));
+        try {
+          localStorage.setItem(CACHE_KEY, JSON.stringify({
+            count: data.stargazers_count,
+            ts: Date.now(),
+          }));
+        } catch (_) {}
+      })
+      .catch(function () { /* silently fail */ });
+  })();
+</script>
 
 <style>
   .navbar {
