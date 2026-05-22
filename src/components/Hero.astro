@@ -1,12 +1,35 @@
 ---
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+// Inline the hero gradient SVGs so the embedded feTurbulence noise filter
+// rasterizes at the device pixel ratio (sharp on retina). When loaded as
+// <img>, browsers rasterize the SVG — including filter primitives — at
+// the SVG's intrinsic CSS size and then upscale, which makes the dither
+// look blurry on 2x+ displays.
+const publicDir = fileURLToPath(new URL('../../public/', import.meta.url));
+const desktopSvgRaw = fs.readFileSync(`${publicDir}paperclip_blendRow_1230631627_1200x675.svg`, 'utf-8');
+const mobileSvgRaw = fs.readFileSync(`${publicDir}paperclip_blendRow_1200x675-fine.svg`, 'utf-8');
+
+// Both SVGs reuse the same internal IDs (g0..g44, ditherN, ditherMask, pc-caps).
+// With both inlined in the same document the second copy would otherwise steal
+// gradients/masks from the first, so namespace one of them.
+function namespaceSvgIds(svg: string, prefix: string): string {
+  return svg
+    .replace(/\bid="([^"]+)"/g, `id="${prefix}$1"`)
+    .replace(/\burl\(#([^)]+)\)/g, `url(#${prefix}$1)`)
+    .replace(/\bhref="#([^"]+)"/g, `href="#${prefix}$1"`)
+    .replace(/\bxlink:href="#([^"]+)"/g, `xlink:href="#${prefix}$1"`);
+}
+
+const desktopSvg = desktopSvgRaw;
+const mobileSvg = namespaceSvgIds(mobileSvgRaw, 'm-');
 ---
 
 <section class="hero">
   <div class="hero-bg" aria-hidden="true">
-    <picture>
-      <source media="(max-width: 768px)" srcset="/paperclip_blendRow_1200x675-fine.svg" />
-      <img src="/paperclip_blendRow_1230631627_1200x675.svg" alt="" width="1200" height="675" decoding="async" fetchpriority="high" />
-    </picture>
+    <div class="hero-bg-svg hero-bg-svg-desktop" set:html={desktopSvg} />
+    <div class="hero-bg-svg hero-bg-svg-mobile" set:html={mobileSvg} />
   </div>
   <div class="container hero-inner">
     <h1 class="hero-headline">
@@ -45,13 +68,22 @@
     will-change: transform;
   }
 
-  .hero-bg img {
+  /* Wrapper around each inlined SVG. `display: contents` lets the inner <svg>
+     act as the direct flex child of .hero-bg so the existing centering works. */
+  .hero-bg-svg {
+    display: contents;
+  }
+
+  .hero-bg-svg-mobile {
+    display: none;
+  }
+
+  /* Inlined SVGs are injected via `set:html` and don't receive Astro's
+     scoping attribute, so selectors targeting them must use :global(svg). */
+  .hero-bg :global(svg) {
     display: block;
     width: min(1200px, 100%);
     height: auto;
-    max-width: none;
-    max-height: none;
-    object-fit: contain;
     opacity: 0;
     transform: translateY(-24px);
     animation: heroBgEnter 1100ms var(--ease-enter, cubic-bezier(0.22, 1, 0.36, 1)) 80ms both;
@@ -60,7 +92,7 @@
 
   /* Light mode: soften the hero SVG so the dark H1 reads cleanly. */
   /* Desaturate the vivid stops, lift the dark navy/purple, and ease overall contrast. */
-  :global([data-theme="light"]) .hero-bg img {
+  :global([data-theme="light"]) .hero-bg :global(svg) {
     filter: saturate(1) brightness(1) contrast(1);
   }
 
@@ -112,13 +144,18 @@
 
   @media (prefers-reduced-motion: reduce) {
     .hero-bg,
-    .hero-bg img,
     .hero-headline,
     .hero-lede {
       will-change: auto;
     }
 
-    .hero-bg img,
+    .hero-bg :global(svg) {
+      will-change: auto;
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+
     .hero-headline,
     .hero-lede {
       opacity: 1;
@@ -223,11 +260,23 @@
     }
 
     .hero-bg {
-      --hero-bg-y: -200px;
+      /* Less negative than desktop's -250 to keep a similar ratio of
+         translate-to-SVG-height (desktop ≈ 43% of 576 px; here ≈ 34% of
+         ~385 px), and so the bottom of the capsule columns overlaps the
+         H1 in the same way it does on desktop instead of leaving a gap. */
+      --hero-bg-y: -130px;
+    }
+
+    .hero-bg-svg-desktop {
+      display: none;
+    }
+
+    .hero-bg-svg-mobile {
+      display: contents;
     }
 
     /* Keep capsules large; bottom overlaps headline like desktop */
-    .hero-bg img {
+    .hero-bg :global(svg) {
       width: min(1200px, 172vw);
     }
 
@@ -243,7 +292,7 @@
   const mobileMq = window.matchMedia('(max-width: 768px)');
 
   function getHeroBgBaseY() {
-    return mobileMq.matches ? -200 : -250;
+    return mobileMq.matches ? -130 : -250;
   }
 
   let teardownHeroBgParallax: (() => void) | undefined;
