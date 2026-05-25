@@ -133,7 +133,7 @@ h4 {
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
+  text-shadow: none;
 }
 
 /* Dither overlay — same feTurbulence as hero (#ditherN); square tiles avoid stretch banding */
@@ -145,19 +145,19 @@ h4 {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.95' numOctaves='5' seed='9' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: var(--dither-tile-size) var(--dither-tile-size);
   background-repeat: repeat;
-  opacity: 0.2;
+  opacity: 0.12;
   mix-blend-mode: overlay;
   pointer-events: none;
 }
 
 .section-badge--g01 {
-  background: linear-gradient(90deg, #f7cfdc, #1f7a3a);
+  background: linear-gradient(90deg, #dc2f68, #1f7a3a);
   color: #fff;
 }
 
 .section-badge--g02 {
   background: linear-gradient(90deg, #c9a9e8, #ee79a1);
-  color: #fff;
+  color: #2a1530;
 }
 
 .section-badge--g03 {
@@ -172,18 +172,18 @@ h4 {
 }
 
 .section-badge--g05 {
-  background: linear-gradient(90deg, #1f4dd6, #3aa35c);
+  background: linear-gradient(90deg, #1f4dd6, #2f844a);
   color: #fff;
 }
 
 .section-badge--g06 {
-  background: linear-gradient(90deg, #e94b27, #5a1122);
+  background: linear-gradient(90deg, #d83a16, #5a1122);
   color: #fff;
 }
 
 .section-badge--g07 {
   background: linear-gradient(90deg, #7eb6e3, #ee79a1);
-  color: #fff;
+  color: #1a2a40;
 }
 
 .section-badge--g08 {
@@ -193,7 +193,7 @@ h4 {
 }
 
 .section-badge--g09 {
-  background: linear-gradient(90deg, #f3b49e, #1f4ed4);
+  background: linear-gradient(90deg, #c94e38, #1f4ed4);
   color: #fff;
 }
 
@@ -204,12 +204,12 @@ h4 {
 }
 
 .section-badge--g11 {
-  background: linear-gradient(90deg, #c2c2e8, #5e3450);
+  background: linear-gradient(90deg, #6b6bc7, #5e3450);
   color: #fff;
 }
 
 .section-badge--g12 {
-  background: linear-gradient(90deg, #4db9b7, #3aa35c);
+  background: linear-gradient(90deg, #32807e, #2f844a);
   color: #fff;
 }
 
