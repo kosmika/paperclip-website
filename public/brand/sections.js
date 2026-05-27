@@ -38,48 +38,6 @@
         });
       })();
 
-/* ── 09-voice.html ── */
-(() => {
-        const input = document.getElementById('voice-input');
-        const out = document.getElementById('voice-output');
-        const btn = document.getElementById('voice-rewrite');
-        const status = document.getElementById('voice-status');
-        if (!btn) return;
-        btn.addEventListener('click', async () => {
-          const text = input.value.trim();
-          if (!text) return;
-          btn.disabled = true;
-          status.textContent = 'thinking…';
-          out.style.display = 'block';
-          out.textContent = '';
-          try {
-            const prompt = `You are the Paperclip brand voice. Rewrite the following copy in this voice:
-
-VOICE RULES:
-- Direct. Confident. Never decorative.
-- Short sentences. Active verbs. One idea per sentence.
-- Cut buzzwords ("revolutionary", "game-changing", "next-gen", "powerful", "robust", "scalable", "unlock", "leverage", "empower", "synergy", "seamless").
-- Active voice. No passive voice.
-- No exclamation marks. No emoji.
-- Specificity over superlatives. Name concrete things (org charts, budgets, goals, traces).
-- The reader is in charge. Use imperative verbs where natural.
-
-Return ONLY the rewritten copy — no preamble, no explanation, no quotes.
-
-Copy to rewrite:
-${text}`;
-            const result = await window.claude.complete(prompt);
-            out.textContent = result.trim();
-            status.textContent = 'done.';
-          } catch (e) {
-            out.textContent = '— rewriter unavailable. Try again in a moment.';
-            status.textContent = 'error';
-          }
-          btn.disabled = false;
-          setTimeout(() => { status.textContent = ''; }, 2000);
-        });
-      })();
-
 /* ── 10-motion.html ── */
 (() => {
       const stagger = document.querySelector('[data-demo="stagger"] #m-stagger');

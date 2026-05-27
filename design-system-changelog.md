@@ -85,7 +85,44 @@ Pre-rebrand snapshot. Steel/linen/parchment/manila/vellum brand tokens become re
 
 ## Guide maintenance
 
+### Updated · Design tokens & color copy (§04, §14)
+
+**Date:** 27 May 2026
+
+- **§14 Design tokens:** Headline and lede now match what the page shows (CSS canonical, Tailwind for product, JSON for tooling/Figma). Removed incorrect TypeScript export and “W3C-ish” hedging. Added subsection intros for CSS, Tailwind, and JSON; shortened subsection tags; unified copy buttons to “Copy all.”
+- **§04 Color:** Lede material examples corrected — `stone` → `vellum` to match the neutral token vocabulary.
+
 The following were removed from the live design system page and archived here:
 
 - **Section 15 · Changelog** (versions, decisions log, open questions) → this file
 - **Design tokens · Live playground** (interactive token editor) → removed; edit tokens in `tokens.css` / regenerate exports directly
+- **Section 09 · Tone of voice · Tone rewriter** (Claude-powered live rewrite demo) → archived below
+
+### Archived · Tone rewriter (Section 09)
+
+**Removed:** 27 May 2026  
+**Was in:** `src/components/brand/sections/09-voice.html` (subsection after "In practice")
+
+Interactive demo: paste any sentence, click "Rewrite in Paperclip voice", get a Claude rewrite aligned to the four pillars (direct, active, no buzzwords, no exclamation marks).
+
+**UI**
+
+- Subsection tag: `POWERED BY CLAUDE`
+- Intro: "Drop in any sentence and see it rewritten in the Paperclip voice — directly, with active verbs, no superlatives, no exclamation marks."
+- Textarea (`#voice-input`) with placeholder and default example copy
+- Button: "Rewrite in Paperclip voice" (`#voice-rewrite`)
+- Status line (`#voice-status`) — "thinking…" / "done." / "error"
+- Output panel (`#voice-output`) — display font, hidden until first rewrite
+
+**Behavior** (`public/brand/sections.js`, extracted from inline script)
+
+- On click: disable button, show output, call `window.claude.complete(prompt)`
+- Prompt encodes voice rules (cut buzzwords, active voice, no emoji/exclamation marks, specificity, reader in charge)
+- Returns trimmed rewrite only; fallback copy on error: "— rewriter unavailable. Try again in a moment."
+- Requires `window.claude.complete` on the brand page
+
+**Idea to revisit**
+
+- Useful as a onboarding tool for writers and agent prompt authors
+- Could return as a standalone `/brand/tools/voice` page or embed in docs
+- Consider local/heuristic rewrite first, Claude as optional enhancement

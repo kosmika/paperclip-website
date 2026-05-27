@@ -1,13 +1,14 @@
 <section class="section" id="tokens">
   <div class="section-head">
     <div class="eyebrow"><span class="eyebrow-num">14</span><span class="eyebrow-line"></span><span class="eyebrow-label">DESIGN TOKENS</span></div>
-    <h2 class="display-2">One token model.  Three formats.</h2>
-    <p class="lede">Tokens ship as <code>CSS</code> custom properties (canonical), <code>JSON</code> (W3C-ish — for tooling and Tailwind), and a <code>TypeScript</code> object (for the React product). Same names, same values. Edit one source, regenerate the rest.</p>
+    <h2 class="display-2">One model.  CSS canonical.</h2>
+    <p class="lede">Tokens ship as <code>CSS</code> custom properties (source of truth), a Tailwind theme extension for the React product, and <code>JSON</code> for tooling and Figma. Same names, same values. <code>tokens.css</code> is canonical; Tailwind and JSON exports stay aligned on release.</p>
   </div>
 
   <!-- ============ CSS TOKENS ============ -->
   <div class="subsection">
     <div class="subsection-head"><h3>CSS variables</h3><span class="subsection-tag">CANONICAL</span></div>
+    <p class="subsection-intro">Import once. Semantic tokens swap under <code>[data-theme="dark"]</code>; brand neutrals and status colors stay literal.</p>
     <div class="example" style="padding:0">
       <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:var(--surface);border-bottom:1px solid var(--rule)">
         <span class="mono" style="font-size:11px;color:var(--text-muted)">tokens.css</span>
@@ -122,11 +123,12 @@
 
   <!-- ============ TAILWIND ============ -->
   <div class="subsection">
-    <div class="subsection-head"><h3>Tailwind theme</h3><span class="subsection-tag">FOR THE PRODUCT (REACT + TAILWIND + SHADCN)</span></div>
+    <div class="subsection-head"><h3>Tailwind theme</h3><span class="subsection-tag">PRODUCT · TAILWIND · SHADCN</span></div>
+    <p class="subsection-intro">Semantic colors point at CSS vars so dark mode flips without duplicating hex in TypeScript.</p>
     <div class="example" style="padding:0">
       <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:var(--surface);border-bottom:1px solid var(--rule)">
         <span class="mono" style="font-size:11px;color:var(--text-muted)">tailwind.config.ts</span>
-        <button class="copy-btn" data-copy-target="#tw-tokens">Copy</button>
+        <button class="copy-btn" data-copy-target="#tw-tokens">Copy all</button>
       </div>
       <pre id="tw-tokens" style="margin:0;padding:20px;font-family:var(--font-mono);font-size:12px;line-height:1.6;color:var(--text);background:var(--bg);overflow:auto;max-height:480px">import type { Config } from 'tailwindcss'
 
@@ -182,11 +184,12 @@ export default {
 
   <!-- ============ JSON ============ -->
   <div class="subsection">
-    <div class="subsection-head"><h3>JSON (W3C-style)</h3><span class="subsection-tag">FOR TOOLING · FIGMA SYNC</span></div>
+    <div class="subsection-head"><h3>JSON</h3><span class="subsection-tag">TOOLING · FIGMA</span></div>
+    <p class="subsection-intro">Neutral ramp, status, and radius for Figma and token pipelines. Not a full export of motion, spacing, or the agent palette — extend as needed.</p>
     <div class="example" style="padding:0">
       <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:var(--surface);border-bottom:1px solid var(--rule)">
         <span class="mono" style="font-size:11px;color:var(--text-muted)">tokens.json</span>
-        <button class="copy-btn" data-copy-target="#json-tokens">Copy</button>
+        <button class="copy-btn" data-copy-target="#json-tokens">Copy all</button>
       </div>
       <pre id="json-tokens" style="margin:0;padding:20px;font-family:var(--font-mono);font-size:12px;line-height:1.6;color:var(--text);background:var(--bg);overflow:auto;max-height:380px">{
   "color": {
