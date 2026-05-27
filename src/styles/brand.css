@@ -461,14 +461,16 @@ body.nav-open { overflow: hidden; }
   .nav-toggle { display: inline-flex; }
   .site-header-inner { padding-top: 12px; padding-bottom: 12px; gap: 12px; }
   .brand-sub { display: none; }
-  .example { padding: 16px; overflow-x: clip; }
-  .example.table-wrap {
+  .example:not(.table-wrap):not(.scroll-x) { padding: 16px; overflow-x: clip; }
+  .example.table-wrap,
+  .example.scroll-x {
     overflow-x: auto;
     width: 100%;
     max-width: 100%;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-x: contain;
   }
+  .example.table-wrap { padding: 0; }
   .example.dense { padding: 12px; }
   .hero { padding-top: var(--space-7); padding-bottom: var(--space-6); }
   .section { padding-top: var(--space-7); padding-bottom: var(--space-7); }
@@ -1283,6 +1285,38 @@ input[type="range"]::-moz-range-thumb {
   font-family: var(--font-body);
   font-weight: 500;
   color: var(--text);
+}
+
+/* Wide product mockups — scroll horizontally on narrow viewports */
+.example.scroll-x {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+
+.trace-log {
+  min-width: 640px;
+}
+
+.trace-event {
+  display: grid;
+  grid-template-columns: 84px 16px minmax(180px, 1fr) 120px 132px;
+  gap: 16px;
+  padding: 12px 24px;
+  align-items: center;
+  border-top: 1px solid var(--rule);
+}
+
+.trace-event > :nth-child(3) {
+  white-space: nowrap;
+}
+
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(132px, 1fr));
+  gap: 10px;
+  min-width: 980px;
+  font-family: var(--font-body);
 }
 
 /* ---------- 10. ANNOTATIONS ---------------------------------- */

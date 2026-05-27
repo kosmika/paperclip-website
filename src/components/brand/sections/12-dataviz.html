@@ -71,44 +71,43 @@
     <div class="subsection-head"><h3>Conversation trace</h3><span class="subsection-tag">EVENT LOG</span></div>
 
     <div class="example table-wrap">
-      <div style="padding:18px 24px;border-bottom:1px solid var(--rule);display:flex;justify-content:space-between;align-items:baseline">
-        <div><span style="font-family:var(--font-mono);font-size:12px;color:var(--text-muted)">#1042</span> · <span style="font-weight:500">Deploy updated pricing page</span></div>
-        <span class="task-chip task-chip--progress">
-          <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="4.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M6 1.5 A4.5 4.5 0 0 1 6 10.5 Z" fill="currentColor"/></svg>
-          In progress
-        </span>
-      </div>
-      <div>
-        <!-- trace events -->
-        <div style="display:grid;grid-template-columns:84px 16px 1fr 120px 132px;gap:16px;padding:12px 24px;align-items:center;border-top:1px solid var(--rule)">
+      <div class="trace-log">
+        <div style="padding:18px 24px;border-bottom:1px solid var(--rule);display:flex;justify-content:space-between;align-items:baseline">
+          <div><span style="font-family:var(--font-mono);font-size:12px;color:var(--text-muted)">#1042</span> · <span style="font-weight:500">Deploy updated pricing page</span></div>
+          <span class="task-chip task-chip--progress">
+            <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="4.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M6 1.5 A4.5 4.5 0 0 1 6 10.5 Z" fill="currentColor"/></svg>
+            In progress
+          </span>
+        </div>
+        <div class="trace-event">
           <span class="mono" style="font-size:12px;color:var(--text-muted)">14:32:07</span>
           <span style="width:10px;height:10px;border-radius:50%;border:1.5px solid var(--blue);background:transparent;margin:auto"></span>
           <span style="font-size:14px">Goal set: "Deploy to prod after tests pass"</span>
           <span class="mono" style="font-size:12px;color:var(--text-muted);text-align:right">You</span>
           <span class="mono" style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--blue);color:var(--blue);border-radius:4px;padding:2px 8px;text-align:center">GOAL SET</span>
         </div>
-        <div style="display:grid;grid-template-columns:84px 16px 1fr 120px 132px;gap:16px;padding:12px 24px;align-items:center;border-top:1px solid var(--rule)">
+        <div class="trace-event">
           <span class="mono" style="font-size:12px;color:var(--text-muted)">14:33:14</span>
           <span style="width:10px;height:10px;border-radius:50%;border:1.5px solid var(--blue);background:transparent;margin:auto"></span>
           <span style="font-size:14px">Budget set: $50 hard limit</span>
           <span class="mono" style="font-size:12px;color:var(--text-muted);text-align:right">You</span>
           <span class="mono" style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--blue);color:var(--blue);border-radius:4px;padding:2px 8px;text-align:center">BUDGET SET</span>
         </div>
-        <div style="display:grid;grid-template-columns:84px 16px 1fr 120px 132px;gap:16px;padding:12px 24px;align-items:center;border-top:1px solid var(--rule)">
+        <div class="trace-event">
           <span class="mono" style="font-size:12px;color:var(--text-muted)">14:34:02</span>
           <span style="width:10px;height:10px;border-radius:50%;border:1.5px solid var(--signal);background:transparent;margin:auto"></span>
           <span style="font-size:14px">run_tests() — 142 passed, 0 failed</span>
           <span class="mono" style="font-size:12px;color:var(--text-muted);text-align:right">CTO Codex</span>
           <span class="mono" style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--signal);color:var(--signal-deep);border-radius:4px;padding:2px 8px;text-align:center">PASSED</span>
         </div>
-        <div style="display:grid;grid-template-columns:84px 16px 1fr 120px 132px;gap:16px;padding:12px 24px;align-items:center;border-top:1px solid var(--rule)">
+        <div class="trace-event">
           <span class="mono" style="font-size:12px;color:var(--text-muted)">14:34:38</span>
           <span style="width:10px;height:10px;border-radius:50%;border:1.5px solid var(--signal);background:transparent;margin:auto"></span>
           <span style="font-size:14px">deploy_to_staging() — succeeded in 28s</span>
           <span class="mono" style="font-size:12px;color:var(--text-muted);text-align:right">CTO Codex</span>
           <span class="mono" style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--signal);color:var(--signal-deep);border-radius:4px;padding:2px 8px;text-align:center">DEPLOYED</span>
         </div>
-        <div style="display:grid;grid-template-columns:84px 16px 1fr 120px 132px;gap:16px;padding:12px 24px;align-items:center;border-top:1px solid var(--rule)">
+        <div class="trace-event">
           <span class="mono" style="font-size:12px;color:var(--text-muted)">14:35:11</span>
           <span style="width:10px;height:10px;border-radius:50%;border:1.5px solid var(--amber);background:transparent;margin:auto"></span>
           <span style="font-size:14px">smoke_test() — 1 timeout, retrying</span>
