@@ -1,0 +1,79 @@
+<section class="section" id="radius">
+  <div class="section-head">
+    <div class="eyebrow"><span class="eyebrow-num">06</span><span class="eyebrow-line"></span><span class="eyebrow-label">BORDER RADIUS</span></div>
+    <h2 class="display-2">Five radii.  Each with a meaning.</h2>
+    <p class="lede">Radius isn't decoration — it signals what kind of thing you're touching. A pill is a primary action. A 16px rounded rect is a card. A capsule is an agent.</p>
+  </div>
+
+  <div class="subsection">
+    <div class="grid-3" style="gap:16px">
+
+      <div class="example" style="text-align:center">
+        <div style="width:120px;height:80px;background:var(--text);border-radius:4px;margin:0 auto"></div>
+        <div class="swatch-name" style="margin-top:16px">XS · 4px</div>
+        <div class="swatch-token">--r-xs</div>
+        <p class="body-sm" style="color:var(--text-2);margin-top:8px">Status pills · code chips · table cells</p>
+      </div>
+
+      <div class="example" style="text-align:center">
+        <div style="width:120px;height:80px;background:var(--text);border-radius:10px;margin:0 auto"></div>
+        <div class="swatch-name" style="margin-top:16px">SM · 10px</div>
+        <div class="swatch-token">--r-sm</div>
+        <p class="body-sm" style="color:var(--text-2);margin-top:8px">Inputs · small cards · agent cards in lists</p>
+      </div>
+
+      <div class="example" style="text-align:center">
+        <div style="width:120px;height:80px;background:var(--text);border-radius:16px;margin:0 auto"></div>
+        <div class="swatch-name" style="margin-top:16px">MD · 16px</div>
+        <div class="swatch-token">--r-md</div>
+        <p class="body-sm" style="color:var(--text-2);margin-top:8px">Default card · panel · feature blocks</p>
+      </div>
+
+      <div class="example" style="text-align:center">
+        <div style="width:120px;height:80px;background:var(--text);border-radius:24px;margin:0 auto"></div>
+        <div class="swatch-name" style="margin-top:16px">LG · 24px</div>
+        <div class="swatch-token">--r-lg</div>
+        <p class="body-sm" style="color:var(--text-2);margin-top:8px">Modals · large surfaces · terminal block</p>
+      </div>
+
+      <div class="example" style="text-align:center">
+        <div style="width:120px;height:48px;background:var(--text);border-radius:9999px;margin:0 auto"></div>
+        <div class="swatch-name" style="margin-top:16px">PILL · 9999px</div>
+        <div class="swatch-token">--r-pill</div>
+        <p class="body-sm" style="color:var(--text-2);margin-top:8px"><strong>Primary CTA only.</strong> Buttons that initiate action. Also: theme toggle, badge chips.</p>
+      </div>
+
+      <div class="example" style="text-align:center">
+        <div style="width:40px;height:80px;background:var(--text);border-radius:9999px;margin:0 auto"></div>
+        <div class="swatch-name" style="margin-top:16px">CAPSULE · 50%</div>
+        <div class="swatch-token">--r-capsule</div>
+        <p class="body-sm" style="color:var(--text-2);margin-top:8px"><strong>Agents only.</strong> Stadium pill at 1:2 ratio. Reserved for capsule motif.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-head"><h3>The pill rule</h3><span class="subsection-tag">CHROME ECHOES BRAND</span></div>
+    <p class="subsection-intro">Pill (<code>--r-pill</code>) is reserved for primary actions. Echoes the capsule motif at the chrome level — the brand mark and the call-to-action are the same shape. Everything else uses 8/10/16/24px rounded rect.</p>
+
+    <div class="grid-2">
+      <div class="example">
+        <span class="compare-label good">DO</span>
+        <div class="row" style="gap:10px;margin-top:8px">
+          <button class="btn btn-primary btn-sm">Get started</button>
+          <button class="btn btn-secondary btn-sm" style="border-radius:10px">Read the docs</button>
+        </div>
+        <p class="body-sm" style="color:var(--text-2);margin-top:14px">Pill is primary. Secondary is 10px rounded — close to the input shape, not the agent shape.</p>
+      </div>
+      <div class="example">
+        <span class="compare-label bad">DON'T</span>
+        <div class="row" style="gap:10px;margin-top:8px">
+          <button class="btn btn-primary btn-sm" style="border-radius:6px">Get started</button>
+          <button class="btn btn-secondary btn-sm" style="border-radius:9999px">Read the docs</button>
+        </div>
+        <p class="body-sm" style="color:var(--text-2);margin-top:14px">Don't pill secondaries. Don't square-off primaries. The shape vocabulary is part of the brand.</p>
+      </div>
+    </div>
+  </div>
+</section>

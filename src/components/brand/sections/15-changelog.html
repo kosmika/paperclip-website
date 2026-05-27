@@ -1,0 +1,102 @@
+<section class="section" id="changelog">
+  <div class="section-head">
+    <div class="eyebrow"><span class="eyebrow-num">15</span><span class="eyebrow-line"></span><span class="eyebrow-label">CHANGELOG</span></div>
+    <h2 class="display-2">Versioned. Tracked.  Reversible.</h2>
+    <p class="lede">Every named version is a navigable snapshot. The current page is the live system; the version dropdown in the header swaps the whole page to a prior state. Decisions are logged with a date, rationale, and impact.</p>
+  </div>
+
+  <!-- ============ VERSION LIST ============ -->
+  <div class="subsection">
+    <div class="subsection-head"><h3>Versions</h3><span class="subsection-tag">RELEASES</span></div>
+
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <article class="card" style="padding:24px;display:grid;grid-template-columns:120px 1fr;gap:24px;align-items:start">
+        <div>
+          <div class="mono" style="font-size:11px;color:var(--text-muted);letter-spacing:0.06em">22 NOV 2026</div>
+          <div style="font-family:var(--font-display);font-size:32px;font-weight:400;line-height:1;margin-top:6px">v1.0</div>
+          <div style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:2px 10px;border:1px solid var(--signal);background:var(--signal-soft);color:var(--signal-deep);border-radius:9999px;font-size:11px;font-weight:500"><span style="width:6px;height:6px;border-radius:50%;background:var(--signal)"></span>Current</div>
+        </div>
+        <div>
+          <h4 class="display-4" style="margin:0;font-size:22px">Brand &amp; product unification.</h4>
+          <p style="font-size:15px;line-height:1.5;color:var(--text-2);margin-top:8px;max-width:60ch">First named release. Synthesis of paperclip.ing's editorial light palette with v0.13's product systems. New typeface (Instrument Serif), warm-neutral light mode, signal-green accent, full task-state vocabulary, and a single token model that covers both brand and product.</p>
+          <ul style="margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;font-size:13px">
+            <li><span class="mono" style="color:var(--signal-deep);background:var(--signal-soft);padding:1px 6px;border-radius:3px;font-size:10px;margin-right:8px">ADD</span>Instrument Serif as display face (was Inter Tight).</li>
+            <li><span class="mono" style="color:var(--signal-deep);background:var(--signal-soft);padding:1px 6px;border-radius:3px;font-size:10px;margin-right:8px">ADD</span>Signal Green <code>#22C55E</code> replaces cobalt as the brand accent.</li>
+            <li><span class="mono" style="color:var(--signal-deep);background:var(--signal-soft);padding:1px 6px;border-radius:3px;font-size:10px;margin-right:8px">ADD</span>Light-mode bg → <code>--bond</code> (pure white). Steel removed from light defaults.</li>
+            <li><span class="mono" style="color:var(--signal-deep);background:var(--signal-soft);padding:1px 6px;border-radius:3px;font-size:10px;margin-right:8px">ADD</span>Task state vocabulary: backlog · todo · in progress · in review · done · canceled · blocked.</li>
+            <li><span class="mono" style="color:var(--signal-deep);background:var(--signal-soft);padding:1px 6px;border-radius:3px;font-size:10px;margin-right:8px">ADD</span>Graphic generator embedded — six templates × six palettes × six backgrounds.</li>
+            <li><span class="mono" style="color:var(--signal-deep);background:var(--signal-soft);padding:1px 6px;border-radius:3px;font-size:10px;margin-right:8px">ADD</span>Tone-of-voice rewriter (Claude-powered).</li>
+            <li><span class="mono" style="color:var(--signal-deep);background:var(--signal-soft);padding:1px 6px;border-radius:3px;font-size:10px;margin-right:8px">ADD</span>Tailwind + JSON token exports alongside CSS.</li>
+            <li><span class="mono" style="color:var(--text);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:10px;margin-right:8px">DOC</span>Logo: stroke-based paperclip mark formalized with sizing ramp and clear-space.</li>
+            <li><span class="mono" style="color:var(--text);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:10px;margin-right:8px">DOC</span>Midjourney <code>--sref 9mlaok7</code> documented for AI-generated imagery.</li>
+            <li><span class="mono" style="color:var(--amber-deep);background:var(--amber-soft);padding:1px 6px;border-radius:3px;font-size:10px;margin-right:8px">DROP</span>Cobalt as brand accent (still in agent palette).</li>
+            <li><span class="mono" style="color:var(--amber-deep);background:var(--amber-soft);padding:1px 6px;border-radius:3px;font-size:10px;margin-right:8px">DROP</span>Inter Tight as display face.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card" style="padding:24px;display:grid;grid-template-columns:120px 1fr;gap:24px;align-items:start">
+        <div>
+          <div class="mono" style="font-size:11px;color:var(--text-muted);letter-spacing:0.06em">15 MAY 2026</div>
+          <div style="font-family:var(--font-display);font-size:32px;font-weight:400;line-height:1;margin-top:6px">v0.13</div>
+          <div style="margin-top:8px"><a href="versions/v0.13.html" class="btn btn-sm btn-secondary" style="border-radius:10px;font-size:12px;padding:5px 12px">Open snapshot →</a></div>
+        </div>
+        <div>
+          <h4 class="display-4" style="margin:0;font-size:22px">Material vocabulary &amp; warm-neutral ramp.</h4>
+          <p style="font-size:15px;line-height:1.5;color:var(--text-2);margin-top:8px;max-width:60ch">Pre-rebrand snapshot. Steel/linen/parchment/manila/vellum brand tokens become real CSS variables; semantic tokens reference them. Capsule motif + agent palette + heartbeats + traces + goal hierarchy all stable.</p>
+          <ul style="margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--text-2)">
+            <li>· Added linen, parchment, vellum to the warm ramp.</li>
+            <li>· Display face: Inter Tight at 600.</li>
+            <li>· Accent: Cobalt <code>#1F4DD6</code>.</li>
+            <li>· Light bg: Steel <code>#D8DCDF</code>.</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- ============ DECISIONS LOG ============ -->
+  <div class="subsection">
+    <div class="subsection-head"><h3>Decisions log</h3><span class="subsection-tag">RATIONALE PER CHANGE</span></div>
+
+    <div class="example table-wrap">
+      <table style="width:100%;border-collapse:collapse;font-family:var(--font-body)">
+        <thead>
+          <tr style="background:var(--surface)">
+            <th style="text-align:left;padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);width:90px">DATE</th>
+            <th style="text-align:left;padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);width:60px">VER</th>
+            <th style="text-align:left;padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted)">DECISION</th>
+            <th style="text-align:left;padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted)">RATIONALE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">2026‑11‑22</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px">v1.0</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-size:13px">Display face → Instrument Serif</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--text-2)">Editorial gravity. Reads "magazine for serious software" instead of "another B2B SaaS." Weight 400 only.</td></tr>
+          <tr><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">2026‑11‑22</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px">v1.0</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-size:13px">Light bg → bond (#FFF), not steel</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--text-2)">Steel was a strong opinion that didn't survive contact with real content. White + warm neutrals reads cleaner without losing the editorial feel.</td></tr>
+          <tr><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">2026‑11‑22</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px">v1.0</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-size:13px">Brand accent → signal green</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--text-2)">"Active" is the most important state in an agent OS. Aligning the brand accent with "alive" makes every active surface read at a glance.</td></tr>
+          <tr><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">2026‑11‑22</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px">v1.0</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-size:13px">7 task states fixed</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--text-2)">Linear-style fixed vocabulary. Each state has a fixed icon + color so a "Done" chip on the board reads the same in a row, in a chip, in a trace.</td></tr>
+          <tr><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">2026‑11‑22</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px">v1.0</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-size:13px">Radius scale collapses to 5 steps</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--text-2)">10/16/24 + pill + capsule. Brand-level shape vocabulary stays small and decisive.</td></tr>
+          <tr><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">2026‑05‑15</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px">v0.13</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-size:13px">+linen, +parchment, +vellum warm tokens</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--text-2)">Expanded warm end of the neutral ramp.</td></tr>
+          <tr><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">2026‑05‑14</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px">v0.12</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-size:13px">Material tokens become CSS variables</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--text-2)">Material vocabulary exists in code, not just docs.</td></tr>
+          <tr><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">2026‑05‑13</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px">v0.09</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-size:13px">Dark-mode --ink = manila</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--text-2)">Every "cream" surface in dark mode resolves to one hex.</td></tr>
+          <tr><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">2026‑05‑13</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px">v0.06</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-size:13px">Primary hover committed → pure white (light) / cream-bordered pill (dark)</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--text-2)">Five-option grid replaced with single committed states. Stronger state change telegraphs "this is the action."</td></tr>
+          <tr><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">2026‑05‑13</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px">v0.03</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-size:13px">Agent palette → 12 presets + custom</td><td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--text-2)">Six wasn't enough headroom for real fleets.</td></tr>
+          <tr><td style="padding:14px 20px;font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">2026‑05‑13</td><td style="padding:14px 20px;font-family:var(--font-mono);font-size:11px">v0.01</td><td style="padding:14px 20px;font-size:13px">Capsule motif declared as the brand asset</td><td style="padding:14px 20px;font-size:13px;color:var(--text-2)">Smooth gradient. 1:2 minimum. Reserved for agent representation — never on chrome.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ============ OPEN QUESTIONS ============ -->
+  <div class="subsection">
+    <div class="subsection-head"><h3>Open questions</h3><span class="subsection-tag">CARRY FORWARD TO v1.1</span></div>
+    <div class="example">
+      <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;font-size:14px">
+        <li style="display:grid;grid-template-columns:24px 1fr;gap:12px"><span class="mono" style="color:var(--text-muted)">→</span><span>Should the agent capsule's <em>orientation</em> carry meaning? Vertical = "running"; horizontal = "asleep"?</span></li>
+        <li style="display:grid;grid-template-columns:24px 1fr;gap:12px"><span class="mono" style="color:var(--text-muted)">→</span><span>Does shadcn theme map cleanly to our semantic token names, or do we ship our own primitives?</span></li>
+        <li style="display:grid;grid-template-columns:24px 1fr;gap:12px"><span class="mono" style="color:var(--text-muted)">→</span><span>Storybook integration: should the design system page <em>be</em> the storybook, or live alongside it?</span></li>
+        <li style="display:grid;grid-template-columns:24px 1fr;gap:12px"><span class="mono" style="color:var(--text-muted)">→</span><span>"Heartbeats" vs. "agent liveness" — confirm naming for technical docs.</span></li>
+        <li style="display:grid;grid-template-columns:24px 1fr;gap:12px"><span class="mono" style="color:var(--text-muted)">→</span><span>Mobile choreography for the capsule field and bot bloom (poster fallback vs. simplified motion).</span></li>
+      </ul>
+    </div>
+  </div>
+</section>

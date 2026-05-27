@@ -1,0 +1,2274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Paperclip — Design System Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Brand tokens — material vocabulary. Always literal, never swap with theme. */
+    --bond:     #FFFFFF;
+    --linen:    #F5F3F0;
+    --parchment:#F0ECE7;
+    --manila:   #F3E6C4;
+    --vellum:   #E0DCD6;
+    --steel:    #D8DCDF;
+    --aluminum: #A8AEB2;
+    --graphite: #52585D;
+    --charcoal: #141413;
+    --ink:      #0A0A0A;
+
+    /* Semantic tokens — theme-aware. Reference brand tokens where direct. */
+    --bg: var(--steel);
+    --surface: var(--parchment);   /* parchment = the secondary-surface warm light gray */
+    --cream: var(--manila);
+    --input-bg: var(--bond);
+    --mono: var(--graphite);
+    --rule: var(--aluminum);
+
+    --accent: #1F4DD6;
+    --accent-hover: #1840B5;
+
+    /* Existing 6 — preserved */
+    --agent-1: #F7CFDC; --agent-1b: #1F7A3A;
+    --agent-2: #C9A9E8; --agent-2b: #EE79A1;
+    --agent-3: #28164B; --agent-3b: #7A1530;
+    --agent-4: #F3E6C4; --agent-4b: #E3A21A;
+    --agent-5: #1F4DD6; --agent-5b: #3AA35C;
+    --agent-6: #E94B27; --agent-6b: #5A1122;
+    /* New 6 — same aesthetic family, distinct color anchors */
+    --agent-7:  #7EB6E3; --agent-7b:  #EE79A1;  /* sky → hot pink */
+    --agent-8:  #9CE8A7; --agent-8b:  #BD7FF0;  /* mint → violet */
+    --agent-9:  #F3B49E; --agent-9b:  #1F4ED4;  /* peach → cobalt */
+    --agent-10: #F2D95F; --agent-10b: #4FBCBA;  /* yellow → teal */
+    --agent-11: #C2C2E8; --agent-11b: #5E3450;  /* periwinkle → mauve (unchanged) */
+    --agent-12: #4DB9B7; --agent-12b: #3AA35C;  /* teal → green */
+
+    --success: #2A7A3F;
+    --warning: #B5710D;
+    --error:   #B23030;
+    --info:    #1F4DD6;
+
+    --bg-dark: #141413;
+    --surface-dark: #1F1D1A;
+    --ink-dark: #EDE6D4;
+    --mono-dark: #9A958A;
+    --rule-dark: #2F2C28;
+    --accent-dark: #5A85F0;
+
+    --font-display: 'Inter Tight', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+    --r-sm: 4px;
+    --r-md: 8px;
+    --r-lg: 12px;
+    --r-pill: 9999px;
+
+    --easing-enter: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --easing-exit:  cubic-bezier(0.4, 0, 1, 0.6);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-size: 16px;
+    line-height: 1.55;
+    transition: background 300ms var(--easing-enter), color 300ms var(--easing-enter);
+  }
+
+  /* DARK MODE — swaps the page-level tokens. Explicitly-dark "demo" sections
+     (palette-bed.dark, hover-card.dark, btn-dark-well, panel.dark,
+     mobile-frame.dark) use literal colors so they stay dark for the
+     comparison. Brand callouts (capsule-field, field-full, site-footer)
+     intentionally invert with the theme — they're always the opposite-tone
+     "moment" relative to surrounding bg. */
+  :root[data-theme="dark"] {
+    --bg: var(--charcoal);
+    --surface: #1F1D1A;
+    --input-bg: #1F1D1A;
+    --ink: var(--manila);     /* cream — unified with all "cream" surfaces */
+    --mono: #9A958A;
+    --rule: #2F2C28;
+    --accent: #5A85F0;
+    --accent-hover: #7A9DF5;
+    --success: #4F9D5E;
+    --warning: #D88B1C;
+    --error:   #D14B4B;
+    --info:    #5A85F0;
+  }
+
+  /* Theme toggle — floating top-right pill */
+  .theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border: 1px solid var(--rule);
+    border-radius: var(--r-pill);
+    background: var(--input-bg);
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: all 200ms var(--easing-enter);
+  }
+  .theme-toggle:hover { border-color: var(--ink); }
+  .theme-toggle .theme-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--ink);
+  }
+  :root[data-theme="dark"] .theme-toggle .theme-dot { background: var(--cream); }
+
+  /* Type utilities */
+  .h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(48px, 7.5vw, 104px); line-height: 0.98; letter-spacing: -0.035em; }
+  .h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(40px, 6vw, 80px); line-height: 1.02; letter-spacing: -0.035em; }
+  .h3 { font-family: var(--font-display); font-weight: 600; font-size: clamp(28px, 3.5vw, 40px); line-height: 1.1; letter-spacing: -0.025em; }
+  .h4 { font-family: var(--font-display); font-weight: 500; font-size: 22px; line-height: 1.2; letter-spacing: -0.015em; }
+  .body-lg { font-size: 18px; line-height: 1.5; }
+  .body { font-size: 16px; line-height: 1.55; }
+  .body-sm { font-size: 14px; line-height: 1.45; }
+  .caption { font-family: var(--font-body); font-size: 12px; font-weight: 500; line-height: 1.4; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mono); }
+  .mono { font-family: var(--font-mono); font-size: 14px; font-feature-settings: "tnum" 1; }
+
+  /* Layout */
+  .page {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+  section { padding: 96px 0; border-bottom: 1px solid var(--rule); }
+  section:last-of-type { border-bottom: 0; }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .eyebrow .num { font-family: var(--font-mono); font-size: 13px; color: var(--mono); }
+  .eyebrow .label { font-family: var(--font-body); font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mono); }
+  .eyebrow .rule { flex: 1; height: 1px; background: var(--rule); }
+
+  /* Hero */
+  .hero {
+    padding: 120px 0 80px;
+  }
+  .hero .sub {
+    font-size: 22px;
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    color: var(--mono);
+    max-width: 640px;
+    margin: 32px 0 48px;
+  }
+  .hero .sub strong { color: var(--ink); font-weight: 500; }
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+
+  /* Buttons */
+  .btn {
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 500;
+    padding: 14px 28px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 200ms var(--easing-enter);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+  .btn-primary {
+    background: var(--ink);
+    color: var(--bg);
+    border-radius: var(--r-pill);
+    border: 1px solid var(--ink);
+  }
+  .btn-primary:hover {
+    background: #FFFFFF;
+    color: #0A0A0A;
+    border-color: #FFFFFF;
+  }
+  /* Dark-mode page primary: cream pill default, transparent + cream border on hover. */
+  :root[data-theme="dark"] .btn-primary {
+    background: #F3E6C4;
+    color: #0A0A0A;
+    border-color: #F3E6C4;
+  }
+  :root[data-theme="dark"] .btn-primary:hover {
+    background: transparent;
+    color: #F3E6C4;
+    border-color: #F3E6C4;
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    border-radius: var(--r-md);
+  }
+  .btn-secondary:hover {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--mono);
+    border: 0;
+    border-radius: var(--r-md);
+    padding: 14px 16px;
+  }
+  .btn-ghost:hover {
+    color: var(--ink);
+  }
+  .btn-sm { font-size: 14px; padding: 8px 14px; }
+
+  /* Dark-context button variants */
+  .btn-dark-well {
+    background: #0A0A0A;
+    padding: 32px;
+    border-radius: var(--r-md);
+    margin-top: 8px;
+  }
+  .btn-primary-dark {
+    background: #F3E6C4;             /* cream pill, dark text — committed dark-mode primary default */
+    color: #0A0A0A;
+    border-radius: var(--r-pill);
+    border: 1px solid #F3E6C4;
+  }
+  /* Dark-mode primary hover = secondary-dark default look, but kept pill-shaped. */
+  .btn-primary-dark:hover {
+    background: transparent;
+    color: #F3E6C4;
+    border: 1px solid #F3E6C4;
+  }
+  .btn-secondary-dark {
+    background: transparent;
+    color: #F3E6C4;
+    border: 1px solid #F3E6C4;
+    border-radius: var(--r-md);
+  }
+  .btn-secondary-dark:hover {
+    background: #F3E6C4;
+    color: #0A0A0A;
+  }
+  .btn-ghost-dark {
+    background: transparent;
+    color: #9A958A;
+    border: 0;
+    border-radius: var(--r-md);
+    padding: 14px 16px;
+  }
+  .btn-ghost-dark:hover { color: #F3E6C4; }
+
+  /* Primary CTA hover state alternatives */
+  .hover-options {
+    margin-top: 8px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .hover-card {
+    border: 1px solid var(--rule);
+    border-radius: var(--r-md);
+    padding: 20px;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .hover-card.dark { background: #0A0A0A; border-color: #2F2C28; }
+  .hover-card.dark .hover-label { color: #9A958A; }
+  .hover-card.dark .body-sm { color: #9A958A; }
+  .hover-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mono);
+  }
+
+  /* Base button for hover-option cards on LIGHT background */
+  .btn-hover {
+    background: var(--ink);
+    color: var(--bg);
+    border-radius: var(--r-pill);
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 500;
+    padding: 12px 24px;
+    border: 0;
+    cursor: pointer;
+    transition: all 200ms var(--easing-enter);
+    align-self: flex-start;
+  }
+  /* Light context hover variants */
+  .btn-hv-cobalt:hover { background: var(--accent); color: #fff; }
+  .btn-hv-mono:hover { background: #2A2A2A; color: var(--bg); }
+  .btn-hv-gradient { background: var(--ink); }
+  .btn-hv-gradient:hover { background: linear-gradient(135deg, var(--ink) 0%, var(--accent) 100%); color: var(--bg); }
+  .btn-hv-white:hover { background: #FFFFFF; color: #0A0A0A; }
+  .btn-hv-custom:hover { background: var(--custom-hover, var(--accent)); color: var(--custom-text, #fff); }
+
+  /* Dark context — base is inverted: bg ink → bg surface, text → ink */
+  .btn-hover-dark {
+    background: var(--bg);
+    color: var(--ink);
+    border-radius: var(--r-pill);
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 500;
+    padding: 12px 24px;
+    border: 0;
+    cursor: pointer;
+    transition: all 200ms var(--easing-enter);
+    align-self: flex-start;
+  }
+  .btn-hv-cobalt-d:hover { background: var(--accent); color: #fff; }
+  .btn-hv-mono-d:hover { background: #DBE0E4; color: var(--ink); }   /* lighten step */
+  .btn-hv-gradient-d:hover { background: linear-gradient(135deg, var(--bg) 0%, var(--cream) 100%); color: var(--ink); }
+  .btn-hv-white-d:hover { background: #FFFFFF; color: #0A0A0A; }
+  .btn-hv-custom-d:hover { background: var(--custom-hover-dark, var(--cream)); color: var(--custom-text-dark, var(--ink)); }
+
+  .picker-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--mono);
+  }
+  .picker-row input[type="color"] {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--rule);
+    border-radius: var(--r-sm);
+    padding: 2px;
+    background: var(--input-bg);
+    cursor: pointer;
+  }
+  .hover-card.dark .picker-row input[type="color"] { border-color: #52585D; background: #0A0A0A; }
+  .hover-card.dark .picker-row { color: #9A958A; }
+
+  /* Color swatches */
+  .swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+  }
+  .swatch {
+    border: 1px solid var(--rule);
+    background: #fff;
+    overflow: hidden;
+  }
+  .swatch .chip { height: 96px; }
+  .swatch .meta { padding: 12px 14px; }
+  /* Swatch labels stay literal (light-mode) colors so they remain readable on the white meta strip in either theme. */
+  .swatch .name { font-family: var(--font-body); font-weight: 500; font-size: 13px; color: #0A0A0A; }
+  .swatch .hex { font-family: var(--font-mono); font-size: 12px; color: #52585D; margin-top: 2px; }
+
+  /* Type specimen */
+  .type-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 32px;
+    padding: 28px 0;
+    border-top: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .type-row:last-child { border-bottom: 1px solid var(--rule); }
+  .type-row .label { font-family: var(--font-mono); font-size: 12px; color: var(--mono); padding-top: 8px; }
+
+  /* Capsule motif */
+  .capsule-field {
+    background: #0A0A0A;
+    color: #D8DCDF;
+    padding: 64px 32px;
+    margin-top: 32px;
+    overflow: hidden;
+    position: relative;
+  }
+  .capsule-field .head { font-family: var(--font-display); font-size: clamp(28px, 4vw, 48px); font-weight: 600; letter-spacing: -0.025em; max-width: 640px; line-height: 1.05; margin-bottom: 48px; }
+  .capsule-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  .capsule {
+    width: 64px;
+    height: 200px;
+    border-radius: 32px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  /* Capsule fills: smooth gradient between the two colors per agent (no hard split). */
+  .cap-a { background: linear-gradient(to bottom, var(--agent-1), var(--agent-1b)); }
+  .cap-b { background: linear-gradient(to bottom, var(--agent-2), var(--agent-2b)); }
+  .cap-c { background: linear-gradient(to bottom, var(--agent-3), var(--agent-3b)); }
+  .cap-d { background: linear-gradient(to bottom, var(--agent-4), var(--agent-4b)); }
+  .cap-e { background: linear-gradient(to bottom, var(--agent-5), var(--agent-5b)); }
+  .cap-f { background: linear-gradient(to bottom, var(--agent-6), var(--agent-6b)); }
+  /* New 6 — gradient variants */
+  .cap-g { background: linear-gradient(to bottom, var(--agent-7),  var(--agent-7b)); }
+  .cap-h { background: linear-gradient(to bottom, var(--agent-8),  var(--agent-8b)); }
+  .cap-i { background: linear-gradient(to bottom, var(--agent-9),  var(--agent-9b)); }
+  .cap-j { background: linear-gradient(to bottom, var(--agent-10), var(--agent-10b)); }
+  .cap-k { background: linear-gradient(to bottom, var(--agent-11), var(--agent-11b)); }
+  .cap-l { background: linear-gradient(to bottom, var(--agent-12), var(--agent-12b)); }
+  /* Flat (single-color) variants — alternate option for contexts that want a solid mark. */
+  .cap-a-flat { background: var(--agent-1); }
+  .cap-b-flat { background: var(--agent-2); }
+  .cap-c-flat { background: var(--agent-3); }
+  .cap-d-flat { background: var(--agent-4); }
+  .cap-e-flat { background: var(--agent-5); }
+  .cap-f-flat { background: var(--agent-6); }
+  .cap-g-flat { background: var(--agent-7); }
+  .cap-h-flat { background: var(--agent-8); }
+  .cap-i-flat { background: var(--agent-9); }
+  .cap-j-flat { background: var(--agent-10); }
+  .cap-k-flat { background: var(--agent-11); }
+  .cap-l-flat { background: var(--agent-12); }
+  /* Custom (driven by color pickers via JS) */
+  .cap-custom-flat { background: var(--custom-cap-flat, #999999); }
+  .cap-custom { background: linear-gradient(to bottom, var(--custom-cap-top, #999999), var(--custom-cap-bot, #333333)); }
+
+  /* Palette stage — show capsules across light + dark backgrounds */
+  .palette-stage {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 880px) { .palette-stage { grid-template-columns: 1fr; } }
+  .palette-bed {
+    padding: 32px;
+    border-radius: var(--r-md);
+    overflow: hidden;
+  }
+  .palette-bed.light { background: #D8DCDF; border: 1px solid #A8AEB2; }
+  .palette-bed.dark { background: #0A0A0A; color: #D8DCDF; }
+  .palette-bed .palette-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mono);
+    margin-bottom: 16px;
+  }
+  .palette-bed.dark .palette-title { color: var(--mono-dark); }
+  .palette-row {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
+  .palette-cap {
+    width: 36px;
+    height: 120px;
+    border-radius: 18px;
+    flex-shrink: 0;
+  }
+  .palette-caption {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--mono);
+    text-align: center;
+    margin-top: 8px;
+    width: 36px;
+  }
+  .palette-cell { display: flex; flex-direction: column; align-items: center; }
+
+  /* Custom capsule picker */
+  .cap-picker {
+    margin-top: 24px;
+    border: 1px solid var(--rule);
+    border-radius: var(--r-md);
+    padding: 24px;
+    background: var(--bg);
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+  @media (max-width: 720px) { .cap-picker { grid-template-columns: 1fr; } }
+  .cap-picker-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .cap-picker-preview .palette-cap { width: 48px; height: 160px; border-radius: 24px; }
+  .cap-picker-controls { display: flex; flex-direction: column; gap: 16px; }
+  .cap-picker-mode {
+    display: flex;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mono);
+  }
+  .cap-picker-mode label {
+    cursor: pointer;
+    padding: 6px 12px;
+    border: 1px solid var(--rule);
+    border-radius: var(--r-sm);
+    background: var(--input-bg);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .cap-picker-mode label.active { border-color: var(--ink); }
+  .cap-picker-mode input[type="radio"] { accent-color: var(--ink); }
+  .cap-picker-swatches {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--mono);
+    flex-wrap: wrap;
+  }
+  .cap-picker-swatches input[type="color"] {
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--rule);
+    border-radius: var(--r-sm);
+    padding: 2px;
+    background: var(--input-bg);
+    cursor: pointer;
+  }
+  .cap-picker-swatches .pair {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cap-picker-readout {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--mono);
+  }
+  .cap-randomize {
+    align-self: flex-start;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 14px;
+    border: 1px solid var(--ink);
+    border-radius: var(--r-pill);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    transition: all 200ms var(--easing-enter);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cap-randomize:hover { background: var(--ink); color: var(--bg); }
+  .cap-randomize .die {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    background: currentColor;
+    opacity: 0.85;
+  }
+
+  /* Product UI demo (cost panel) */
+  .ui-panels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 24px;
+  }
+  @media (max-width: 880px) { .ui-panels { grid-template-columns: 1fr; } }
+
+  .panel {
+    border: 1px solid var(--rule);
+    border-radius: var(--r-md);
+    padding: 32px;
+    background: var(--bg);
+  }
+  .panel.dark {
+    background: #141413;
+    color: #EDE6D4;
+    border-color: #2F2C28;
+  }
+  .panel.dark .panel-meta { color: #9A958A; }
+  .panel.dark .bar-track { background: #2F2C28; }
+  .panel.dark .bar-fill { background: #EDE6D4; }
+
+  .panel-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 24px;
+  }
+  .panel-title { font-family: var(--font-display); font-size: 20px; font-weight: 600; letter-spacing: -0.015em; }
+  .panel-meta { font-family: var(--font-mono); font-size: 12px; color: var(--mono); }
+
+  .row {
+    display: grid;
+    grid-template-columns: 80px 1fr 80px;
+    gap: 12px;
+    align-items: center;
+    padding: 10px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .panel.dark .row { border-color: #2F2C28; }
+  .row .agent { font-family: var(--font-body); font-size: 14px; font-weight: 500; }
+  .bar-track {
+    height: 8px;
+    background: var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    background: var(--ink);
+    border-radius: 4px;
+  }
+  .panel.dark .row .agent { color: #EDE6D4; }
+  .row .val { font-family: var(--font-mono); font-size: 13px; text-align: right; }
+
+  /* Trace component */
+  .trace {
+    margin-top: 24px;
+  }
+  .trace-event {
+    display: grid;
+    grid-template-columns: 84px 16px 1fr 120px 132px;
+    gap: 16px;
+    padding: 12px 0;
+    align-items: center;
+    border-top: 1px solid var(--rule);
+  }
+  .trace-event .time { font-family: var(--font-mono); font-size: 12px; color: var(--mono); }
+  /* Outlined ring — clearly metadata, not an agent (agents are filled gradient capsules). */
+  .trace-event .ring {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1.5px solid var(--mono);
+    background: transparent;
+    margin: auto;
+  }
+  .trace-event.success .ring { border-color: var(--success); }
+  .trace-event.warning .ring { border-color: var(--warning); }
+  .trace-event.info .ring { border-color: var(--info); }
+  .trace-event .what { font-size: 14px; }
+  .trace-event .who { font-family: var(--font-mono); font-size: 12px; color: var(--mono); text-align: right; }
+  .trace-event .status-chip {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mono);
+    border: 1px solid var(--rule);
+    border-radius: var(--r-sm);
+    padding: 2px 8px;
+    white-space: nowrap;
+  }
+  .trace-event.success .status-chip { color: var(--success); border-color: var(--success); }
+  .trace-event.warning .status-chip { color: var(--warning); border-color: var(--warning); }
+  .trace-event.info .status-chip { color: var(--info); border-color: var(--info); }
+
+  /* Status pills */
+  .status-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+  .status-pill {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: var(--r-pill);
+    letter-spacing: 0.02em;
+    border: 1px solid currentColor;
+  }
+  .status-pill.success { color: var(--success); }
+  .status-pill.warning { color: var(--warning); }
+  .status-pill.error { color: var(--error); }
+  .status-pill.info { color: var(--info); }
+
+  /* Footnote */
+  .foot {
+    margin-top: 96px;
+    padding: 32px 0;
+    border-top: 1px solid var(--rule);
+    color: var(--mono);
+    font-size: 13px;
+    font-family: var(--font-mono);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  /* Section helpers */
+  .stack { display: flex; flex-direction: column; gap: 24px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  @media (max-width: 880px) { .grid-2 { grid-template-columns: 1fr; } }
+  .muted { color: var(--mono); }
+  .rule { height: 1px; background: var(--rule); margin: 32px 0; }
+
+  /* Org chart */
+  .org-chart {
+    background: var(--surface);
+    padding: 56px 32px;
+    margin-top: 24px;
+    overflow-x: auto;
+  }
+  .org-tree {
+    display: grid;
+    justify-items: center;
+    gap: 40px;                /* parent→children gap; lines are 20px each side */
+    min-width: 720px;
+  }
+  .org-row { display: flex; justify-content: center; gap: 32px; flex-wrap: nowrap; position: relative; width: max-content; }
+  .org-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    width: 120px;             /* fixed so the capsule center is predictable inside the node */
+    flex-shrink: 0;
+  }
+  .org-capsule {
+    width: 44px;
+    height: 92px;
+    border-radius: 22px;
+    flex-shrink: 0;
+  }
+  .org-capsule.lead { width: 56px; height: 120px; border-radius: 28px; }
+  .org-label { font-family: var(--font-body); font-size: 12px; font-weight: 500; }
+  .org-sub { font-family: var(--font-mono); font-size: 11px; color: var(--mono); }
+
+  /* Connector: parent capsule → vertical line down → horizontal bar → vertical lines up → child capsules. */
+  /* Horizontal connector across the children row (skip top row).
+     Offsets = half the org-node width, so the line endpoints sit on the
+     leftmost and rightmost capsule centers — clean 90° elbows. */
+  .org-row:not(.top)::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 60px;
+    right: 60px;
+    height: 1px;
+    background: var(--rule);
+  }
+  /* Vertical line up from each child node to the horizontal connector. */
+  .org-row:not(.top) .org-node::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    width: 1px;
+    height: 20px;
+    background: var(--rule);
+  }
+  /* Vertical line down from the parent node to the horizontal connector. */
+  .org-row.top .org-node::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    width: 1px;
+    height: 20px;
+    background: var(--rule);
+  }
+  /* Dark mode: connector lines use graphite (#52585D) for better visibility on charcoal. */
+  :root[data-theme="dark"] .org-row:not(.top)::before,
+  :root[data-theme="dark"] .org-row:not(.top) .org-node::before,
+  :root[data-theme="dark"] .org-row.top .org-node::after {
+    background: #52585D;
+  }
+
+  /* BYOB selector */
+  .byob-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .byob-card {
+    border: 1px solid var(--rule);
+    border-radius: var(--r-md);
+    padding: 20px;
+    background: var(--bg);
+    transition: all 200ms var(--easing-enter);
+    cursor: pointer;
+  }
+  /* Default hover (rows without a variant scope) — surface lift */
+  .byob-card:hover { background: var(--surface); }
+  /* Variant-scoped hover: non-active cards in a row preview that row's active style */
+  .byob-row.var-a .byob-card:not(.active-a):hover { border-color: var(--ink);     background: var(--surface); }
+  .byob-row.var-b .byob-card:not(.active-b):hover { border-color: var(--rule);    background: var(--surface); }
+  .byob-row.var-c .byob-card:not(.active-c):hover { border-color: transparent;    background: var(--surface); box-shadow: inset 0 0 0 1px var(--surface); }
+  .byob-row.var-d .byob-card:not(.active-d):hover { border-color: var(--rule);    background: #FFFFFF; }
+  .byob-row.var-e .byob-card:not(.active-e):hover { border-color: transparent;    background: #FFFFFF; box-shadow: inset 0 0 0 1px #FFFFFF; }
+  /* Active state variants — pick one for production */
+  /* Active state — theme-aware.
+     Light: very light gray border + pure white lift, literal dark text.
+     Dark:  rule border + surface lift, theme-inherited light text. */
+  .byob-card.active {
+    border-color: #DDE1E5;
+    background: #FFFFFF;
+    color: #0A0A0A;
+  }
+  .byob-card.active .byob-runtime,
+  .byob-card.active .byob-cost { color: #52585D; }
+  .byob-row .byob-card:not(.active):hover {
+    border-color: #DDE1E5;
+    background: #FFFFFF;
+    color: #0A0A0A;
+  }
+  .byob-row .byob-card:not(.active):hover .byob-runtime,
+  .byob-row .byob-card:not(.active):hover .byob-cost { color: #52585D; }
+
+  :root[data-theme="dark"] .byob-card.active {
+    border-color: var(--rule);
+    background: var(--surface);
+    color: var(--ink);
+  }
+  :root[data-theme="dark"] .byob-card.active .byob-runtime,
+  :root[data-theme="dark"] .byob-card.active .byob-cost { color: var(--mono); }
+  :root[data-theme="dark"] .byob-row .byob-card:not(.active):hover {
+    border-color: var(--rule);
+    background: var(--surface);
+    color: var(--ink);
+  }
+  :root[data-theme="dark"] .byob-row .byob-card:not(.active):hover .byob-runtime,
+  :root[data-theme="dark"] .byob-row .byob-card:not(.active):hover .byob-cost { color: var(--mono); }
+  .byob-name { font-family: var(--font-display); font-size: 17px; font-weight: 600; letter-spacing: -0.015em; }
+  .byob-runtime { font-family: var(--font-mono); font-size: 11px; color: var(--mono); margin-top: 4px; }
+  .byob-meta { display: flex; justify-content: space-between; align-items: baseline; margin-top: 16px; }
+  .byob-cost { font-family: var(--font-mono); font-size: 12px; color: var(--mono); }
+  .byob-status { font-family: var(--font-body); font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: var(--r-pill); border: 1px solid var(--success); color: var(--success); }
+
+  /* Goal hierarchy — bar-with-text-inside; all bars same color (ink) and same height.
+     Level differentiated by label + indent + type style only. */
+  .goals {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .goal-row {
+    display: grid;
+    grid-template-columns: 140px 1fr 80px;
+    gap: 12px;
+    align-items: center;
+  }
+  .goal-label { font-family: var(--font-mono); font-size: 11px; color: var(--mono); text-transform: uppercase; letter-spacing: 0.06em; }
+  .goal-bar {
+    height: 44px;
+    border-radius: var(--r-md);
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    overflow: hidden;
+  }
+  :root[data-theme="dark"] .goal-bar { color: #FFFFFF; }   /* pure white label on dark bar in dark mode */
+  /* Progressively lighter grays for hierarchical signal — subtle, not color-coded. */
+  .goal-bar.mission { background: #0A0A0A; font-family: var(--font-display); font-size: 16px; font-weight: 600; letter-spacing: -0.015em; }
+  .goal-bar.project { background: #2A2A2A; font-weight: 500; }
+  .goal-bar.agent   { background: #454545; font-weight: 400; }
+  .goal-bar.task    { background: #6A6A6A; font-weight: 400; font-size: 12px; }
+  .goal-pct { font-family: var(--font-mono); font-size: 12px; text-align: right; color: var(--mono); }
+  .goal-indent-1 { padding-left: 32px; }
+  .goal-indent-2 { padding-left: 56px; }
+  .goal-indent-3 { padding-left: 80px; }
+
+  /* Heartbeats — sparkline */
+  .heartbeat-grid {
+    display: grid;
+    grid-template-columns: 120px 1fr 80px;
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .heartbeat-row {
+    display: contents;
+  }
+  .heartbeat-name { font-family: var(--font-body); font-size: 14px; font-weight: 500; padding: 14px 0; border-top: 1px solid var(--rule); display: flex; align-items: center; gap: 8px; }
+  .heartbeat-pulse {
+    width: 8px;
+    height: 16px;
+    border-radius: 4px;
+    background: #1F4DD6;                      /* alive / shipping — cobalt */
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  .heartbeat-pulse.slow    { animation-duration: 3.2s; background: #B5710D; }  /* waiting — amber */
+  .heartbeat-pulse.blocked { animation-duration: 1.2s; background: #B23030; }  /* blocked — red */
+  .heartbeat-pulse.dead    { animation: none; background: var(--rule); }       /* asleep — gray */
+  @keyframes pulse {
+    0%, 100% { opacity: 0.35; transform: scale(0.85); }
+    50% { opacity: 1; transform: scale(1); }
+  }
+  .heartbeat-spark {
+    border-top: 1px solid var(--rule);
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    color: #0A0A0A;                                          /* active sparks inherit this via currentColor */
+  }
+  :root[data-theme="dark"] .heartbeat-spark { color: #F3E6C4; }  /* cream sparks in dark mode */
+  .heartbeat-spark svg { width: 100%; height: 32px; display: block; }
+  .heartbeat-meta { font-family: var(--font-mono); font-size: 12px; color: var(--mono); padding: 14px 0; border-top: 1px solid var(--rule); text-align: right; }
+
+  /* FAQ */
+  .faq {
+    margin-top: 24px;
+    border-top: 1px solid var(--rule);
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--rule);
+    padding: 28px 0;
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 24px;
+    align-items: baseline;
+    cursor: pointer;
+    transition: background 200ms var(--easing-enter);
+  }
+  .faq-num { font-family: var(--font-mono); font-size: 12px; color: var(--mono); padding-top: 4px; }
+  .faq-q { font-family: var(--font-display); font-size: 22px; font-weight: 500; letter-spacing: -0.015em; line-height: 1.25; }
+  .faq-a { font-size: 16px; line-height: 1.55; color: var(--mono); margin-top: 12px; max-width: 640px; }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 96px;
+    padding: 64px 32px 48px;
+    background: #0A0A0A;
+    color: #F3E6C4;
+    /* Full-bleed: break out of any container max-width so the ink bg spans the viewport. */
+  }
+  .footer-inner { max-width: 1280px; margin: 0 auto; }
+  .footer-mark {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 9vw, 128px);
+    font-weight: 600;
+    letter-spacing: -0.045em;
+    line-height: 0.95;
+    margin-bottom: 64px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 32px;
+    border-top: 1px solid var(--mono);
+    padding-top: 32px;
+  }
+  @media (max-width: 720px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+  .footer-col h5 { font-family: var(--font-body); font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #9A958A; margin: 0 0 16px; }
+  .footer-col a { display: block; color: #F3E6C4; text-decoration: none; font-size: 14px; padding: 4px 0; transition: color 200ms var(--easing-enter); }
+  .footer-col a:hover { color: #FFFFFF; }
+  .footer-tag { font-family: var(--font-body); font-size: 14px; max-width: 320px; color: #F3E6C4; }
+  .footer-bottom {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid #52585D;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: #9A958A;
+  }
+  .footer-grid {
+    border-top: 1px solid #52585D !important;
+  }
+
+  /* Demo video frame */
+  .demo-frame {
+    margin-top: 32px;
+    aspect-ratio: 16 / 9;
+    background: var(--ink);
+    border-radius: var(--r-md);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .demo-play {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--surface);
+    color: var(--ink);
+    border: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    transition: transform 200ms var(--easing-enter);
+  }
+  .demo-play:hover { transform: scale(1.08); }
+  .demo-caption {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+    color: var(--surface);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+  }
+
+  /* Capsule field as full landing section */
+  .field-full {
+    background: #0A0A0A;
+    color: #D8DCDF;
+    padding: 120px 32px;
+    margin: 32px -32px 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .field-full .head {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 8vw, 112px);
+    font-weight: 600;
+    letter-spacing: -0.045em;
+    line-height: 0.98;
+    max-width: 880px;
+    margin-bottom: 64px;
+    color: #F3E6C4;                                   /* literal manila — entire headline */
+  }
+  .field-full .head em { font-style: normal; color: #F3E6C4; }
+  .field-full .sub {
+    font-family: var(--font-body);
+    font-size: 17px;
+    color: #9A958A;
+    max-width: 520px;
+    margin-bottom: 80px;
+  }
+  .field-full .capsule-row {
+    flex-wrap: nowrap;
+  }
+  .field-full .capsule {
+    width: 56px;
+    height: 220px;
+    border-radius: 28px;
+  }
+
+  /* Convergence section */
+  .converge {
+    padding: 160px 0;
+    text-align: center;
+  }
+  .converge .head {
+    font-family: var(--font-display);
+    font-size: clamp(56px, 9vw, 128px);
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 0.95;
+    margin: 0 auto 64px;
+    max-width: 1200px;
+  }
+  .converge .sub {
+    font-size: 19px;
+    max-width: 560px;
+    margin: 0 auto 80px;
+    color: var(--mono);
+  }
+  /* Paperclip anchor icon — replaces the old capsule.
+     SVG inherits theme color via currentColor so it swaps in dark mode.
+     No frame around it; scale is its own statement. */
+  .converge .anchor {
+    width: 360px;
+    height: 360px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink);
+  }
+  .converge .anchor svg { width: 360px; height: 360px; display: block; }
+
+  /* Testimonials */
+  .testimonials {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .testimonial {
+    border: 0;
+    border-radius: var(--r-md);
+    padding: 32px;
+    background: var(--input-bg);   /* white in light mode; will swap in dark mode */
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .testimonial.cream { background: var(--input-bg); }  /* same as default — variant retired */
+  .testimonial blockquote {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 1.3;
+  }
+  .testimonial .who {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--mono);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .testimonial .who strong { color: var(--ink); font-weight: 500; }
+  .testimonial .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    /* background comes from the cap-X gradient class applied alongside */
+  }
+
+  /* Final CTA */
+  .final-cta {
+    padding: 160px 0;
+    text-align: center;
+  }
+  .final-cta .mark {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(56px, 9vw, 128px);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin: 0 0 48px;
+  }
+  .final-cta .ask {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    margin: 0 0 48px;
+    line-height: 1.15;
+  }
+
+  /* Forms */
+  .form-card {
+    margin-top: 32px;
+    border: 1px solid var(--rule);
+    border-radius: var(--r-md);
+    padding: 40px;
+    background: var(--bg);
+    max-width: 640px;
+  }
+  .field {
+    margin-bottom: 24px;
+  }
+  .field label {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .field .help {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--mono);
+    margin-top: 6px;
+  }
+  .field input[type="text"], .field input[type="email"], .field input[type="password"], .field select, .field textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--rule);
+    border-radius: var(--r-sm);
+    background: var(--input-bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 15px;
+    transition: border-color 200ms var(--easing-enter);
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none;
+    border-color: var(--ink);
+  }
+  .field-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .field-row:last-child { border-bottom: 1px solid var(--rule); }
+  .field-row .meta { display: flex; flex-direction: column; gap: 4px; }
+  .field-row .meta strong { font-weight: 500; font-size: 14px; }
+  .field-row .meta span { font-family: var(--font-mono); font-size: 12px; color: var(--mono); }
+
+  /* Toggle */
+  .toggle {
+    width: 40px;
+    height: 22px;
+    border-radius: 11px;
+    background: var(--rule);
+    position: relative;
+    cursor: pointer;
+    transition: background 200ms var(--easing-enter);
+  }
+  .toggle::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--bg);
+    transition: transform 200ms var(--easing-enter);
+  }
+  .toggle.on { background: var(--ink); }
+  .toggle.on::after { transform: translateX(18px); }
+
+  .form-actions {
+    margin-top: 32px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+
+  /* Login */
+  .login-card {
+    margin: 32px auto 0;
+    border: 1px solid var(--rule);
+    border-radius: var(--r-md);
+    padding: 48px 40px;
+    background: var(--bg);
+    max-width: 420px;
+    text-align: center;
+  }
+  .login-mark {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    margin-bottom: 8px;
+  }
+  .login-sub { color: var(--mono); font-size: 14px; margin-bottom: 32px; }
+  .login-providers { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+  .login-provider {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--rule);
+    border-radius: var(--r-md);
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 200ms var(--easing-enter);
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .login-provider:hover { border-color: var(--ink); }
+  :root[data-theme="dark"] .login-provider { color: #F3E6C4; }   /* cream label on dark provider buttons */
+  .login-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+    color: var(--mono);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+  .login-divider::before, .login-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+  .login-foot { font-size: 12px; color: var(--mono); margin-top: 24px; }
+
+  /* Empty state */
+  .empty {
+    margin-top: 32px;
+    padding: 96px 32px;
+    text-align: center;
+    border: 1px dashed var(--rule);
+    border-radius: var(--r-md);
+  }
+  .empty .icon {
+    width: 56px;
+    height: 120px;
+    border-radius: 28px;
+    background: var(--rule);
+    margin: 0 auto 32px;
+    opacity: 0.6;
+  }
+  .empty h4 {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px;
+  }
+  .empty p {
+    color: var(--mono);
+    max-width: 420px;
+    margin: 0 auto 32px;
+  }
+
+  /* Mobile breakpoint demo */
+  .mobile-demos {
+    margin-top: 32px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .mobile-frame {
+    width: 375px;
+    border: 1px solid var(--rule);
+    border-radius: 24px;
+    overflow: hidden;
+    background: var(--bg);
+    box-shadow: 0 1px 0 var(--rule);
+  }
+  .mobile-frame.dark { background: #0A0A0A; color: #D8DCDF; border-color: #52585D; }
+  .mobile-frame .bar {
+    height: 28px;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--mono);
+    border-bottom: 1px solid var(--rule);
+  }
+  .mobile-frame.dark .bar { background: #0A0A0A; color: #9A958A; border-color: #52585D; }
+  .mobile-frame .content { padding: 32px 20px; }
+  .mobile-hero .h1m {
+    font-family: var(--font-display);
+    font-size: 44px;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 0.96;
+  }
+  .mobile-hero .subm { font-size: 15px; line-height: 1.4; color: var(--mono); margin: 20px 0 24px; }
+  .mobile-hero .ctam { display: flex; flex-direction: column; gap: 8px; }
+  .mobile-hero .ctam a { text-align: center; }
+  .mobile-field .head { font-family: var(--font-display); font-size: 32px; font-weight: 600; letter-spacing: -0.035em; line-height: 1; margin-bottom: 24px; }
+  .mobile-field .sub { font-size: 13px; color: #9A958A; margin-bottom: 24px; }
+  .mobile-field .capsule-row { gap: 6px; }
+  .mobile-field .capsule { width: 28px; height: 100px; border-radius: 14px; }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+  <span class="theme-dot"></span>
+  <span id="theme-label">Light</span>
+</button>
+
+<script>
+  (function () {
+    var KEY = 'paperclip-preview-theme';
+    var root = document.documentElement;
+    var btn = document.getElementById('theme-toggle');
+    var label = document.getElementById('theme-label');
+    function apply(theme) {
+      if (theme === 'dark') {
+        root.setAttribute('data-theme', 'dark');
+        label.textContent = 'Dark';
+      } else {
+        root.removeAttribute('data-theme');
+        label.textContent = 'Light';
+      }
+      try { localStorage.setItem(KEY, theme); } catch (e) {}
+    }
+    var saved = null;
+    try { saved = localStorage.getItem(KEY); } catch (e) {}
+    apply(saved === 'dark' ? 'dark' : 'light');
+    btn.addEventListener('click', function () {
+      var current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      apply(current === 'dark' ? 'light' : 'dark');
+    });
+  })();
+</script>
+
+<div class="page">
+
+  <!-- HERO — the actual landing page hero in the proposed system -->
+  <section class="hero" style="padding-top:96px;">
+    <div class="caption" style="margin-bottom: 24px;">paperclip.ing · design preview · v0.1</div>
+    <h1 class="h1">The app people use to&nbsp;manage&nbsp;AI&nbsp;agents&nbsp;for work.</h1>
+    <p class="sub">Goals, costs, traces, and heartbeats — for every agent on your team. <strong>Open source. Free to start.</strong></p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#">Get started →</a>
+      <a class="btn btn-secondary" href="#">See it on GitHub</a>
+      <a class="btn btn-ghost" href="#">Watch the demo</a>
+    </div>
+    <p class="mono muted" style="margin-top: 64px;">↓ scroll · preview rendered in the proposed system</p>
+  </section>
+
+  <!-- TYPE -->
+  <section>
+    <div class="eyebrow">
+      <span class="num">01</span>
+      <span class="label">Typography</span>
+      <span class="rule"></span>
+    </div>
+    <div class="type-row">
+      <span class="label">h1 / display</span>
+      <span class="h1" style="font-size: 64px;">Every agent accounted for.</span>
+    </div>
+    <div class="type-row">
+      <span class="label">h2 / section</span>
+      <span class="h2" style="font-size: 48px;">Manage business outcomes, not pull requests.</span>
+    </div>
+    <div class="type-row">
+      <span class="label">h3 / subsection</span>
+      <span class="h3">An org chart for your agents.</span>
+    </div>
+    <div class="type-row">
+      <span class="label">h4 / lede</span>
+      <span class="h4">Every conversation, every trace.</span>
+    </div>
+    <div class="type-row">
+      <span class="label">body lg</span>
+      <span class="body-lg">Paperclip is the cockpit your AI workforce is missing. Goals cascade from mission to task. Costs are tracked per agent, per run. Every action is logged in plain English.</span>
+    </div>
+    <div class="type-row">
+      <span class="label">body</span>
+      <span class="body">Bring your own bot. Connect Claude, GPT, or any agent runtime. Paperclip handles the rest — orchestration, governance, and the trail of evidence your finance team will ask for in six months.</span>
+    </div>
+    <div class="type-row">
+      <span class="label">caption</span>
+      <span class="caption">Open source · MIT · self-hostable</span>
+    </div>
+    <div class="type-row">
+      <span class="label">mono / data</span>
+      <span class="mono">2026-05-13 14:22:07 · agent-04 · cost=$0.47 · tokens=8412</span>
+    </div>
+  </section>
+
+  <!-- COLOR -->
+  <section>
+    <div class="eyebrow">
+      <span class="num">02</span>
+      <span class="label">Color</span>
+      <span class="rule"></span>
+    </div>
+    <h3 class="h4" style="margin-bottom: 16px;">Core neutrals</h3>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="chip" style="background: var(--bond); border-bottom: 1px solid #D8DCDF;"></div><div class="meta"><div class="name">bond</div><div class="hex">#FFFFFF</div></div></div>
+      <div class="swatch"><div class="chip" style="background: var(--linen); border-bottom: 1px solid #D8DCDF;"></div><div class="meta"><div class="name">linen</div><div class="hex">#F5F3F0</div></div></div>
+      <div class="swatch"><div class="chip" style="background: var(--parchment); border-bottom: 1px solid #D8DCDF;"></div><div class="meta"><div class="name">parchment</div><div class="hex">#F0ECE7</div></div></div>
+      <div class="swatch"><div class="chip" style="background: var(--manila)"></div><div class="meta"><div class="name">manila</div><div class="hex">#F3E6C4</div></div></div>
+      <div class="swatch"><div class="chip" style="background: var(--vellum)"></div><div class="meta"><div class="name">vellum</div><div class="hex">#E0DCD6</div></div></div>
+      <div class="swatch"><div class="chip" style="background: var(--steel)"></div><div class="meta"><div class="name">steel</div><div class="hex">#D8DCDF</div></div></div>
+      <div class="swatch"><div class="chip" style="background: var(--aluminum)"></div><div class="meta"><div class="name">aluminum</div><div class="hex">#A8AEB2</div></div></div>
+      <div class="swatch"><div class="chip" style="background: var(--graphite)"></div><div class="meta"><div class="name">graphite</div><div class="hex">#52585D</div></div></div>
+      <div class="swatch"><div class="chip" style="background: var(--charcoal)"></div><div class="meta"><div class="name">charcoal</div><div class="hex">#141413</div></div></div>
+      <div class="swatch"><div class="chip" style="background: var(--ink)"></div><div class="meta"><div class="name">ink</div><div class="hex">#0A0A0A</div></div></div>
+    </div>
+
+    <h3 class="h4" style="margin: 48px 0 8px;">Agent palette — 12 presets + custom (BRAND USE ONLY: capsules, org chart, status. Not chrome.)</h3>
+    <p class="body-sm muted" style="max-width: 640px;">Twelve preset gradients in the same aesthetic family. As your fleet grows past 12, fall back to flat single-color variants of the same anchors, or use the custom picker below. Capsules shown on both light and dark backgrounds to confirm legibility in either context.</p>
+
+    <div class="palette-stage">
+      <div class="palette-bed light">
+        <div class="palette-title">On light background</div>
+        <div class="palette-row">
+          <div class="palette-cell"><div class="palette-cap cap-a"></div><div class="palette-caption">01</div></div>
+          <div class="palette-cell"><div class="palette-cap cap-b"></div><div class="palette-caption">02</div></div>
+          <div class="palette-cell"><div class="palette-cap cap-c"></div><div class="palette-caption">03</div></div>
+          <div class="palette-cell"><div class="palette-cap cap-d"></div><div class="palette-caption">04</div></div>
+          <div class="palette-cell"><div class="palette-cap cap-e"></div><div class="palette-caption">05</div></div>
+          <div class="palette-cell"><div class="palette-cap cap-f"></div><div class="palette-caption">06</div></div>
+          <div class="palette-cell"><div class="palette-cap cap-g"></div><div class="palette-caption">07</div></div>
+          <div class="palette-cell"><div class="palette-cap cap-h"></div><div class="palette-caption">08</div></div>
+          <div class="palette-cell"><div class="palette-cap cap-i"></div><div class="palette-caption">09</div></div>
+          <div class="palette-cell"><div class="palette-cap cap-j"></div><div class="palette-caption">10</div></div>
+          <div class="palette-cell"><div class="palette-cap cap-k"></div><div class="palette-caption">11</div></div>
+          <div class="palette-cell"><div class="palette-cap cap-l"></div><div class="palette-caption">12</div></div>
+        </div>
+      </div>
+      <div class="palette-bed dark">
+        <div class="palette-title">On dark background</div>
+        <div class="palette-row">
+          <div class="palette-cell"><div class="palette-cap cap-a"></div><div class="palette-caption">01</div></div>
+          <div class="palette-cell"><div class="palette-cap cap-b"></div><div class="palette-caption">02</div></div>
+          <div class="palette-cell"><div class="palette-cap cap-c"></div><div class="palette-caption">03</div></div>
+          <div class="palette-cell"><div class="palette-cap cap-d"></div><div class="palette-caption">04</div></div>
+          <div class="palette-cell"><div class="palette-cap cap-e"></div><div class="palette-caption">05</div></div>
+          <div class="palette-cell"><div class="palette-cap cap-f"></div><div class="palette-caption">06</div></div>
+          <div class="palette-cell"><div class="palette-cap cap-g"></div><div class="palette-caption">07</div></div>
+          <div class="palette-cell"><div class="palette-cap cap-h"></div><div class="palette-caption">08</div></div>
+          <div class="palette-cell"><div class="palette-cap cap-i"></div><div class="palette-caption">09</div></div>
+          <div class="palette-cell"><div class="palette-cap cap-j"></div><div class="palette-caption">10</div></div>
+          <div class="palette-cell"><div class="palette-cap cap-k"></div><div class="palette-caption">11</div></div>
+          <div class="palette-cell"><div class="palette-cap cap-l"></div><div class="palette-caption">12</div></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="body-sm muted" style="margin-top: 16px; font-family: var(--font-mono); font-size: 12px;">
+      01 #F7CFDC→#1F7A3A &nbsp; 02 #C9A9E8→#EE79A1 &nbsp; 03 #28164B→#7A1530 &nbsp; 04 #F3E6C4→#E3A21A &nbsp; 05 #1F4DD6→#3AA35C &nbsp; 06 #E94B27→#5A1122<br>
+      07 #7EB6E3→#EE79A1 &nbsp; 08 #9CE8A7→#BD7FF0 &nbsp; 09 #F3B49E→#1F4ED4 &nbsp; 10 #F2D95F→#4FBCBA &nbsp; 11 #C2C2E8→#5E3450 &nbsp; 12 #4DB9B7→#3AA35C
+    </p>
+
+    <h3 class="h4" style="margin: 48px 0 12px;">Custom capsule — pick a flat color or a two-color gradient</h3>
+    <div class="cap-picker">
+      <div class="cap-picker-preview">
+        <div class="palette-cap cap-custom" id="cap-custom-preview"></div>
+        <div class="palette-caption" id="cap-custom-caption">custom</div>
+      </div>
+      <div class="cap-picker-controls">
+        <div class="cap-picker-mode">
+          <label class="active" id="mode-grad-label"><input type="radio" name="cap-mode" value="gradient" checked /> Gradient</label>
+          <label id="mode-flat-label"><input type="radio" name="cap-mode" value="flat" /> Flat</label>
+        </div>
+        <div class="cap-picker-swatches" id="cap-grad-controls">
+          <div class="pair"><input type="color" id="cap-top" value="#1F4DD6" /><span>top</span></div>
+          <div class="pair"><input type="color" id="cap-bot" value="#3AA35C" /><span>bottom</span></div>
+        </div>
+        <div class="cap-picker-swatches" id="cap-flat-controls" style="display: none;">
+          <div class="pair"><input type="color" id="cap-flat" value="#1F4DD6" /><span>color</span></div>
+        </div>
+        <button type="button" class="cap-randomize" id="cap-randomize"><span class="die"></span>Randomize from agent palette</button>
+        <div class="cap-picker-readout" id="cap-readout">linear-gradient(to bottom, #1F4DD6, #3AA35C)</div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        var preview = document.getElementById('cap-custom-preview');
+        var readout = document.getElementById('cap-custom-caption');
+        var hex = document.getElementById('cap-readout');
+        var topEl = document.getElementById('cap-top');
+        var botEl = document.getElementById('cap-bot');
+        var flatEl = document.getElementById('cap-flat');
+        var modeGrad = document.querySelector('input[name="cap-mode"][value="gradient"]');
+        var modeFlat = document.querySelector('input[name="cap-mode"][value="flat"]');
+        var labelGrad = document.getElementById('mode-grad-label');
+        var labelFlat = document.getElementById('mode-flat-label');
+        var ctrlsGrad = document.getElementById('cap-grad-controls');
+        var ctrlsFlat = document.getElementById('cap-flat-controls');
+
+        function update() {
+          if (modeGrad.checked) {
+            document.documentElement.style.setProperty('--custom-cap-top', topEl.value);
+            document.documentElement.style.setProperty('--custom-cap-bot', botEl.value);
+            preview.classList.remove('cap-custom-flat');
+            preview.classList.add('cap-custom');
+            hex.textContent = 'linear-gradient(to bottom, ' + topEl.value + ', ' + botEl.value + ')';
+            readout.textContent = 'gradient';
+          } else {
+            document.documentElement.style.setProperty('--custom-cap-flat', flatEl.value);
+            preview.classList.remove('cap-custom');
+            preview.classList.add('cap-custom-flat');
+            hex.textContent = flatEl.value;
+            readout.textContent = 'flat';
+          }
+        }
+
+        function switchMode() {
+          ctrlsGrad.style.display = modeGrad.checked ? '' : 'none';
+          ctrlsFlat.style.display = modeFlat.checked ? '' : 'none';
+          labelGrad.classList.toggle('active', modeGrad.checked);
+          labelFlat.classList.toggle('active', modeFlat.checked);
+          update();
+        }
+
+        modeGrad.addEventListener('change', switchMode);
+        modeFlat.addEventListener('change', switchMode);
+        [topEl, botEl, flatEl].forEach(function (el) { el.addEventListener('input', update); });
+
+        // Randomize: pick two distinct hex codes from the agent palette (24 anchor colors).
+        var palette = [
+          '#F7CFDC', '#1F7A3A', '#C9A9E8', '#EE79A1', '#28164B', '#7A1530',
+          '#F3E6C4', '#E3A21A', '#1F4DD6', '#3AA35C', '#E94B27', '#5A1122',
+          '#7EB6E3', '#EE79A1', '#9CE8A7', '#BD7FF0', '#F3B49E', '#1F4ED4',
+          '#F2D95F', '#4FBCBA', '#C2C2E8', '#5E3450', '#4DB9B7', '#3AA35C'
+        ];
+        var randomBtn = document.getElementById('cap-randomize');
+        if (randomBtn) {
+          randomBtn.addEventListener('click', function () {
+            function pick() { return palette[Math.floor(Math.random() * palette.length)]; }
+            var a = pick();
+            var b = pick();
+            // Ensure top and bottom are distinct.
+            while (b.toLowerCase() === a.toLowerCase()) { b = pick(); }
+            if (modeGrad.checked) {
+              topEl.value = a;
+              botEl.value = b;
+            } else {
+              flatEl.value = a;
+            }
+            update();
+          });
+        }
+
+        update();
+      })();
+    </script>
+
+    <h3 class="h4" style="margin: 48px 0 16px;">Semantic</h3>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="chip" style="background: #2A7A3F"></div><div class="meta"><div class="name">success</div><div class="hex">#2A7A3F</div></div></div>
+      <div class="swatch"><div class="chip" style="background: #B5710D"></div><div class="meta"><div class="name">warning</div><div class="hex">#B5710D</div></div></div>
+      <div class="swatch"><div class="chip" style="background: #B23030"></div><div class="meta"><div class="name">error</div><div class="hex">#B23030</div></div></div>
+      <div class="swatch"><div class="chip" style="background: #1F4DD6"></div><div class="meta"><div class="name">info (= accent)</div><div class="hex">#1F4DD6</div></div></div>
+    </div>
+
+    <div class="status-row" style="margin-top: 32px;">
+      <span class="status-pill success">Approved</span>
+      <span class="status-pill warning">Budget alert</span>
+      <span class="status-pill error">Action failed</span>
+      <span class="status-pill info">Goal set</span>
+    </div>
+  </section>
+
+  <!-- BUTTONS -->
+  <section>
+    <div class="eyebrow">
+      <span class="num">03</span>
+      <span class="label">Buttons — pill primary, rounded-rect everywhere else</span>
+      <span class="rule"></span>
+    </div>
+    <p class="body" style="max-width: 640px;">Pill primary (radius 9999px) echoes the capsule motif at the chrome level — the brand asset is the same shape as the call-to-action. Everything else is 8px rounded rectangle ("serious B2B" read). Use pill <em>only</em> for the primary action in a section. Never for secondary, ghost, icon, or form-internal buttons.</p>
+
+    <h4 class="h4" style="margin-top: 40px;">Button hover states</h4>
+    <p class="caption" style="margin: 8px 0 16px;">Hover the primary CTA to preview. Toggle dark mode to see the dark-context variant.</p>
+    <div class="cta-row" style="gap: 16px; align-items: center; flex-wrap: wrap;">
+      <button class="btn btn-primary">Get started →</button>
+      <button class="btn btn-secondary">Read the docs</button>
+      <button class="btn btn-ghost">Learn more</button>
+      <button class="btn btn-secondary btn-sm">Cancel</button>
+      <button class="btn btn-primary btn-sm">Save</button>
+    </div>
+
+    <p class="body-sm muted" style="margin-top: 32px; max-width: 640px;">
+      Primary CTA hover, committed: <strong>light</strong> = ink → pure white; <strong>dark</strong> = transparent + cream border + cream text, pill shape (matches the secondary dark default). Hover the buttons above to verify in context.
+    </p>
+  </section>
+
+  <!-- CAPSULE MOTIF -->
+  <section>
+    <div class="eyebrow">
+      <span class="num">04</span>
+      <span class="label">Capsule motif — brand asset</span>
+      <span class="rule"></span>
+    </div>
+    <p class="body" style="max-width: 640px;">The capsule appears in the agent field, the org chart, status indicators, and the pill primary CTA. Stadium shape (radius = ½ width). Two-tone gradients map to the agent palette.</p>
+    <div class="capsule-field">
+      <div class="head">Agent workforces are on the rise.</div>
+      <div class="capsule-row">
+        <div class="capsule cap-a"></div>
+        <div class="capsule cap-b"></div>
+        <div class="capsule cap-c"></div>
+        <div class="capsule cap-d"></div>
+        <div class="capsule cap-e"></div>
+        <div class="capsule cap-f"></div>
+        <div class="capsule cap-a"></div>
+        <div class="capsule cap-b"></div>
+        <div class="capsule cap-c"></div>
+        <div class="capsule cap-d"></div>
+        <div class="capsule cap-e"></div>
+        <div class="capsule cap-f"></div>
+        <div class="capsule cap-a"></div>
+        <div class="capsule cap-b"></div>
+        <div class="capsule cap-c"></div>
+        <div class="capsule cap-d"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT UI: cost panel — adapts to theme via the toggle -->
+  <section>
+    <div class="eyebrow">
+      <span class="num">05</span>
+      <span class="label">Product UI — cost control</span>
+      <span class="rule"></span>
+    </div>
+    <p class="body" style="max-width: 640px;">Marketing site stays light-only. Product UI ships both modes — toggle the theme to compare. Dark mode preserves the warm/cool tension: warm near-black bg, warm off-white ink.</p>
+    <div style="max-width: 560px; margin-top: 24px;">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title">Spend · this week</span>
+          <span class="panel-meta">USD · 7d</span>
+        </div>
+        <div class="row"><span class="agent">Copywriter</span><div class="bar-track"><div class="bar-fill" style="width: 72%;"></div></div><span class="val">$48.20</span></div>
+        <div class="row"><span class="agent">Researcher</span><div class="bar-track"><div class="bar-fill" style="width: 54%;"></div></div><span class="val">$36.14</span></div>
+        <div class="row"><span class="agent">Designer</span><div class="bar-track"><div class="bar-fill" style="width: 38%;"></div></div><span class="val">$25.40</span></div>
+        <div class="row"><span class="agent">Build Engineer</span><div class="bar-track"><div class="bar-fill" style="width: 19%;"></div></div><span class="val">$12.71</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT UI: trace -->
+  <section>
+    <div class="eyebrow">
+      <span class="num">06</span>
+      <span class="label">Conversation trace</span>
+      <span class="rule"></span>
+    </div>
+    <p class="body" style="max-width: 640px;">Human-readable action chain. No code visible. Status uses outlined rings + a mono status chip on the right — clearly metadata, never confusable with an agent (agents are filled gradient capsules).</p>
+    <div class="trace">
+      <div class="trace-event info"><span class="time">14:22:07</span><span class="ring"></span><span class="what">Goal set: ship the Q3 launch page by Friday</span><span class="status-chip">Goal set</span><span class="who">@scott</span></div>
+      <div class="trace-event info"><span class="time">14:22:09</span><span class="ring"></span><span class="what">Budget set: $50 max for this run</span><span class="status-chip">Budget set</span><span class="who">@scott</span></div>
+      <div class="trace-event"><span class="time">14:22:14</span><span class="ring"></span><span class="what">Draft landing page outline</span><span class="status-chip">Started</span><span class="who">Designer</span></div>
+      <div class="trace-event success"><span class="time">14:24:02</span><span class="ring"></span><span class="what">Outline drafted (1,400 tokens, $0.18)</span><span class="status-chip">Completed</span><span class="who">Designer</span></div>
+      <div class="trace-event success"><span class="time">14:26:31</span><span class="ring"></span><span class="what">Outline approved with edits</span><span class="status-chip">Approved</span><span class="who">@scott</span></div>
+      <div class="trace-event warning"><span class="time">14:28:10</span><span class="ring"></span><span class="what">60% of cap used; 1 action remaining</span><span class="status-chip">Budget alert</span><span class="who">system</span></div>
+    </div>
+  </section>
+
+  <!-- ORG CHART -->
+  <section>
+    <div class="eyebrow">
+      <span class="num">07</span>
+      <span class="label">Org chart — agents in hierarchy</span>
+      <span class="rule"></span>
+    </div>
+    <p class="body" style="max-width: 640px;">Same stadium-capsule shape, smaller scale. Hairline rules connect parent to children. The lead agent (largest capsule, single agent color) reports to the human owner; sub-agents fan out below.</p>
+    <div class="org-chart">
+      <div class="org-tree">
+        <div class="org-row top">
+          <div class="org-node">
+            <div class="org-capsule lead cap-c"></div>
+            <div class="org-label">Launch Lead</div>
+            <div class="org-sub">claude-opus-4-7</div>
+          </div>
+        </div>
+        <div class="org-row">
+          <div class="org-node">
+            <div class="org-capsule cap-a"></div>
+            <div class="org-label">Copywriter</div>
+            <div class="org-sub">claude-sonnet-4-6</div>
+          </div>
+          <div class="org-node">
+            <div class="org-capsule cap-d"></div>
+            <div class="org-label">Designer</div>
+            <div class="org-sub">gpt-5</div>
+          </div>
+          <div class="org-node">
+            <div class="org-capsule cap-e"></div>
+            <div class="org-label">Build Engineer</div>
+            <div class="org-sub">claude-sonnet-4-6</div>
+          </div>
+          <div class="org-node">
+            <div class="org-capsule cap-f"></div>
+            <div class="org-label">Reviewer</div>
+            <div class="org-sub">claude-haiku-4-5</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BYOB -->
+  <section>
+    <div class="eyebrow">
+      <span class="num">08</span>
+      <span class="label">Bring your own bot</span>
+      <span class="rule"></span>
+    </div>
+    <h3 class="h3" style="max-width: 640px;">Connect any runtime. Keep the cockpit.</h3>
+    <p class="body" style="max-width: 640px; margin-top: 16px;">Cards use 8px rounded rect (NOT pill — pill is reserved for primary CTA only). Active state is theme-aware: light mode = very light gray border on pure white lift; dark mode = rule border on surface lift. Toggle the theme to compare.</p>
+
+    <div class="byob-row" style="margin-top: 24px;">
+      <div class="byob-card active">
+        <div class="byob-name">Claude Opus 4.7</div>
+        <div class="byob-runtime">anthropic · 1M context</div>
+        <div class="byob-meta"><span class="byob-cost">$15 / Mtok in</span><span class="byob-status">Connected</span></div>
+      </div>
+      <div class="byob-card">
+        <div class="byob-name">GPT-5</div>
+        <div class="byob-runtime">openai · 400K context</div>
+        <div class="byob-meta"><span class="byob-cost">$10 / Mtok in</span><span class="byob-status">Connected</span></div>
+      </div>
+      <div class="byob-card">
+        <div class="byob-name">Gemini 3 Pro</div>
+        <div class="byob-runtime">google · 2M context</div>
+        <div class="byob-meta"><span class="byob-cost">$8 / Mtok in</span><span class="byob-status">Connected</span></div>
+      </div>
+      <div class="byob-card">
+        <div class="byob-name">Llama 4 / local</div>
+        <div class="byob-runtime">self-hosted · ollama</div>
+        <div class="byob-meta"><span class="byob-cost">free</span><span class="byob-status">Connected</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GOAL HIERARCHY -->
+  <section>
+    <div class="eyebrow">
+      <span class="num">09</span>
+      <span class="label">Goals — mission cascades to task</span>
+      <span class="rule"></span>
+    </div>
+    <h3 class="h3" style="max-width: 640px;">Every agent knows exactly why it's working.</h3>
+    <p class="body" style="max-width: 640px; margin-top: 16px;">Single bar per row, text inside. Same 44px height across levels. Each level is a progressively lighter gray (mission #0A0A0A → project #2A2A2A → agent #454545 → task #6A6A6A) — subtle hierarchical signal, not color coding. Indent + mono label + type style do the rest.</p>
+    <div class="goals">
+      <div class="goal-row">
+        <span class="goal-label">Mission</span>
+        <div class="goal-bar mission">Ship Q3 launch · paperclip.ing v2</div>
+        <span class="goal-pct">62%</span>
+      </div>
+      <div class="goal-row">
+        <span class="goal-label">Project</span>
+        <div class="goal-bar project goal-indent-1">Refactor landing page</div>
+        <span class="goal-pct">74%</span>
+      </div>
+      <div class="goal-row">
+        <span class="goal-label">Agent goal</span>
+        <div class="goal-bar agent goal-indent-2">Draft hero, demo, and 3x2 grid sections</div>
+        <span class="goal-pct">88%</span>
+      </div>
+      <div class="goal-row">
+        <span class="goal-label">Task</span>
+        <div class="goal-bar task goal-indent-3">Write hero subhead variants × 3</div>
+        <span class="goal-pct">done</span>
+      </div>
+      <div class="goal-row">
+        <span class="goal-label">Task</span>
+        <div class="goal-bar task goal-indent-3">Demo framing line</div>
+        <span class="goal-pct">in review</span>
+      </div>
+      <div class="goal-row">
+        <span class="goal-label">Project</span>
+        <div class="goal-bar project goal-indent-1">Migrate animations from scaffold</div>
+        <span class="goal-pct">41%</span>
+      </div>
+      <div class="goal-row">
+        <span class="goal-label">Agent goal</span>
+        <div class="goal-bar agent goal-indent-2">Port §06 capsule fan as React component</div>
+        <span class="goal-pct">22%</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- HEARTBEATS -->
+  <section>
+    <div class="eyebrow">
+      <span class="num">10</span>
+      <span class="label">Heartbeats — agent liveness</span>
+      <span class="rule"></span>
+    </div>
+    <p class="body" style="max-width: 640px;">Pulse + sparkline. Cobalt pulse = alive and shipping. Amber slow-pulse = waiting (on review, on input, on a tool call). Red fast-pulse = blocked. Rule-gray static = asleep. Sparkline shows the last hour of activity (token spend per minute, normalized).</p>
+    <div class="heartbeat-grid">
+      <div class="heartbeat-row">
+        <div class="heartbeat-name"><span class="heartbeat-pulse"></span>Copywriter</div>
+        <div class="heartbeat-spark">
+          <svg viewBox="0 0 200 32" preserveAspectRatio="none"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0,28 10,20 20,24 30,12 40,18 50,8 60,14 70,6 80,10 90,4 100,12 110,16 120,8 130,20 140,14 150,22 160,10 170,18 180,12 190,8 200,16"/></svg>
+        </div>
+        <div class="heartbeat-meta">active · 12s ago</div>
+      </div>
+      <div class="heartbeat-row">
+        <div class="heartbeat-name"><span class="heartbeat-pulse"></span>Designer</div>
+        <div class="heartbeat-spark">
+          <svg viewBox="0 0 200 32" preserveAspectRatio="none"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0,16 10,20 20,12 30,18 40,8 50,14 60,22 70,10 80,16 90,12 100,18 110,6 120,14 130,18 140,10 150,16 160,12 170,8 180,14 190,18 200,12"/></svg>
+        </div>
+        <div class="heartbeat-meta">active · 4s ago</div>
+      </div>
+      <div class="heartbeat-row">
+        <div class="heartbeat-name"><span class="heartbeat-pulse slow"></span>Build Engineer</div>
+        <div class="heartbeat-spark">
+          <svg viewBox="0 0 200 32" preserveAspectRatio="none"><polyline fill="none" stroke="#B5710D" stroke-width="1.5" points="0,18 10,16 20,18 30,20 40,18 50,20 60,22 70,24 80,26 90,28 100,28 110,28 120,28 130,28 140,28 150,28 160,28 170,28 180,28 190,28 200,28"/></svg>
+        </div>
+        <div class="heartbeat-meta">waiting on review · 3m</div>
+      </div>
+      <div class="heartbeat-row">
+        <div class="heartbeat-name"><span class="heartbeat-pulse blocked"></span>Researcher</div>
+        <div class="heartbeat-spark">
+          <svg viewBox="0 0 200 32" preserveAspectRatio="none"><polyline fill="none" stroke="#B23030" stroke-width="1.5" points="0,12 10,14 20,12 30,10 40,12 50,14 60,12 70,14 80,16 90,18 100,20 110,22 120,22 130,22 140,22 150,22 160,22 170,22 180,22 190,22 200,22"/></svg>
+        </div>
+        <div class="heartbeat-meta">blocked · awaiting API key</div>
+      </div>
+      <div class="heartbeat-row">
+        <div class="heartbeat-name"><span class="heartbeat-pulse dead"></span>Reviewer</div>
+        <div class="heartbeat-spark">
+          <svg viewBox="0 0 200 32" preserveAspectRatio="none"><polyline fill="none" stroke="#A8AEB2" stroke-width="1.5" points="0,28 10,28 20,28 30,28 40,28 50,28 60,28 70,28 80,28 90,28 100,28 110,28 120,28 130,28 140,28 150,28 160,28 170,28 180,28 190,28 200,28"/></svg>
+        </div>
+        <div class="heartbeat-meta">asleep · 47m</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEMO VIDEO FRAME -->
+  <section>
+    <div class="eyebrow">
+      <span class="num">11</span>
+      <span class="label">Demo video frame (landing section 02)</span>
+      <span class="rule"></span>
+    </div>
+    <h2 class="h2" style="font-size: clamp(40px, 6vw, 72px); max-width: 880px;">Manage business outcomes, not&nbsp;pull&nbsp;requests.</h2>
+    <p class="body-lg muted" style="max-width: 640px; margin-top: 24px;">A 90-second walkthrough. Set a goal, hand it to an agent team, watch the trace fill in.</p>
+    <div class="demo-frame">
+      <button class="demo-play" aria-label="Play demo">▶</button>
+      <span class="demo-caption">0:00 / 1:34 · paperclip · the cockpit</span>
+    </div>
+  </section>
+
+  <!-- CAPSULE FIELD AS FULL LANDING SECTION -->
+  <section style="padding: 96px 0 0;">
+    <div class="eyebrow">
+      <span class="num">12</span>
+      <span class="label">Capsule field — full landing section (sec 10)</span>
+      <span class="rule"></span>
+    </div>
+    <div class="field-full">
+      <div class="head">Agent workforces<br><em>are on the rise.</em></div>
+      <p class="sub">Every capsule is one agent. Every column is one outcome. Every dollar is accounted for.</p>
+      <div class="capsule-row">
+        <div class="capsule cap-a"></div>
+        <div class="capsule cap-b"></div>
+        <div class="capsule cap-c"></div>
+        <div class="capsule cap-d"></div>
+        <div class="capsule cap-e"></div>
+        <div class="capsule cap-f"></div>
+        <div class="capsule cap-a"></div>
+        <div class="capsule cap-b"></div>
+        <div class="capsule cap-c"></div>
+        <div class="capsule cap-d"></div>
+        <div class="capsule cap-e"></div>
+        <div class="capsule cap-f"></div>
+        <div class="capsule cap-a"></div>
+        <div class="capsule cap-b"></div>
+        <div class="capsule cap-c"></div>
+        <div class="capsule cap-d"></div>
+        <div class="capsule cap-e"></div>
+        <div class="capsule cap-f"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONVERGENCE -->
+  <section>
+    <div class="eyebrow">
+      <span class="num">13</span>
+      <span class="label">Convergence — "You're in control" (sec 11)</span>
+      <span class="rule"></span>
+    </div>
+    <div class="converge">
+      <h2 class="head">You're<br>in control.</h2>
+      <p class="sub">Hire AI employees. Set goals. Approve work. Ship more.</p>
+      <div class="anchor" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-paperclip">
+          <path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- SETTINGS FORM -->
+  <section>
+    <div class="eyebrow">
+      <span class="num">14</span>
+      <span class="label">Settings form — input, select, toggle, save</span>
+      <span class="rule"></span>
+    </div>
+    <h3 class="h3">Workspace settings</h3>
+    <p class="body muted" style="margin-top: 12px; max-width: 480px;">Inputs use 4px radius (small chip). Labels are 13px medium. Help text mono-12 in mono color. Save button = pill primary.</p>
+    <div class="form-card">
+      <div class="field">
+        <label for="ws-name">Workspace name</label>
+        <input id="ws-name" type="text" value="Q3 Launch · paperclip.ing v2" />
+        <div class="help">Shown in the trace and exports. Letters, numbers, periods.</div>
+      </div>
+      <div class="field">
+        <label for="ws-currency">Default budget currency</label>
+        <select id="ws-currency">
+          <option>USD</option>
+          <option>EUR</option>
+          <option>GBP</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="ws-cap">Per-run cost cap</label>
+        <input id="ws-cap" type="text" value="$50" />
+        <div class="help">Default ceiling for any agent run unless overridden.</div>
+      </div>
+      <div class="field-row">
+        <div class="meta">
+          <strong>Pause agents on budget breach</strong>
+          <span>Stop the run and page the owner when the cap is hit.</span>
+        </div>
+        <div class="toggle on"></div>
+      </div>
+      <div class="field-row">
+        <div class="meta">
+          <strong>Require approval before deploy</strong>
+          <span>Human review for any agent action that writes outside the workspace.</span>
+        </div>
+        <div class="toggle on"></div>
+      </div>
+      <div class="field-row">
+        <div class="meta">
+          <strong>Allow self-modifying agents</strong>
+          <span>Agents may rewrite their own prompts. Off by default.</span>
+        </div>
+        <div class="toggle"></div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-secondary btn-sm">Cancel</button>
+        <button class="btn btn-primary btn-sm">Save settings</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGIN -->
+  <section>
+    <div class="eyebrow">
+      <span class="num">15</span>
+      <span class="label">Login — auth + social providers</span>
+      <span class="rule"></span>
+    </div>
+    <p class="body muted" style="max-width: 480px;">Auth card centered in a generous well. Provider buttons are rounded rect (not pill — pill is reserved for primary CTA). Hairline divider in mono caps.</p>
+    <div class="login-card">
+      <div class="login-mark">paperclip</div>
+      <div class="login-sub">Sign in to your workspace</div>
+      <div class="login-providers">
+        <button class="login-provider">Continue with GitHub</button>
+        <button class="login-provider">Continue with Google</button>
+        <button class="login-provider">Continue with SSO</button>
+      </div>
+      <div class="login-divider">OR</div>
+      <div class="field" style="text-align: left;">
+        <label for="login-email">Email</label>
+        <input id="login-email" type="email" placeholder="you@company.com" />
+      </div>
+      <button class="btn btn-primary" style="width: 100%; justify-content: center;">Send magic link →</button>
+      <div class="login-foot">No password. We email you a link, you're in.</div>
+    </div>
+  </section>
+
+  <!-- EMPTY STATE -->
+  <section>
+    <div class="eyebrow">
+      <span class="num">16</span>
+      <span class="label">Empty state — no agents yet</span>
+      <span class="rule"></span>
+    </div>
+    <p class="body muted" style="max-width: 480px;">Dashed-border well. A faint capsule (rule-gray, 60% opacity) sits where the agent would be. Heading is Inter Tight, copy is mono-color body. Pill primary CTA centered.</p>
+    <div class="empty">
+      <div class="icon"></div>
+      <h4>No agents yet.</h4>
+      <p>Connect a runtime, set a goal, and watch the cockpit fill in. You can also import a team template if you'd rather start from a shape that already works.</p>
+      <div class="cta-row" style="justify-content: center;">
+        <button class="btn btn-primary">Create your first agent →</button>
+        <button class="btn btn-secondary">Browse templates</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section>
+    <div class="eyebrow">
+      <span class="num">17</span>
+      <span class="label">Testimonials block — bottom of page, near final CTA</span>
+      <span class="rule"></span>
+    </div>
+    <h3 class="h3" style="max-width: 720px;">People who&apos;ve stopped reading agent diffs.</h3>
+    <p class="body muted" style="max-width: 560px; margin-top: 16px;">Quotes in Inter Tight at body-display scale (22px, medium weight). Attribution in mono. One card on cream surface for warm/cool tension.</p>
+    <div class="testimonials">
+      <div class="testimonial">
+        <blockquote>&ldquo;The first tool that makes my agent fleet feel like a team I can actually manage, not a flock of pull requests I'm pretending to review.&rdquo;</blockquote>
+        <div class="who">
+          <span class="avatar cap-b"></span>
+          <span><strong>Maya Chen</strong> · Head of AI Platform · Logistics co.</span>
+        </div>
+      </div>
+      <div class="testimonial">
+        <blockquote>&ldquo;We replaced three internal dashboards with this. The cost panel alone is worth the move.&rdquo;</blockquote>
+        <div class="who">
+          <span class="avatar cap-i"></span>
+          <span><strong>Devon Park</strong> · Staff engineer · Series B fintech</span>
+        </div>
+      </div>
+      <div class="testimonial">
+        <blockquote>&ldquo;Open source, self-hostable, and good looking. I didn't think you got to pick all three.&rdquo;</blockquote>
+        <div class="who">
+          <span class="avatar cap-l"></span>
+          <span><strong>Jordan Reyes</strong> · CTO · 40-person SaaS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section style="padding-bottom: 0;">
+    <div class="eyebrow">
+      <span class="num">18</span>
+      <span class="label">Final CTA — paperclip mark + invitation (sec 12)</span>
+      <span class="rule"></span>
+    </div>
+    <div class="final-cta">
+      <div class="mark">Paperclip</div>
+      <p class="ask">Ready to manage agents like a team?</p>
+      <div class="cta-row" style="justify-content: center;">
+        <button class="btn btn-primary">Get started — it's free →</button>
+        <button class="btn btn-secondary">Star on GitHub ★ 12.4k</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOBILE BREAKPOINT -->
+  <section>
+    <div class="eyebrow">
+      <span class="num">19</span>
+      <span class="label">Mobile — 375px breakpoint demo</span>
+      <span class="rule"></span>
+    </div>
+    <p class="body muted" style="max-width: 560px;">Hero scales from clamp() to 44px. CTAs stack vertically. Capsule field reduces capsule width 64→28px, keeps the same gradient mapping. Both shown side by side: light hero + dark capsule field section.</p>
+    <div class="mobile-demos">
+      <div class="mobile-frame">
+        <div class="bar">paperclip.ing</div>
+        <div class="content mobile-hero">
+          <div class="caption" style="margin-bottom: 16px;">paperclip · v2</div>
+          <div class="h1m">The app people use to manage AI&nbsp;agents for work.</div>
+          <div class="subm">Goals, costs, traces, and heartbeats. Open source. Free to start.</div>
+          <div class="ctam">
+            <a class="btn btn-primary" href="#">Get started →</a>
+            <a class="btn btn-secondary" href="#">See it on GitHub</a>
+          </div>
+        </div>
+      </div>
+      <div class="mobile-frame dark">
+        <div class="bar">paperclip.ing · §10</div>
+        <div class="content mobile-field">
+          <div class="head">Agent workforces are on the rise.</div>
+          <div class="sub">Every capsule is one agent. Every column is one outcome.</div>
+          <div class="capsule-row">
+            <div class="capsule cap-a"></div>
+            <div class="capsule cap-b"></div>
+            <div class="capsule cap-c"></div>
+            <div class="capsule cap-d"></div>
+            <div class="capsule cap-e"></div>
+            <div class="capsule cap-f"></div>
+            <div class="capsule cap-a"></div>
+            <div class="capsule cap-b"></div>
+            <div class="capsule cap-c"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <div class="eyebrow">
+      <span class="num">20</span>
+      <span class="label">FAQ — editorial list, not accordion</span>
+      <span class="rule"></span>
+    </div>
+    <h2 class="h2" style="font-size: 56px; max-width: 720px;">Honest answers, quickly.</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <span class="faq-num">01</span>
+        <div>
+          <div class="faq-q">Is Paperclip really open source?</div>
+          <div class="faq-a">Yes. MIT licensed. The full server and UI are on GitHub. You can self-host on your own infrastructure or use our managed cloud. We make money on the cloud, the agent runtime credits, and the enterprise tier — never by holding the open source hostage.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <span class="faq-num">02</span>
+        <div>
+          <div class="faq-q">Which agent runtimes are supported?</div>
+          <div class="faq-a">Claude, GPT-5, Gemini, and any model behind an OpenAI-compatible endpoint. Local models work via Ollama or vLLM. You bring the runtime; Paperclip provides the cockpit.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <span class="faq-num">03</span>
+        <div>
+          <div class="faq-q">How do I keep costs from running away?</div>
+          <div class="faq-a">Set a budget per mission, per project, or per agent. Paperclip pauses the agent and pages the owner when the cap is hit. No agent can spend money you didn't authorize.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <span class="faq-num">04</span>
+        <div>
+          <div class="faq-q">What's the trail of evidence for compliance?</div>
+          <div class="faq-a">Every action — goal set, budget approved, action started, completed, reviewed — is logged in plain English with timestamp, actor, and token spend. Exportable as JSON or CSV.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SITE FOOTER (pre-card label stays inside .page) -->
+  <section style="padding: 0; border-bottom: 0;">
+    <div class="eyebrow">
+      <span class="num">21</span>
+      <span class="label">Site footer — wordmark + links on ink</span>
+      <span class="rule"></span>
+    </div>
+  </section>
+
+</div>
+
+<!-- Site footer placed OUTSIDE .page so the ink background spans the full viewport width. -->
+<div class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-mark">Paperclip</div>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <p class="footer-tag">The app people use to manage AI agents for work. Open source. Free to start.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Product</h5>
+        <a href="#">Features</a>
+        <a href="#">Pricing</a>
+        <a href="#">Changelog</a>
+        <a href="#">Roadmap</a>
+      </div>
+      <div class="footer-col">
+        <h5>Open source</h5>
+        <a href="#">GitHub</a>
+        <a href="#">Docs</a>
+        <a href="#">Self-host</a>
+        <a href="#">Contribute</a>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <a href="#">About</a>
+        <a href="#">Blog</a>
+        <a href="#">Careers</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 paperclip.ai · MIT licensed</span>
+      <span>built with paperclip</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
