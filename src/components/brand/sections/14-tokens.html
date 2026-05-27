@@ -69,7 +69,7 @@
   --agent-12a: #4DB9B7; --agent-12b: #3AA35C;  /* teal → green */
 
   /* ── Type ── */
-  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-display: 'Inter Tight', 'Inter', system-ui, sans-serif;
   --font-body:    'Inter', system-ui, sans-serif;
   --font-mono:    'JetBrains Mono', ui-monospace, monospace;
 
@@ -162,7 +162,7 @@ export default {
         blue:    { DEFAULT: '#2563EB', soft: '#DBEAFE', deep: '#1D4ED8' },
       },
       fontFamily: {
-        display: ['Instrument Serif', 'Georgia', 'serif'],
+        display: ['Inter Tight', 'Inter', 'system-ui', 'sans-serif'],
         sans:    ['Inter', 'system-ui', 'sans-serif'],
         mono:    ['JetBrains Mono', 'ui-monospace', 'monospace'],
       },
@@ -219,39 +219,5 @@ export default {
   }
 }</pre>
     </div>
-  </div>
-
-  <!-- ============ LIVE TOKEN PLAYGROUND ============ -->
-  <div class="subsection">
-    <div class="subsection-head"><h3>Live playground</h3><span class="subsection-tag">EDIT TOKENS · WATCH THE PAGE UPDATE</span></div>
-    <p class="subsection-intro">Edit any token below. The change applies to <em>this whole page</em> immediately so you can see what happens before committing to a code change.</p>
-
-    <div class="example" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:24px">
-      <div style="display:flex;flex-direction:column;gap:14px">
-        <div class="caption">COLORS</div>
-        <label class="tp-row"><span>--accent</span><input type="color" data-token="--accent" value="#22C55E"></label>
-        <label class="tp-row"><span>--bg</span><input type="color" data-token="--bg" value="#FFFFFF"></label>
-        <label class="tp-row"><span>--surface</span><input type="color" data-token="--surface" value="#F0ECE7"></label>
-        <label class="tp-row"><span>--text</span><input type="color" data-token="--text" value="#0A0A0A"></label>
-        <label class="tp-row"><span>--rule</span><input type="color" data-token="--rule" value="#E0DCD6"></label>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:14px">
-        <div class="caption">RADIUS &amp; SPACING</div>
-        <label class="tp-row"><span>--r-md</span><input type="range" min="0" max="48" value="16" data-token="--r-md" data-unit="px"><span class="tp-val">16px</span></label>
-        <label class="tp-row"><span>--r-pill (CTA)</span><input type="range" min="0" max="9999" step="100" value="9999" data-token="--r-pill" data-unit="px"><span class="tp-val">9999px</span></label>
-        <label class="tp-row"><span>--space-5</span><input type="range" min="8" max="64" value="24" data-token="--space-5" data-unit="px"><span class="tp-val">24px</span></label>
-        <hr class="hr" style="margin:10px 0">
-        <button id="tp-reset" class="btn btn-sm btn-secondary" style="border-radius:10px;align-self:flex-start">Reset to defaults</button>
-      </div>
-    </div>
-
-    <style>
-      .tp-row { display: grid; grid-template-columns: 110px 1fr 60px; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); }
-      .tp-row input[type="color"] { width: 100%; height: 32px; border: 1px solid var(--rule); border-radius: 6px; background: var(--bg); padding: 2px; cursor: pointer; }
-      .tp-row input[type="range"] { accent-color: var(--text); }
-      .tp-val { color: var(--text); text-align: right; }
-    </style>
-
-    
   </div>
 </section>

@@ -13,7 +13,7 @@ const {
 ---
 
 <!doctype html>
-<html lang="en" data-theme="light" data-density="comfortable">
+<html lang="en" data-theme="dark" data-density="comfortable">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -38,7 +38,7 @@ const {
     <script is:inline>
       (function () {
         try {
-          var t = localStorage.getItem('pds-theme') || 'light';
+          var t = localStorage.getItem('pds-theme') || 'dark';
           var d = localStorage.getItem('pds-density') || 'comfortable';
           document.documentElement.setAttribute('data-theme', t);
           document.documentElement.setAttribute('data-density', d);

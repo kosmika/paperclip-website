@@ -63,6 +63,33 @@
     return `linear-gradient(to bottom, ${a}, ${b})`;
   }
 
+  let refitCanvas = null;
+
+  function fitToCanvas(canvas, content) {
+    const holder = document.createElement('div');
+    holder.style.cssText = 'display:flex;align-items:center;justify-content:center;width:100%;height:100%';
+    const inner = document.createElement('div');
+    inner.style.cssText = 'display:inline-flex;transform-origin:center center';
+    inner.appendChild(content);
+    holder.appendChild(inner);
+    canvas.appendChild(holder);
+
+    const fit = () => {
+      inner.style.transform = '';
+      const cw = canvas.clientWidth;
+      const ch = canvas.clientHeight;
+      if (!cw || !ch) return;
+      const sw = inner.scrollWidth;
+      const sh = inner.scrollHeight;
+      if (sw > cw || sh > ch) {
+        const scale = Math.min(cw / sw, ch / sh) * 0.96;
+        inner.style.transform = `scale(${scale})`;
+      }
+    };
+    requestAnimationFrame(fit);
+    return fit;
+  }
+
   function render() {
     const canvas = document.getElementById('gen-canvas');
     const wrapEl = document.getElementById('gen-canvas-wrap');
@@ -70,10 +97,11 @@
     wrapEl.style.background = BG[state.bg];
     canvas.innerHTML = '';
     const r = rng(seed);
+    let content;
 
     if (state.template === 'blend-row') {
       const row = document.createElement('div');
-      row.style.cssText = `display:flex;align-items:flex-end;gap:${state.gap}px;justify-content:center;width:100%;height:${state.height + 40}px`;
+      row.style.cssText = `display:flex;align-items:flex-end;gap:${state.gap}px;justify-content:center;height:${state.height + 40}px`;
       for (let i = 0; i < state.count; i++) {
         const [a, b] = pick(state.palette, r);
         const jitter = (r() - 0.5) * state.jitter * 2;
@@ -82,7 +110,7 @@
         cap.style.cssText = `width:${state.width}px;height:${h}px;border-radius:9999px;flex-shrink:0;background:${gradient(a,b)}`;
         row.appendChild(cap);
       }
-      canvas.appendChild(row);
+      content = row;
 
     } else if (state.template === 'chain') {
       // Vertical chain of horizontal capsules, slightly overlapping
@@ -96,7 +124,7 @@
         cap.style.cssText = `width:${state.width * 2.4}px;height:${state.width}px;border-radius:9999px;background:${gradient(a,b)};transform:rotate(${rotate}deg);box-shadow:0 0 0 2px ${BG[state.bg]}`;
         col.appendChild(cap);
       }
-      canvas.appendChild(col);
+      content = col;
 
     } else if (state.template === 'bar-stack') {
       // Stacked capsule segments forming bars
@@ -115,7 +143,7 @@
         }
         row.appendChild(bar);
       }
-      canvas.appendChild(row);
+      content = row;
 
     } else if (state.template === 'grid') {
       // Uniform grid of capsules
@@ -129,14 +157,14 @@
         cap.style.cssText = `width:${state.width}px;height:${state.width * 2}px;border-radius:9999px;background:${gradient(a,b)}`;
         grid.appendChild(cap);
       }
-      canvas.appendChild(grid);
+      content = grid;
 
     } else if (state.template === 'hero') {
       // One big hero capsule
       const [a, b] = pick(state.palette, r);
       const hero = document.createElement('div');
       hero.style.cssText = `width:${state.width * 2}px;height:${state.height * 1.3}px;border-radius:9999px;background:${gradient(a,b)}`;
-      canvas.appendChild(hero);
+      content = hero;
 
     } else if (state.template === 'icon') {
       // Paperclip-shape icon out of capsules
@@ -160,8 +188,10 @@
       path.setAttribute('stroke-linejoin', 'round');
       svg.appendChild(path);
       wrapEl.appendChild(svg);
-      canvas.appendChild(wrapEl);
+      content = wrapEl;
     }
+
+    if (content) refitCanvas = fitToCanvas(canvas, content);
   }
 
   // Wire controls
@@ -218,4 +248,6 @@
   });
 
   render();
+
+  window.addEventListener('resize', () => { if (refitCanvas) refitCanvas(); });
 })();

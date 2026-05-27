@@ -1,8 +1,8 @@
 <section class="section" id="imagery">
   <div class="section-head">
     <div class="eyebrow"><span class="eyebrow-num">08</span><span class="eyebrow-line"></span><span class="eyebrow-label">IMAGERY &amp; MOTIFS</span></div>
-    <h2 class="display-2">The capsule  is the brand.</h2>
-    <p class="lede">A stadium-pill rectangle at minimum 1:2 proportion, fills smooth gradient between two anchor colors, oriented vertical or horizontal depending on context. Every agent is a capsule. Every capsule is an agent. The mark and the metaphor are the same shape.</p>
+    <h2 class="display-2">The capsule is the agent.</h2>
+    <p class="lede">Every agent is a capsule. Every capsule is an agent. The mark and the metaphor are the same shape.</p>
   </div>
 
   <!-- ============ CAPSULE MOTIF ============ -->
@@ -98,14 +98,14 @@
       <div class="example" style="padding:32px">
         <div class="caption" style="margin-bottom:24px">AVATARS — 40PX CIRCLES, AGENT GRADIENTS</div>
         <div style="display:flex;gap:-8px;flex-wrap:wrap">
-          <div class="cap-grad-01" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--bg);margin-left:-8px"></div>
-          <div class="cap-grad-04" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--bg);margin-left:-8px"></div>
-          <div class="cap-grad-07" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--bg);margin-left:-8px"></div>
-          <div class="cap-grad-09" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--bg);margin-left:-8px"></div>
-          <div class="cap-grad-12" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--bg);margin-left:-8px"></div>
+          <div class="cap-grad-01" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--bg);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-family:var(--font-body);font-size:15px;font-weight:600;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.35)">H</div>
+          <div class="cap-grad-04" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--bg);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-family:var(--font-body);font-size:15px;font-weight:600;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.35)">O</div>
+          <div class="cap-grad-07" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--bg);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-family:var(--font-body);font-size:15px;font-weight:600;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.35)">M</div>
+          <div class="cap-grad-09" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--bg);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-family:var(--font-body);font-size:15px;font-weight:600;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.35)">C</div>
+          <div class="cap-grad-12" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--bg);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-family:var(--font-body);font-size:15px;font-weight:600;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.35)">C</div>
           <div style="width:48px;height:48px;border-radius:50%;border:2px solid var(--bg);margin-left:-8px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">+7</div>
         </div>
-        <p class="body-sm" style="color:var(--text-2);margin-top:16px">No initials. No photos. Avatars use the same gradient classes as capsules — every visual of an agent shares one DNA.</p>
+        <p class="body-sm" style="color:var(--text-2);margin-top:16px">One initial on the agent gradient until a profile photo is uploaded. Same gradient classes as capsules — every visual of an agent shares one DNA.</p>
       </div>
     </div>
   </div>
@@ -115,9 +115,9 @@
     <div class="subsection-head"><h3>Graphic generator</h3><span class="subsection-tag">CAPSULE COMPOSITIONS</span></div>
     <p class="subsection-intro">The graphic generator produces on-brand artifacts — OG images, blog covers, social posts, slide backdrops — by arranging capsules into templates and colorizing them from palettes. Below: a mini, in-doc version. Production tool: <a class="link-tool" href="https://github.com/scotttong/paperclip-graphic-generator">paperclip-graphic-generator</a>.</p>
 
-    <div id="gen-wrap" class="example grid-1-mobile" style="padding:0;display:grid;grid-template-columns:260px 1fr;gap:0">
+    <div id="gen-wrap" class="example grid-1-mobile" style="padding:0;overflow:hidden;display:grid;grid-template-columns:260px 1fr;gap:0">
       <!-- Controls -->
-      <div style="padding:24px;border-right:1px solid var(--rule);background:var(--surface);display:flex;flex-direction:column;gap:20px">
+      <div class="gen-controls" style="padding:24px;border-right:1px solid var(--rule);background:var(--surface);display:flex;flex-direction:column;gap:20px">
         <div>
           <div class="caption" style="margin-bottom:8px">TEMPLATE</div>
           <div id="gen-templates" style="display:flex;flex-wrap:wrap;gap:6px">
@@ -183,7 +183,11 @@
       }
       .gen-tpl:hover { border-color: var(--text); }
       .gen-tpl.active { background: var(--text); color: var(--bg); border-color: var(--text); }
-      [data-theme="dark"] .gen-tpl.active { background: var(--manila); color: var(--void); border-color: var(--manila); }
+      [data-theme="dark"] .gen-tpl.active { background: var(--manila); color: var(--ink); border-color: var(--manila); }
+      @media (max-width: 640px) {
+        .gen-controls { border-right: none !important; border-bottom: 1px solid var(--rule); }
+        #gen-canvas-wrap { padding: 16px; min-height: 240px; }
+      }
       .gen-slider {
         display: grid; grid-template-columns: 100px 1fr 28px;
         align-items: center; gap: 8px;

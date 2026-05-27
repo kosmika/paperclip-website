@@ -95,6 +95,7 @@
   --container: 1280px;
   --gutter:    32px;
   --toc-w:     260px;
+  --meta-panel-w: 320px;
 
   /* ── SEMANTIC TOKENS — light defaults; dark overrides below ── */
   --bg:           var(--bond);
@@ -267,7 +268,7 @@ img, svg, video { max-width: 100%; display: block; }
   display: block;
 }
 .brand-sub {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 11px;
   color: var(--text-muted);
   letter-spacing: 0.04em;
@@ -360,6 +361,18 @@ body.nav-open { overflow: hidden; }
 }
 .version-picker select:focus { outline: none; }
 
+@media (min-width: 881px) {
+  .version-picker {
+    width: var(--meta-panel-w);
+    box-sizing: border-box;
+    justify-content: space-between;
+  }
+  .version-picker select {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
 .header-btn {
   display: inline-flex;
   align-items: center;
@@ -449,7 +462,13 @@ body.nav-open { overflow: hidden; }
   .site-header-inner { padding-top: 12px; padding-bottom: 12px; gap: 12px; }
   .brand-sub { display: none; }
   .example { padding: 16px; overflow-x: clip; }
-  .example.table-wrap { overflow-x: auto; }
+  .example.table-wrap {
+    overflow-x: auto;
+    width: 100%;
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
   .example.dense { padding: 12px; }
   .hero { padding-top: var(--space-7); padding-bottom: var(--space-6); }
   .section { padding-top: var(--space-7); padding-bottom: var(--space-7); }
@@ -724,7 +743,7 @@ body.nav-open { overflow: hidden; }
 }
 .hero-grid {
   display: grid;
-  grid-template-columns: 1fr 320px;
+  grid-template-columns: 1fr var(--meta-panel-w);
   gap: var(--space-7);
   align-items: end;
 }
@@ -750,6 +769,9 @@ body.nav-open { overflow: hidden; }
   padding: 20px;
   display: flex;
   flex-direction: column;
+}
+@media (min-width: 881px) {
+  .hero-card { width: var(--meta-panel-w); box-sizing: border-box; }
 }
 .hero-card-row {
   display: flex;
@@ -1332,6 +1354,7 @@ input[type="range"]::-moz-range-thumb {
   -webkit-overflow-scrolling: touch;
 }
 .table-wrap table { min-width: 520px; }
+#typography .table-wrap table { width: 100%; }
 
 @media (max-width: 980px) {
   .table-wrap {
@@ -1349,6 +1372,20 @@ input[type="range"]::-moz-range-thumb {
     text-overflow: ellipsis;
     white-space: nowrap;
     max-width: 0;
+  }
+
+  /* Type ramp samples are display-sized — let content set scroll width */
+  #typography .table-wrap table {
+    table-layout: auto;
+    width: max-content;
+    min-width: 100%;
+  }
+  #typography .table-wrap th,
+  #typography .table-wrap td {
+    overflow: visible;
+    text-overflow: unset;
+    max-width: none;
+    white-space: nowrap;
   }
 
   /* Chips stay single-line; ellipsize inside narrow cells */
@@ -1437,6 +1474,7 @@ input[type="range"]::-moz-range-thumb {
 .site-footer {
   background: var(--on-dark-bg);
   color: var(--on-dark-text);
+  font-family: var(--font-body);
   padding: var(--space-8) 0 var(--space-7);
   margin-top: var(--space-9);
 }
@@ -1446,12 +1484,13 @@ input[type="range"]::-moz-range-thumb {
   padding: 0 var(--gutter);
 }
 .footer-mark {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(48px, 9vw, 128px);
-  letter-spacing: -0.025em;
-  line-height: 0.95;
   margin: 0 0 48px;
+  color: var(--on-dark-text);
+}
+.footer-wordmark {
+  display: block;
+  height: clamp(48px, 9vw, 128px);
+  width: auto;
 }
 .footer-grid {
   display: grid;
@@ -1490,13 +1529,22 @@ input[type="range"]::-moz-range-thumb {
   padding-top: 24px;
   border-top: 1px solid #2F2C28;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
-  font-family: var(--font-mono);
   font-size: 12px;
   color: var(--on-dark-muted);
 }
+.footer-bottom-links {
+  display: flex;
+  gap: 16px;
+}
+.footer-bottom-links a {
+  color: var(--on-dark-muted);
+  transition: color var(--dur-short) var(--ease-out);
+}
+.footer-bottom-links a:hover { color: var(--on-dark-text); }
 
 /* ---------- 15. SWATCH PRIMITIVE ----------------------------- */
 

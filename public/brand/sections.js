@@ -192,36 +192,3 @@ ${text}`;
       const updateBudget = () => { budgetValue.textContent = `$${budgetRange.value}`; };
       budgetRange.addEventListener('input', updateBudget);
     })();
-
-/* ── 14-tokens.html ── */
-(() => {
-        const defaults = {};
-        const all = document.querySelectorAll('[data-token]');
-        all.forEach(input => {
-          const t = input.dataset.token;
-          defaults[t] = getComputedStyle(document.documentElement).getPropertyValue(t).trim();
-          input.addEventListener('input', () => {
-            const val = input.type === 'color' ? input.value : input.value + (input.dataset.unit || '');
-            document.documentElement.style.setProperty(t, val);
-            const v = input.parentElement.querySelector('.tp-val');
-            if (v) v.textContent = val;
-          });
-        });
-        document.getElementById('tp-reset').addEventListener('click', () => {
-          all.forEach(input => {
-            const t = input.dataset.token;
-            document.documentElement.style.removeProperty(t);
-          });
-          document.querySelectorAll('[data-token][type="color"]').forEach(i => {
-            const t = i.dataset.token;
-            i.value = ({'--accent':'#22C55E','--bg':'#FFFFFF','--surface':'#F0ECE7','--text':'#0A0A0A','--rule':'#E0DCD6'}[t]) || '#000000';
-          });
-          document.querySelectorAll('[data-token][type="range"]').forEach(i => {
-            const t = i.dataset.token;
-            const map = {'--r-md':16,'--r-pill':9999,'--space-5':24};
-            i.value = map[t] || 16;
-            const v = i.parentElement.querySelector('.tp-val');
-            if (v) v.textContent = i.value + 'px';
-          });
-        });
-      })();
