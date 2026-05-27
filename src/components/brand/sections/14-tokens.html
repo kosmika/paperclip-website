@@ -1,0 +1,226 @@
+<section class="section" id="tokens">
+  <div class="section-head">
+    <div class="eyebrow"><span class="eyebrow-num">14</span><span class="eyebrow-line"></span><span class="eyebrow-label">DESIGN TOKENS</span></div>
+    <h2 class="display-2">One model.  CSS canonical.</h2>
+    <p class="lede">Tokens ship as <code>CSS</code> custom properties (source of truth), a Tailwind theme extension for the React product, and <code>JSON</code> for tooling and Figma. Same names, same values. <code>tokens.css</code> is canonical; Tailwind and JSON exports stay aligned on release.</p>
+  </div>
+
+  <!-- ============ CSS TOKENS ============ -->
+  <div class="subsection">
+    <div class="subsection-head"><h3>CSS variables</h3><span class="subsection-tag">CANONICAL</span></div>
+    <p class="subsection-intro">Import once. Semantic tokens swap under <code>[data-theme="dark"]</code>; brand neutrals and status colors stay literal.</p>
+    <div class="example" style="padding:0">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:var(--surface);border-bottom:1px solid var(--rule)">
+        <span class="mono" style="font-size:11px;color:var(--text-muted)">tokens.css</span>
+        <button class="copy-btn" data-copy-target="#css-tokens">Copy all</button>
+      </div>
+      <pre id="css-tokens" style="margin:0;padding:20px;font-family:var(--font-mono);font-size:12px;line-height:1.65;color:var(--text);background:var(--bg);overflow:auto;max-height:540px">:root {
+  /* ── Brand neutrals — material vocabulary, always literal ── */
+  --bond:      #FFFFFF;
+  --linen:     #F5F3F0;
+  --parchment: #F0ECE7;
+  --manila:    #F3E6C4;
+  --vellum:    #E0DCD6;
+  --steel:     #D8DCDF;
+  --aluminum:  #A8AEB2;
+  --graphite:  #52585D;
+  --charcoal:  #141413;
+  --ink:       #0A0A0A;
+
+  /* ── Brand accent + status — literal across themes ── */
+  --signal:        #22C55E;
+  --signal-soft:   #DCFCE7;
+  --signal-deep:   #188A3C;
+  --amber:         #F59E0B;
+  --amber-soft:    #FEF3C7;
+  --amber-deep:    #B45309;
+  --red:           #DC2626;
+  --red-soft:      #FEE2E2;
+  --red-deep:      #991B1B;
+  --blue:          #2563EB;
+  --blue-soft:     #DBEAFE;
+  --blue-deep:     #1D4ED8;
+
+  /* ── Semantic tokens — light defaults ── */
+  --bg:          var(--bond);
+  --bg-alt:      var(--linen);
+  --surface:     var(--parchment);
+  --rule:        var(--vellum);
+  --text:        var(--ink);
+  --text-2:      var(--graphite);
+  --text-muted:  var(--aluminum);
+  --input-bg:    var(--bond);
+  --accent:      var(--signal);
+  --accent-fg:   #FFFFFF;
+  --accent-soft: var(--signal-soft);
+  --focus-ring:  var(--signal);
+
+  /* ── Agent palette — 12 presets, brand only ── */
+  --agent-1a:  #F7CFDC; --agent-1b:  #1F7A3A;  /* pink → forest */
+  --agent-2a:  #C9A9E8; --agent-2b:  #EE79A1;  /* lavender → hot pink */
+  --agent-3a:  #28164B; --agent-3b:  #7A1530;  /* purple → maroon */
+  --agent-4a:  #F3E6C4; --agent-4b:  #E3A21A;  /* cream → amber */
+  --agent-5a:  #1F4DD6; --agent-5b:  #3AA35C;  /* cobalt → green */
+  --agent-6a:  #E94B27; --agent-6b:  #5A1122;  /* orange → maroon */
+  --agent-7a:  #7EB6E3; --agent-7b:  #EE79A1;  /* sky → hot pink */
+  --agent-8a:  #9CE8A7; --agent-8b:  #BD7FF0;  /* mint → violet */
+  --agent-9a:  #F3B49E; --agent-9b:  #1F4ED4;  /* peach → cobalt */
+  --agent-10a: #F2D95F; --agent-10b: #4FBCBA;  /* yellow → teal */
+  --agent-11a: #C2C2E8; --agent-11b: #5E3450;  /* peri → mauve */
+  --agent-12a: #4DB9B7; --agent-12b: #3AA35C;  /* teal → green */
+
+  /* ── Type ── */
+  --font-display: 'Inter Tight', 'Inter', system-ui, sans-serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+
+  /* ── Radius ── */
+  --r-xs:   4px;
+  --r-sm:  10px;
+  --r-md:  16px;
+  --r-lg:  24px;
+  --r-pill: 9999px;
+
+  /* ── Spacing — 4px micro, 8px base ── */
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  24px;
+  --space-6:  32px;
+  --space-7:  48px;
+  --space-8:  64px;
+  --space-9:  96px;
+  --space-10: 128px;
+  --space-lg:      clamp(2rem, 1.5rem + 1.5vw, 3rem);
+  --space-xl:      clamp(3rem, 2rem + 3vw,   5rem);
+  --space-section: clamp(5rem, 3rem + 5.5vw, 9rem);
+
+  /* ── Motion ── */
+  --ease-out:   cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in:    cubic-bezier(0.4, 0, 1, 0.6);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro:  120ms;
+  --dur-short:  200ms;
+  --dur-medium: 400ms;
+  --dur-long:   700ms;
+}
+
+[data-theme="dark"] {
+  --bg:          var(--charcoal);
+  --bg-alt:      #1F1D1A;
+  --surface:     #1F1D1A;
+  --rule:        #2F2C28;
+  --text:        var(--manila);
+  --text-2:      #9A958A;
+  --text-muted:  #6E6960;
+  --input-bg:    #1F1D1A;
+  --accent-fg:   var(--ink);
+  --accent-soft: rgba(34, 197, 94, 0.14);
+}</pre>
+    </div>
+  </div>
+
+  <!-- ============ TAILWIND ============ -->
+  <div class="subsection">
+    <div class="subsection-head"><h3>Tailwind theme</h3><span class="subsection-tag">PRODUCT · TAILWIND · SHADCN</span></div>
+    <p class="subsection-intro">Semantic colors point at CSS vars so dark mode flips without duplicating hex in TypeScript.</p>
+    <div class="example" style="padding:0">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:var(--surface);border-bottom:1px solid var(--rule)">
+        <span class="mono" style="font-size:11px;color:var(--text-muted)">tailwind.config.ts</span>
+        <button class="copy-btn" data-copy-target="#tw-tokens">Copy all</button>
+      </div>
+      <pre id="tw-tokens" style="margin:0;padding:20px;font-family:var(--font-mono);font-size:12px;line-height:1.6;color:var(--text);background:var(--bg);overflow:auto;max-height:480px">import type { Config } from 'tailwindcss'
+
+export default {
+  theme: {
+    extend: {
+      colors: {
+        // brand neutrals
+        bond:      '#FFFFFF',
+        linen:     '#F5F3F0',
+        parchment: '#F0ECE7',
+        manila:    '#F3E6C4',
+        vellum:    '#E0DCD6',
+        steel:     '#D8DCDF',
+        aluminum:  '#A8AEB2',
+        graphite:  '#52585D',
+        charcoal:  '#141413',
+        ink:       '#0A0A0A',
+
+        // semantic (consume CSS vars so dark mode flips automatically)
+        bg:         'var(--bg)',
+        surface:    'var(--surface)',
+        rule:       'var(--rule)',
+        text:       'var(--text)',
+        'text-2':   'var(--text-2)',
+        muted:      'var(--text-muted)',
+        accent:     'var(--accent)',
+
+        // status
+        signal:  { DEFAULT: '#22C55E', soft: '#DCFCE7', deep: '#188A3C' },
+        amber:   { DEFAULT: '#F59E0B', soft: '#FEF3C7', deep: '#B45309' },
+        red:     { DEFAULT: '#DC2626', soft: '#FEE2E2', deep: '#991B1B' },
+        blue:    { DEFAULT: '#2563EB', soft: '#DBEAFE', deep: '#1D4ED8' },
+      },
+      fontFamily: {
+        display: ['Inter Tight', 'Inter', 'system-ui', 'sans-serif'],
+        sans:    ['Inter', 'system-ui', 'sans-serif'],
+        mono:    ['JetBrains Mono', 'ui-monospace', 'monospace'],
+      },
+      borderRadius: {
+        xs: '4px', sm: '10px', md: '16px', lg: '24px', pill: '9999px',
+      },
+      transitionTimingFunction: {
+        'paperclip-out':   'cubic-bezier(0.2,0.8,0.2,1)',
+        'paperclip-in':    'cubic-bezier(0.4,0,1,0.6)',
+        'paperclip-inout': 'cubic-bezier(0.65,0,0.35,1)',
+      },
+    },
+  },
+} satisfies Config</pre>
+    </div>
+  </div>
+
+  <!-- ============ JSON ============ -->
+  <div class="subsection">
+    <div class="subsection-head"><h3>JSON</h3><span class="subsection-tag">TOOLING · FIGMA</span></div>
+    <p class="subsection-intro">Neutral ramp, status, and radius for Figma and token pipelines. Not a full export of motion, spacing, or the agent palette — extend as needed.</p>
+    <div class="example" style="padding:0">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:var(--surface);border-bottom:1px solid var(--rule)">
+        <span class="mono" style="font-size:11px;color:var(--text-muted)">tokens.json</span>
+        <button class="copy-btn" data-copy-target="#json-tokens">Copy all</button>
+      </div>
+      <pre id="json-tokens" style="margin:0;padding:20px;font-family:var(--font-mono);font-size:12px;line-height:1.6;color:var(--text);background:var(--bg);overflow:auto;max-height:380px">{
+  "color": {
+    "neutral": {
+      "bond":      { "value": "#FFFFFF" },
+      "linen":     { "value": "#F5F3F0" },
+      "parchment": { "value": "#F0ECE7" },
+      "manila":    { "value": "#F3E6C4" },
+      "vellum":    { "value": "#E0DCD6" },
+      "steel":     { "value": "#D8DCDF" },
+      "aluminum":  { "value": "#A8AEB2" },
+      "graphite":  { "value": "#52585D" },
+      "charcoal":  { "value": "#141413" },
+      "ink":       { "value": "#0A0A0A" }
+    },
+    "accent":  { "signal": { "value": "#22C55E" } },
+    "status":  {
+      "success": { "value": "#22C55E" },
+      "warning": { "value": "#F59E0B" },
+      "error":   { "value": "#DC2626" },
+      "info":    { "value": "#2563EB" }
+    }
+  },
+  "radius": {
+    "xs":   { "value": "4px"   },
+    "sm":   { "value": "10px"  },
+    "md":   { "value": "16px"  },
+    "lg":   { "value": "24px"  },
+    "pill": { "value": "9999px" }
+  }
+}</pre>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,176 @@
+<section class="section" id="typography">
+  <div class="section-head">
+    <div class="eyebrow"><span class="eyebrow-num">03</span><span class="eyebrow-line"></span><span class="eyebrow-label">TYPOGRAPHY</span></div>
+    <h2 class="display-2">Three typefaces.  Each with one job.</h2>
+    <p class="lede">Inter Tight carries display and editorial weight. Inter does every other word on the page. JetBrains Mono carries the engineering credibility — telemetry, code, timestamps. Nothing else.</p>
+  </div>
+
+  <!-- The three families -->
+  <div class="subsection">
+    <div class="subsection-head"><h3>Families</h3><span class="subsection-tag">THREE STACKS</span></div>
+    <div class="grid-3">
+
+      <div class="example" style="padding:32px">
+        <div class="caption">DISPLAY</div>
+        <h4 class="display-3" style="margin-top:8px;font-size:42px">Inter Tight</h4>
+        <div class="anno" style="margin-top:8px">500 Medium · 600 Semibold · 700 Bold</div>
+        <p class="body-sm" style="color:var(--text-2);margin-top:16px">The display voice. All headings, display copy, big moments. Default weight 600 — tight tracking provides the editorial gravity without leaning on bold.</p>
+        <div style="margin-top:24px;font-family:var(--font-display);font-weight:600;font-size:32px;line-height:1.05;letter-spacing:-0.03em">Paperclip  runs your  business.</div>
+        <div class="anno" style="margin-top:20px"><code>font-family: 'Inter Tight', sans-serif</code></div>
+        <div class="anno"><code>weight: 600 · line-height: 1.02–1.2 · letter-spacing: -0.04em → -0.02em</code></div>
+      </div>
+
+      <div class="example" style="padding:32px">
+        <div class="caption">BODY</div>
+        <h4 class="display-3" style="margin-top:8px;font-size:42px;font-family:var(--font-body);font-weight:600;letter-spacing:-0.015em">Inter</h4>
+        <div class="anno" style="margin-top:8px">400 · 500 · 600 · 700</div>
+        <p class="body-sm" style="color:var(--text-2);margin-top:16px">The workhorse. Body, labels, navigation, buttons, the wordmark. <code>ss01</code> + <code>cv11</code> are enabled site-wide.</p>
+        <div style="margin-top:24px;font-family:var(--font-body)">
+          <div style="font-size:18px;font-weight:400;line-height:1.55">One token model. Two surfaces. Direct, confident, never decorative.</div>
+        </div>
+        <div class="anno" style="margin-top:24px"><code>font-family: 'Inter', sans-serif</code></div>
+        <div class="anno"><code>font-feature-settings: 'ss01', 'cv11'</code></div>
+      </div>
+
+      <div class="example" style="padding:32px">
+        <div class="caption">MONO</div>
+        <h4 class="display-3" style="margin-top:8px;font-size:42px;font-family:var(--font-mono);font-weight:500;letter-spacing:-0.04em">JetBrains</h4>
+        <div class="anno" style="margin-top:8px">400 · 500</div>
+        <p class="body-sm" style="color:var(--text-2);margin-top:16px">The engineering layer. Timestamps, hex codes, agent names, tool calls, terminal, telemetry chips. <code>tabular-nums</code> always on.</p>
+        <pre style="margin-top:24px;font-family:var(--font-mono);font-size:12px;line-height:1.5;background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-sm);padding:14px;overflow:auto;color:var(--text-2)">$ paperclip status --agent ceo
+ ▸ alive  budget 64%  4h 32m</pre>
+        <div class="anno" style="margin-top:20px"><code>font-family: 'JetBrains Mono', monospace</code></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Type ramp -->
+  <div class="subsection">
+    <div class="subsection-head"><h3>Type ramp</h3><span class="subsection-tag">11 ROLES</span></div>
+    <p class="subsection-intro">Use the role, not the size. Display roles use Inter Tight at 600. Body and labels use Inter. Mono is JetBrains Mono.</p>
+
+    <div class="example table-wrap">
+      <table style="border-collapse:collapse;font-family:var(--font-body)">
+        <thead>
+          <tr style="background:var(--surface)">
+            <th style="text-align:left;font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);padding:14px 20px;border-bottom:1px solid var(--rule);width:160px">ROLE</th>
+            <th style="text-align:left;font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);padding:14px 20px;border-bottom:1px solid var(--rule)">SAMPLE</th>
+            <th style="text-align:right;font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);padding:14px 20px;border-bottom:1px solid var(--rule);width:280px">SPEC</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:24px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted);vertical-align:middle">display-1</td>
+            <td style="padding:24px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-display);font-weight:600;font-size:72px;line-height:1.02;letter-spacing:-0.04em">Headline.</td>
+            <td style="padding:24px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted);text-align:right">clamp(42, 5.5vw, 80) · 600 · ‑0.04em</td>
+          </tr>
+          <tr>
+            <td style="padding:20px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted);vertical-align:middle">display-2</td>
+            <td style="padding:20px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-display);font-weight:600;font-size:54px;line-height:1.05;letter-spacing:-0.035em">Section heading</td>
+            <td style="padding:20px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted);text-align:right">clamp(40, 5.5vw, 72) · 600 · ‑0.035em</td>
+          </tr>
+          <tr>
+            <td style="padding:18px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted);vertical-align:middle">display-3</td>
+            <td style="padding:18px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-display);font-weight:600;font-size:36px;line-height:1.1;letter-spacing:-0.03em">Subsection</td>
+            <td style="padding:18px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted);text-align:right">clamp(28, 3.5vw, 44) · 600 · ‑0.03em</td>
+          </tr>
+          <tr>
+            <td style="padding:16px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted);vertical-align:middle">display-4</td>
+            <td style="padding:16px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-display);font-weight:600;font-size:26px;line-height:1.2;letter-spacing:-0.02em">Card title</td>
+            <td style="padding:16px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted);text-align:right">26 · 600 · ‑0.02em</td>
+          </tr>
+          <tr>
+            <td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted);vertical-align:middle">lede</td>
+            <td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-body);font-size:20px;line-height:1.45;color:var(--text-2)">Subhead / hero lede</td>
+            <td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted);text-align:right">20 / 1.45 · 400 · 0</td>
+          </tr>
+          <tr>
+            <td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted);vertical-align:middle">body-lg</td>
+            <td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-body);font-size:18px;line-height:1.5">Body large — feature copy</td>
+            <td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted);text-align:right">18 / 1.5 · 400 · 0</td>
+          </tr>
+          <tr>
+            <td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted);vertical-align:middle">body</td>
+            <td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-body);font-size:16px;line-height:1.6">Body — running text, paragraphs, default UI copy.</td>
+            <td style="padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted);text-align:right">16 / 1.6 · 400 · 0</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted);vertical-align:middle">body-sm</td>
+            <td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-body);font-size:14px;line-height:1.5">Body small — secondary text, table cells, dense UI.</td>
+            <td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted);text-align:right">14 / 1.5 · 400 · 0</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted);vertical-align:middle">caption</td>
+            <td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-body);font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted)">EYEBROWS · LABELS · CATEGORY TAGS</td>
+            <td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted);text-align:right">11 · 500 · +0.08em · UPPER</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted);vertical-align:middle">mono</td>
+            <td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:13px;color:var(--text-2)">$ paperclip status — 1042 events</td>
+            <td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted);text-align:right">13 / 1.4 · 400 · tabular-nums</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 20px;font-family:var(--font-mono);font-size:11px;color:var(--text-muted);vertical-align:middle">mono-sm</td>
+            <td style="padding:12px 20px;font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">14:32:07 · #1042 · CEO Hermes</td>
+            <td style="padding:12px 20px;font-family:var(--font-mono);font-size:11px;color:var(--text-muted);text-align:right">11 / 1.4 · 400</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Pairing examples -->
+  <div class="subsection">
+    <div class="subsection-head"><h3>Pairing in practice</h3><span class="subsection-tag">EDITORIAL RHYTHM</span></div>
+
+    <div class="grid-2">
+      <div class="example" style="padding:40px">
+        <div class="caption" style="margin-bottom:10px">MARKETING BLOCK</div>
+        <h3 class="display-3" style="margin:0 0 16px">Heartbeats keep  the lights on.</h3>
+        <p style="font-size:17px;line-height:1.5;color:var(--text-2);max-width:48ch;margin:0">Agents wake on a schedule, check their work, and act. Delegation flows up and down the org chart automatically.</p>
+        <div style="display:flex;gap:14px;margin-top:24px;align-items:baseline">
+          <span style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);letter-spacing:0.06em">SHIPPED</span>
+          <span style="font-family:var(--font-mono);font-size:13px">14:32:07 PST · 2026‑11‑22</span>
+        </div>
+      </div>
+      <div class="example invert" style="padding:40px">
+        <div class="caption" style="margin-bottom:10px">PRODUCT MOMENT</div>
+        <h3 class="display-3" style="margin:0 0 16px">You're in control.</h3>
+        <p style="font-size:17px;line-height:1.5;opacity:0.85;max-width:48ch;margin:0">Pause. Resume. Override. Reassign. Terminate.</p>
+        <div style="display:flex;gap:14px;margin-top:24px;align-items:baseline">
+          <span style="font-family:var(--font-mono);font-size:11px;color:var(--on-dark-muted);letter-spacing:0.06em">ACTIONS</span>
+          <span style="font-family:var(--font-mono);font-size:13px">5 verbs · always available</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Do / Don't -->
+  <div class="subsection">
+    <div class="subsection-head"><h3>Type do &amp; don't</h3><span class="subsection-tag">RULES</span></div>
+    <div class="compare">
+      <div class="example">
+        <span class="compare-label good">DO</span>
+        <div style="font-family:var(--font-display);font-size:36px;line-height:1.05;letter-spacing:-0.03em;font-weight:600">Set the goal. Approve the work.</div>
+        <p class="body-sm" style="color:var(--text-2);margin-top:16px">Inter Tight at 600. Tight tracking. Sentence-case. The tight spacing does the editorial work.</p>
+      </div>
+      <div class="example">
+        <span class="compare-label bad">DON'T</span>
+        <div style="font-family:var(--font-display);font-size:36px;line-height:1.05;letter-spacing:0;font-weight:600;text-transform:uppercase">SET THE GOAL. APPROVE THE WORK.</div>
+        <p class="body-sm" style="color:var(--text-2);margin-top:16px">No all-caps display. No loose tracking on display sizes. Caps are reserved for the caption role.</p>
+      </div>
+
+      <div class="example">
+        <span class="compare-label good">DO</span>
+        <div style="font-family:var(--font-mono);font-size:13px;color:var(--text-2)">12:48:02 · CEO Hermes · run_tests() passed</div>
+        <p class="body-sm" style="color:var(--text-2);margin-top:16px">Use the mono stack for timestamps, IDs, tool calls, agent names, hex values, terminal output. <code>tabular-nums</code> keeps columns aligned.</p>
+      </div>
+      <div class="example">
+        <span class="compare-label bad">DON'T</span>
+        <div style="font-family:var(--font-display);font-style:italic;font-size:18px">12:48:02 — CEO Hermes — run_tests() passed</div>
+        <p class="body-sm" style="color:var(--text-2);margin-top:16px">Don't dress system telemetry in editorial type. Mono is the layer that signals "this is real, this happened, this was logged."</p>
+      </div>
+    </div>
+  </div>
+</section>

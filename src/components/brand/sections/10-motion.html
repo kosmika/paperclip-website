@@ -1,0 +1,127 @@
+<section class="section" id="motion">
+  <div class="section-head">
+    <div class="eyebrow"><span class="eyebrow-num">10</span><span class="eyebrow-line"></span><span class="eyebrow-label">MOTION</span></div>
+    <h2 class="display-2">Purposeful.  Never showy.</h2>
+    <p class="lede">Animation signals life and state. Entrance reveals stagger. Active elements pulse. Transitions ease at 200ms. Nothing bounces unless it has a reason — and almost nothing does.</p>
+  </div>
+
+  <!-- Easings -->
+  <div class="subsection">
+    <div class="subsection-head"><h3>Easings &amp; durations</h3><span class="subsection-tag">FOUR DURATIONS · THREE EASINGS</span></div>
+    <div class="example table-wrap">
+      <table style="width:100%;border-collapse:collapse;font-family:var(--font-body)">
+        <thead>
+          <tr style="background:var(--surface)">
+            <th style="text-align:left;padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted)">TOKEN</th>
+            <th style="text-align:left;padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted)">VALUE</th>
+            <th style="text-align:left;padding:14px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted)">WHERE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:12px">--ease-out</td><td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">cubic-bezier(.2,.8,.2,1)</td><td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--text-2)">Entrance, hover lifts, primary motion</td></tr>
+          <tr><td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:12px">--ease-in</td><td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">cubic-bezier(.4,0,1,.6)</td><td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--text-2)">Exit, dismissal</td></tr>
+          <tr><td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:12px">--ease-inout</td><td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">cubic-bezier(.65,0,.35,1)</td><td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--text-2)">Scrub, pinned scroll</td></tr>
+          <tr><td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:12px">--dur-micro</td><td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">120ms</td><td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--text-2)">Hover color shifts, focus rings</td></tr>
+          <tr><td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:12px">--dur-short</td><td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">200ms</td><td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--text-2)">Default UI transitions, button hover</td></tr>
+          <tr><td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:12px">--dur-medium</td><td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">400ms</td><td style="padding:12px 20px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--text-2)">Theme swap, panel slide-in</td></tr>
+          <tr><td style="padding:12px 20px;font-family:var(--font-mono);font-size:12px">--dur-long</td><td style="padding:12px 20px;font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">700ms</td><td style="padding:12px 20px;font-size:13px;color:var(--text-2)">Hero reveals, pinned set pieces</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Patterns -->
+  <div class="subsection">
+    <div class="subsection-head"><h3>Reusable patterns</h3><span class="subsection-tag">FIVE</span></div>
+    <div class="grid-2" style="gap:16px">
+
+      <div class="example motion-demo" style="text-align:center;padding:32px;cursor:pointer" data-demo="stagger">
+        <div class="caption" style="margin-bottom:16px">STAGGERED ENTRANCE</div>
+        <div id="m-stagger" style="display:flex;justify-content:center;gap:12px;align-items:flex-end;height:120px;perspective:600px">
+          <div class="cap-grad-04" style="width:24px;height:80px;border-radius:9999px"></div>
+          <div class="cap-grad-09" style="width:24px;height:110px;border-radius:9999px"></div>
+          <div class="cap-grad-07" style="width:24px;height:60px;border-radius:9999px"></div>
+          <div class="cap-grad-10" style="width:24px;height:120px;border-radius:9999px"></div>
+          <div class="cap-grad-12" style="width:24px;height:90px;border-radius:9999px"></div>
+        </div>
+        <p class="body-sm" style="color:var(--text-2);margin-top:16px">450ms ease-out · 140ms stagger · translateY 12 → 0</p>
+        <button class="btn btn-sm btn-ghost" style="margin-top:8px">Replay ↻</button>
+      </div>
+
+      <div class="example motion-demo" style="text-align:center;padding:32px;cursor:pointer">
+        <div class="caption" style="margin-bottom:16px">HEARTBEAT PULSE</div>
+        <div style="display:flex;justify-content:center;align-items:center;height:120px">
+          <span style="display:inline-block;width:14px;height:28px;border-radius:7px;background:var(--blue);animation: hb-pulse 1.6s ease-in-out infinite;box-shadow:0 0 0 12px color-mix(in srgb, var(--blue) 12%, transparent), 0 0 0 24px color-mix(in srgb, var(--blue) 4%, transparent)"></span>
+        </div>
+        <p class="body-sm" style="color:var(--text-2);margin-top:16px">1.6s ease-in-out · infinite · alive · scale 0.85 ↔ 1.0</p>
+      </div>
+
+      <div class="example motion-demo" style="text-align:center;padding:32px">
+        <div class="caption" style="margin-bottom:16px">HOVER TRANSITION</div>
+        <div style="display:flex;justify-content:center;align-items:center;height:120px">
+          <button class="btn btn-primary btn-sm" style="font-size:14px;padding:10px 24px">Hover me</button>
+        </div>
+        <p class="body-sm" style="color:var(--text-2);margin-top:16px">200ms ease-out · color shift only · no transform, no bounce</p>
+      </div>
+
+      <div class="example motion-demo" style="text-align:center;padding:32px;cursor:pointer" data-demo="reveal">
+        <div class="caption" style="margin-bottom:16px">SCROLL REVEAL</div>
+        <div id="m-reveal" style="height:120px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
+          <div class="reveal-line" style="font-family:var(--font-display);font-size:32px;letter-spacing:-0.01em;color:var(--text)">Headlines fade in.</div>
+        </div>
+        <p class="body-sm" style="color:var(--text-2);margin-top:16px">700ms ease-out · opacity 0 → 1 · translateY 24 → 0</p>
+        <button class="btn btn-sm btn-ghost" style="margin-top:8px">Replay ↻</button>
+      </div>
+
+      <div class="example motion-demo" style="text-align:center;padding:32px;cursor:pointer" data-demo="theme">
+        <div class="caption" style="margin-bottom:16px">THEME SWAP</div>
+        <div style="display:flex;justify-content:center;align-items:center;height:120px;gap:32px">
+          <button id="m-theme-light" class="btn btn-sm btn-secondary" style="border-radius:10px">Toggle light</button>
+          <button id="m-theme-dark" class="btn btn-sm btn-secondary" style="border-radius:10px">Toggle dark</button>
+        </div>
+        <p class="body-sm" style="color:var(--text-2);margin-top:16px">400ms ease-out · background + color crossfade</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reduced motion -->
+  <div class="subsection">
+    <div class="subsection-head"><h3>Reduced motion</h3><span class="subsection-tag">ALWAYS RESPECT</span></div>
+    <p class="subsection-intro">Every motion pattern has a no-motion fallback. If the user prefers reduced motion, animations stop or shorten to a 100ms color crossfade.</p>
+    <div class="example dense">
+      <pre class="mono" style="margin:0;padding:14px;background:var(--surface);border-radius:6px;font-size:12px;overflow:auto"><code>@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 100ms !important;
+    scroll-behavior: auto !important;
+  }
+}</code></pre>
+    </div>
+  </div>
+
+  <style>
+    /* Staggered entrance demo */
+    @keyframes m-stagger-in {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .m-stagger-go > div {
+      animation: m-stagger-in 450ms var(--ease-out) both;
+    }
+    .m-stagger-go > div:nth-child(1) { animation-delay: 0ms; }
+    .m-stagger-go > div:nth-child(2) { animation-delay: 140ms; }
+    .m-stagger-go > div:nth-child(3) { animation-delay: 280ms; }
+    .m-stagger-go > div:nth-child(4) { animation-delay: 420ms; }
+    .m-stagger-go > div:nth-child(5) { animation-delay: 560ms; }
+
+    @keyframes m-reveal-in {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .m-reveal-go .reveal-line {
+      animation: m-reveal-in 700ms var(--ease-out) both;
+    }
+  </style>
+
+  
+</section>

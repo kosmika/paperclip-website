@@ -1,0 +1,420 @@
+<section class="section" id="components">
+  <div class="section-head">
+    <div class="eyebrow"><span class="eyebrow-num">11</span><span class="eyebrow-line"></span><span class="eyebrow-label">COMPONENTS</span></div>
+    <h2 class="display-2">Living elements.  Tested states.</h2>
+    <p class="lede">Every component below ships in light and dark. Every interactive control has explicit default, hover, focus, active, and disabled states. Hover the state explorer chips to preview each state in place.</p>
+  </div>
+
+  <!-- ============ BUTTONS ============ -->
+  <div class="subsection" id="components-buttons">
+    <div class="subsection-head"><h3>Buttons</h3><span class="subsection-tag">5 VARIANTS · 5 STATES</span></div>
+
+    <div class="example">
+      <div class="row" style="align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:24px">
+        <div style="display:flex;flex-direction:column;gap:14px;min-width:200px">
+          <div class="caption">PRIMARY · PILL</div>
+          <button class="btn btn-primary">Get started</button>
+          <button class="btn btn-primary" disabled style="opacity:0.5;cursor:not-allowed">Disabled</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;min-width:200px">
+          <div class="caption">SECONDARY · 10PX</div>
+          <button class="btn btn-secondary" style="border-radius:10px">Read the docs</button>
+          <button class="btn btn-secondary" style="border-radius:10px;opacity:0.5;cursor:not-allowed" disabled>Disabled</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;min-width:200px">
+          <div class="caption">GHOST</div>
+          <button class="btn btn-ghost">View trace →</button>
+          <button class="btn btn-ghost" disabled style="opacity:0.5;cursor:not-allowed">Disabled</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;min-width:200px">
+          <div class="caption">ACCENT · PILL</div>
+          <button class="btn btn-accent">Approve</button>
+          <button class="btn btn-danger">Terminate</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- State explorer -->
+    <div class="example" style="margin-top:16px">
+      <div class="caption" style="margin-bottom:16px">STATE EXPLORER</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));gap:14px;align-items:start">
+        <div>
+          <div class="mono" style="font-size:11px;color:var(--text-muted);margin-bottom:8px">default</div>
+          <button class="btn btn-primary btn-sm" style="pointer-events:none">Action</button>
+        </div>
+        <div>
+          <div class="mono" style="font-size:11px;color:var(--text-muted);margin-bottom:8px">hover</div>
+          <button class="btn btn-primary btn-sm state-demo-hover" style="pointer-events:none">Action</button>
+        </div>
+        <div>
+          <div class="mono" style="font-size:11px;color:var(--text-muted);margin-bottom:8px">focus</div>
+          <button class="btn btn-primary btn-sm" style="outline:2px solid var(--focus-ring);outline-offset:2px;pointer-events:none">Action</button>
+        </div>
+        <div>
+          <div class="mono" style="font-size:11px;color:var(--text-muted);margin-bottom:8px">active</div>
+          <button class="btn btn-primary btn-sm state-demo-active" style="pointer-events:none">Action</button>
+        </div>
+        <div>
+          <div class="mono" style="font-size:11px;color:var(--text-muted);margin-bottom:8px">disabled</div>
+          <button class="btn btn-primary btn-sm" style="opacity:0.5;cursor:not-allowed;pointer-events:none">Action</button>
+        </div>
+        <div>
+          <div class="mono" style="font-size:11px;color:var(--text-muted);margin-bottom:8px">loading</div>
+          <button class="btn btn-primary btn-sm" style="opacity:0.85;pointer-events:none"><span style="display:inline-block;width:10px;height:10px;border:1.5px solid currentColor;border-top-color:transparent;border-radius:50%;animation: spin 800ms linear infinite"></span> Action</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sizes -->
+    <div class="example" style="margin-top:16px">
+      <div class="caption" style="margin-bottom:16px">SIZES</div>
+      <div class="row" style="gap:12px">
+        <button class="btn btn-primary" style="padding:6px 12px;font-size:12px">XS · 12/24</button>
+        <button class="btn btn-primary btn-sm">SM · 14/28</button>
+        <button class="btn btn-primary">MD · 15/44</button>
+        <button class="btn btn-primary" style="font-size:17px;padding:16px 28px">LG · 17/52</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ FORMS ============ -->
+  <div class="subsection" id="components-forms">
+    <div class="subsection-head"><h3>Form controls</h3><span class="subsection-tag">EIGHT TYPES</span></div>
+
+    <div class="grid-2" style="gap:16px">
+
+      <!-- Inputs -->
+      <div class="example">
+        <div class="caption" style="margin-bottom:12px">TEXT INPUT</div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <label style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:13px;font-weight:500">Agent name</span>
+            <input type="text" placeholder="CEO Hermes" value="CEO Hermes" style="border:1px solid var(--rule);border-radius:10px;padding:10px 14px;font-family:var(--font-body);font-size:14px;background:var(--input-bg);color:var(--text)">
+          </label>
+          <label style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:13px;font-weight:500">Goal description</span>
+            <input type="text" placeholder="What should this agent do?" style="border:1px solid var(--rule);border-radius:10px;padding:10px 14px;font-family:var(--font-body);font-size:14px;background:var(--input-bg);color:var(--text)">
+          </label>
+          <label style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:13px;font-weight:500">With error</span>
+            <input type="text" value="bad@email" style="border:1px solid var(--red);border-radius:10px;padding:10px 14px;font-family:var(--font-body);font-size:14px;background:var(--input-bg);color:var(--text)">
+            <span class="mono" style="font-size:11px;color:var(--red)">Must be a valid email.</span>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:13px;font-weight:500">Disabled</span>
+            <input type="text" value="paperclip.local" disabled style="border:1px solid var(--rule);border-radius:10px;padding:10px 14px;font-family:var(--font-body);font-size:14px;background:var(--surface);color:var(--text-muted);cursor:not-allowed">
+          </label>
+        </div>
+      </div>
+
+      <!-- Textarea / select -->
+      <div class="example">
+        <div class="caption" style="margin-bottom:12px">TEXTAREA + SELECT</div>
+        <label style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px">
+          <span style="font-size:13px;font-weight:500">Goal brief</span>
+          <textarea rows="3" style="border:1px solid var(--rule);border-radius:10px;padding:10px 14px;font-family:var(--font-body);font-size:14px;background:var(--input-bg);color:var(--text);resize:vertical">Build the #1 AI note-taking app to $1mm ARR. Focus on collaboration, real-time sync, and a fast iOS app.</textarea>
+        </label>
+        <label style="display:flex;flex-direction:column;gap:6px">
+          <span style="font-size:13px;font-weight:500">Runtime</span>
+          <select style="border:1px solid var(--rule);border-radius:10px;padding:10px 14px;font-family:var(--font-body);font-size:14px;background:var(--input-bg);color:var(--text)">
+            <option>Claude Code</option><option>Codex</option><option>Cursor</option><option>OpenClaw</option>
+          </select>
+        </label>
+      </div>
+
+      <!-- Checkbox / radio / toggle -->
+      <div class="example">
+        <div class="caption" style="margin-bottom:12px">CHECKBOX · RADIO · TOGGLE</div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px"><input type="checkbox" checked style="width:16px;height:16px;accent-color: var(--text)">Enable scheduled heartbeats</label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px"><input type="checkbox" style="width:16px;height:16px;accent-color: var(--text)">Allow agent-initiated hires</label>
+          <hr class="hr" style="margin:6px 0">
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px"><input type="radio" name="r-deploy" checked style="width:16px;height:16px;accent-color: var(--text)">Self-hosted (local)</label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:14px"><input type="radio" name="r-deploy" style="width:16px;height:16px;accent-color: var(--text)">Self-hosted (cloud)</label>
+          <hr class="hr" style="margin:6px 0">
+          <div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:14px">Auto-pause at budget cap</span>
+            <button class="toggle-switch on" style="position:relative;width:36px;height:20px;border-radius:9999px;border:0;background:var(--accent);cursor:pointer">
+              <span style="position:absolute;top:2px;left:18px;width:16px;height:16px;border-radius:50%;background:white;transition:left 200ms var(--ease-out)"></span>
+            </button>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:14px;color:var(--text-muted)">Email weekly summary</span>
+            <button class="toggle-switch" style="position:relative;width:36px;height:20px;border-radius:9999px;border:0;background:var(--rule);cursor:pointer">
+              <span style="position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:white;transition:left 200ms var(--ease-out)"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slider + number -->
+      <div class="example">
+        <div class="caption" style="margin-bottom:12px">SLIDER + NUMBER</div>
+        <label style="display:flex;flex-direction:column;gap:8px;margin-bottom:18px">
+          <span style="font-size:13px;font-weight:500;display:flex;justify-content:space-between">Monthly budget<span class="mono" style="font-size:13px;color:var(--text)">$60.00</span></span>
+          <input type="range" min="10" max="500" value="60" style="width:100%;accent-color: var(--text)">
+        </label>
+        <label style="display:flex;flex-direction:column;gap:6px">
+          <span style="font-size:13px;font-weight:500">Heartbeat interval (hours)</span>
+          <input type="number" value="4" style="border:1px solid var(--rule);border-radius:10px;padding:10px 14px;font-family:var(--font-mono);font-size:14px;background:var(--input-bg);color:var(--text);width:120px">
+        </label>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ CARDS ============ -->
+  <div class="subsection" id="components-cards">
+    <div class="subsection-head"><h3>Cards</h3><span class="subsection-tag">FOUR PATTERNS</span></div>
+
+    <div class="grid-2" style="gap:16px">
+      <div class="card" style="padding:24px">
+        <div class="caption">FEATURE CARD</div>
+        <h4 class="display-4" style="margin-top:8px">Schedule.</h4>
+        <p class="body-sm" style="color:var(--text-2);margin-top:8px">Agents wake on schedule or on demand. Every action logged.</p>
+      </div>
+      <div class="card-flat" style="padding:24px">
+        <div style="display:flex;align-items:start;justify-content:space-between;gap:14px">
+          <div>
+            <div style="display:flex;align-items:center;gap:10px"><div class="cap-grad-05" style="width:24px;height:48px;border-radius:9999px"></div><div><div style="font-weight:500">CEO Hermes</div><div class="mono" style="font-size:11px;color:var(--text-muted)">claude-sonnet-4-5 · 4h</div></div></div>
+          </div>
+          <span style="font-family:var(--font-body);font-size:11px;font-weight:500;color:var(--blue-deep);background:var(--blue-soft);padding:2px 10px;border-radius:9999px;border:1px solid var(--blue)">Active</span>
+        </div>
+        <div class="anno" style="margin-top:14px;padding-top:14px;border-top:1px solid var(--rule);display:flex;justify-content:space-between"><span>$23.40 / $60</span><span>↑ 12 tickets</span></div>
+      </div>
+      <div class="card-inverse" style="padding:24px">
+        <div class="caption">CARD · INVERSE</div>
+        <h4 class="display-4" style="margin-top:8px;color:var(--manila)">You're in control.</h4>
+        <p class="body-sm" style="opacity:0.85;margin-top:8px">Same card pattern, dark surface. Used in marketing callouts and product modals.</p>
+      </div>
+      <div class="example dense" style="margin-top:0">
+        <div class="caption">INTERACTIVE CARD (BYOB)</div>
+        <div class="byob-active-card">
+          <div class="byob-active-card__title">Claude Code</div>
+          <div class="byob-active-card__meta">claude-sonnet-4-5</div>
+          <div class="byob-active-card__footer"><span class="byob-active-card__cost">$23.40 / $60</span><span style="font-family:var(--font-body);font-size:11px;font-weight:500;color:var(--blue-deep);background:var(--blue-soft);padding:2px 10px;border-radius:9999px;border:1px solid var(--blue)">Active</span></div>
+        </div>
+        <div class="anno" style="margin-top:8px">Selected state — adapts to theme. Light: bond surface, ink text. Dark: surface bg, manila text.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ BADGES / STATUS PILLS / CHIPS ============ -->
+  <div class="subsection" id="components-badges">
+    <div class="subsection-head"><h3>Badges, pills &amp; chips</h3><span class="subsection-tag">METADATA</span></div>
+
+    <div class="example">
+      <div class="caption" style="margin-bottom:14px">BADGES — NEUTRAL</div>
+      <div class="row" style="gap:8px">
+        <span style="font-family:var(--font-body);font-size:11px;font-weight:500;padding:3px 10px;border-radius:9999px;border:1px solid var(--rule);color:var(--text-2)">v1.0</span>
+        <span style="font-family:var(--font-body);font-size:11px;font-weight:500;padding:3px 10px;border-radius:9999px;border:1px solid var(--rule);color:var(--text-2)">Open source</span>
+        <span style="font-family:var(--font-body);font-size:11px;font-weight:500;padding:3px 10px;border-radius:9999px;background:var(--surface);color:var(--text)">Self-hosted</span>
+        <span style="font-family:var(--font-mono);font-size:11px;font-weight:500;padding:3px 10px;border-radius:9999px;background:var(--text);color:var(--bg)">PAP-193</span>
+      </div>
+    </div>
+
+    <div class="example" style="margin-top:16px">
+      <div class="caption" style="margin-bottom:14px">STATUS PILLS — SEMANTIC</div>
+      <div class="row" style="gap:8px">
+        <span class="status-pill" style="font-family:var(--font-body);font-size:11px;font-weight:500;padding:3px 10px;border-radius:9999px;color:var(--signal-deep);background:var(--signal-soft);border:1px solid var(--signal)">Done</span>
+        <span class="status-pill" style="font-family:var(--font-body);font-size:11px;font-weight:500;padding:3px 10px;border-radius:9999px;color:var(--amber-deep);background:var(--amber-soft);border:1px solid var(--amber)">Warning</span>
+        <span class="status-pill" style="font-family:var(--font-body);font-size:11px;font-weight:500;padding:3px 10px;border-radius:9999px;color:var(--red-deep);background:var(--red-soft);border:1px solid var(--red)">Blocked</span>
+        <span class="status-pill" style="font-family:var(--font-body);font-size:11px;font-weight:500;padding:3px 10px;border-radius:9999px;color:var(--blue-deep);background:var(--blue-soft);border:1px solid var(--blue)">Active</span>
+      </div>
+    </div>
+
+    <div class="example" style="margin-top:16px">
+      <div class="caption" style="margin-bottom:14px">CHIPS — REMOVABLE, FILTERABLE</div>
+      <div class="row" style="gap:6px">
+        <span style="display:inline-flex;align-items:center;gap:6px;font-family:var(--font-body);font-size:12px;padding:5px 10px 5px 12px;border-radius:9999px;background:var(--surface);border:1px solid var(--rule)">CEO Hermes <span style="color:var(--text-muted);font-size:14px;cursor:pointer">×</span></span>
+        <span style="display:inline-flex;align-items:center;gap:6px;font-family:var(--font-body);font-size:12px;padding:5px 10px 5px 12px;border-radius:9999px;background:var(--surface);border:1px solid var(--rule)">In progress <span style="color:var(--text-muted);font-size:14px;cursor:pointer">×</span></span>
+        <span style="display:inline-flex;align-items:center;gap:6px;font-family:var(--font-body);font-size:12px;padding:5px 10px 5px 12px;border-radius:9999px;background:var(--surface);border:1px solid var(--rule)">Engineering <span style="color:var(--text-muted);font-size:14px;cursor:pointer">×</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MENUS / DROPDOWNS / TABS ============ -->
+  <div class="subsection" id="components-menus">
+    <div class="subsection-head"><h3>Menus &amp; navigation</h3><span class="subsection-tag">OPEN PATTERNS</span></div>
+
+    <div class="grid-2" style="gap:16px">
+
+      <div class="example" id="ex-dropdown" style="min-height:300px">
+        <div class="caption" style="margin-bottom:14px">DROPDOWN MENU</div>
+        <div style="position:relative;display:inline-block">
+          <button id="dd-trigger" class="btn btn-secondary btn-sm" type="button" aria-expanded="false" style="border-radius:10px">Actions <span style="font-size:9px;margin-left:4px" id="dd-chev">▼</span></button>
+          <div id="dd-menu" hidden style="position:absolute;top:calc(100% + 8px);left:0;margin-top:0;border:1px solid var(--rule);border-radius:10px;background:var(--bg);box-shadow:0 8px 24px rgba(0,0,0,0.08);width:240px;padding:6px;font-size:14px;z-index:5">
+            <button type="button" class="dd-item" style="all:unset;display:flex;width:100%;justify-content:space-between;padding:8px 12px;border-radius:6px;cursor:pointer;color:var(--text)"><span>Pause agent</span><span class="mono" style="font-size:11px;color:var(--text-muted)">⌘P</span></button>
+            <button type="button" class="dd-item" style="all:unset;display:flex;width:100%;justify-content:space-between;padding:8px 12px;border-radius:6px;cursor:pointer;color:var(--text)"><span>Reassign task</span><span class="mono" style="font-size:11px;color:var(--text-muted)">⌘R</span></button>
+            <button type="button" class="dd-item" style="all:unset;display:flex;width:100%;justify-content:space-between;padding:8px 12px;border-radius:6px;cursor:pointer;color:var(--text)"><span>View trace</span><span class="mono" style="font-size:11px;color:var(--text-muted)">⌘T</span></button>
+            <hr style="border:0;border-top:1px solid var(--rule);margin:6px 0">
+            <button type="button" class="dd-item" style="all:unset;display:flex;width:100%;justify-content:space-between;padding:8px 12px;border-radius:6px;cursor:pointer;color:var(--red-deep)"><span>Terminate</span><span class="mono" style="font-size:11px;color:var(--text-muted)">⌘⌫</span></button>
+          </div>
+        </div>
+        <div class="anno" style="margin-top:24px">Click "Actions" to open. Click outside to close. Each item is a real button.</div>
+      </div>
+
+      <div class="example" id="ex-tabs">
+        <div class="caption" style="margin-bottom:14px">TABS — UNDERLINE</div>
+        <div role="tablist" class="tabs-row" style="display:flex;gap:24px;border-bottom:1px solid var(--rule);font-size:14px;font-weight:500">
+          <button role="tab" type="button" class="tab-btn active" data-tab="org" style="all:unset;cursor:pointer;padding:12px 0;border-bottom:2px solid var(--text);color:var(--text);margin-bottom:-1px">Org chart</button>
+          <button role="tab" type="button" class="tab-btn" data-tab="goals" style="all:unset;cursor:pointer;padding:12px 0;color:var(--text-2);border-bottom:2px solid transparent;margin-bottom:-1px">Goals</button>
+          <button role="tab" type="button" class="tab-btn" data-tab="tickets" style="all:unset;cursor:pointer;padding:12px 0;color:var(--text-2);border-bottom:2px solid transparent;margin-bottom:-1px">Tickets</button>
+          <button role="tab" type="button" class="tab-btn" data-tab="spend" style="all:unset;cursor:pointer;padding:12px 0;color:var(--text-2);border-bottom:2px solid transparent;margin-bottom:-1px">Spend</button>
+          <button role="tab" type="button" class="tab-btn" data-tab="traces" style="all:unset;cursor:pointer;padding:12px 0;color:var(--text-2);border-bottom:2px solid transparent;margin-bottom:-1px">Traces</button>
+        </div>
+        <div class="tab-panel" data-panel="org"     style="padding:14px 0;font-size:13px;color:var(--text-2)">CEO → CTO → engineers. Capsule nodes, hairline connectors.</div>
+        <div class="tab-panel" data-panel="goals"   hidden style="padding:14px 0;font-size:13px;color:var(--text-2)">Mission → projects → agents → tasks. Hierarchy by progressive grays.</div>
+        <div class="tab-panel" data-panel="tickets" hidden style="padding:14px 0;font-size:13px;color:var(--text-2)">Structured threads with full tool-call trace + immutable audit log.</div>
+        <div class="tab-panel" data-panel="spend"   hidden style="padding:14px 0;font-size:13px;color:var(--text-2)">Per-agent monthly budget. Auto-pause at 100%.</div>
+        <div class="tab-panel" data-panel="traces"  hidden style="padding:14px 0;font-size:13px;color:var(--text-2)">Outlined rings + mono status chips. Every tool call logged.</div>
+      </div>
+
+      <div class="example" id="ex-breadcrumbs">
+        <div class="caption" style="margin-bottom:14px">BREADCRUMBS</div>
+        <div class="bc-row" style="font-family:var(--font-body);font-size:13px;display:flex;align-items:center;gap:6px;color:var(--text-2);flex-wrap:wrap">
+          <a href="#" class="bc-link" style="color:var(--text-2);text-decoration:none;padding:2px 4px;border-radius:4px">Companies</a><span style="color:var(--text-muted)">/</span>
+          <a href="#" class="bc-link" style="color:var(--text-2);text-decoration:none;padding:2px 4px;border-radius:4px">Note-taking app</a><span style="color:var(--text-muted)">/</span>
+          <a href="#" class="bc-link" style="color:var(--text-2);text-decoration:none;padding:2px 4px;border-radius:4px">Engineering</a><span style="color:var(--text-muted)">/</span>
+          <span style="color:var(--text);font-weight:500;padding:2px 4px">CTO Codex</span>
+        </div>
+        <div class="anno" style="margin-top:14px">Hover a link to lift to ink.</div>
+      </div>
+
+      <div class="example" id="ex-pagination">
+        <div class="caption" style="margin-bottom:14px">PAGINATION</div>
+        <div class="pg-row" style="display:flex;align-items:center;gap:4px;font-family:var(--font-mono);font-size:13px">
+          <button type="button" class="pg-prev btn btn-ghost btn-sm" style="padding:6px 10px">←</button>
+          <button type="button" class="pg-num btn btn-ghost btn-sm" data-page="1" style="padding:6px 12px;color:var(--text-muted)">1</button>
+          <button type="button" class="pg-num btn btn-ghost btn-sm active" data-page="2" style="padding:6px 12px;background:var(--text);color:var(--bg);border-radius:6px">2</button>
+          <button type="button" class="pg-num btn btn-ghost btn-sm" data-page="3" style="padding:6px 12px;color:var(--text-muted)">3</button>
+          <button type="button" class="pg-num btn btn-ghost btn-sm" data-page="4" style="padding:6px 12px;color:var(--text-muted)">4</button>
+          <span style="color:var(--text-muted)">…</span>
+          <button type="button" class="pg-num btn btn-ghost btn-sm" data-page="42" style="padding:6px 12px;color:var(--text-muted)">42</button>
+          <button type="button" class="pg-next btn btn-ghost btn-sm" style="padding:6px 10px">→</button>
+        </div>
+        <div class="anno" style="margin-top:14px">Click any page to switch. ← / → walks adjacent.</div>
+      </div>
+
+    </div>
+
+    <style>
+      .dd-item:hover { background: var(--surface); }
+      .bc-link:hover { color: var(--text); background: var(--surface); }
+      [data-theme="dark"] .bc-link:hover { color: var(--text); }
+    </style>
+    
+  </div>
+
+  <!-- ============ DIALOGS / POPOVERS / TOOLTIPS / TOASTS ============ -->
+  <div class="subsection" id="components-overlays">
+    <div class="subsection-head"><h3>Overlays</h3><span class="subsection-tag">DIALOG · POPOVER</span></div>
+
+    <div class="grid-2" style="gap:16px">
+
+      <div class="example" style="padding:0;background:linear-gradient(to bottom,var(--surface),var(--surface));position:relative;min-height:280px;overflow:hidden">
+        <div style="padding:24px;color:var(--text-muted);font-family:var(--font-mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase">DIALOG</div>
+        <div style="position:absolute;inset:0;background:rgba(12,12,12,0.45);display:flex;align-items:center;justify-content:center;padding:20px">
+          <div style="background:var(--bg);border:1px solid var(--rule);border-radius:24px;padding:28px;width:100%;max-width:380px">
+            <div class="display-4" style="font-size:22px;margin:0 0 8px">Terminate CEO Hermes?</div>
+            <p class="body-sm" style="color:var(--text-2);margin:0 0 18px">All in-flight tasks will be cancelled and tickets reassigned to COO Claude. This is reversible from the audit log within 24h.</p>
+            <div class="row" style="gap:8px;justify-content:flex-end">
+              <button class="btn btn-ghost btn-sm">Cancel</button>
+              <button class="btn btn-sm btn-danger">Terminate</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="example" style="position:relative;min-height:280px">
+        <div class="caption" style="margin-bottom:14px">POPOVER</div>
+        <div style="position:relative;display:inline-block">
+          <button class="btn btn-secondary btn-sm" style="border-radius:10px">Set budget</button>
+          <div style="position:absolute;top:calc(100% + 8px);left:0;width:280px;border:1px solid var(--rule);border-radius:16px;background:var(--bg);box-shadow:0 12px 32px rgba(0,0,0,0.08);padding:18px;font-size:13px">
+            <div style="font-weight:500;margin-bottom:8px">Monthly budget</div>
+            <input type="range" id="budget-popover-range" min="10" max="500" value="60" style="width:100%;accent-color: var(--text)">
+            <div class="row" style="justify-content:space-between;margin-top:10px"><span class="mono" style="font-size:12px;color:var(--text-muted)">$10</span><span class="mono" id="budget-popover-value" style="font-size:13px">$60</span><span class="mono" style="font-size:12px;color:var(--text-muted)">$500</span></div>
+            <div class="row" style="gap:6px;margin-top:14px;justify-content:flex-end">
+              <button class="btn btn-ghost btn-sm" style="padding:4px 10px">Cancel</button>
+              <button class="btn btn-primary btn-sm" style="padding:4px 14px">Save</button>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:200px"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ PROGRESS / LOADERS ============ -->
+  <div class="subsection" id="components-progress">
+    <div class="subsection-head"><h3>Progress &amp; loaders</h3><span class="subsection-tag">DETERMINATE + INDETERMINATE</span></div>
+
+    <div class="grid-2" style="gap:16px">
+      <div class="example">
+        <div class="caption" style="margin-bottom:14px">PROGRESS BAR</div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span>Budget — CEO Hermes</span><span class="mono">$23.40 / $60</span></div><div style="height:6px;border-radius:3px;background:var(--rule);overflow:hidden"><div style="height:100%;background:var(--text);width:39%;border-radius:3px"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span>Budget — CMO OpenClaw</span><span class="mono" style="color:var(--amber-deep)">$32 / $40 · 80%</span></div><div style="height:6px;border-radius:3px;background:var(--rule);overflow:hidden"><div style="height:100%;background:var(--amber);width:80%;border-radius:3px"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span>Budget — CTO Codex</span><span class="mono" style="color:var(--red-deep)">$50 / $50 · 100%</span></div><div style="height:6px;border-radius:3px;background:var(--rule);overflow:hidden"><div style="height:100%;background:var(--red);width:100%;border-radius:3px"></div></div></div>
+        </div>
+      </div>
+
+      <div class="example">
+        <div class="caption" style="margin-bottom:14px">LOADERS</div>
+        <div style="display:flex;gap:32px;align-items:center;margin-top:18px;flex-wrap:wrap">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><span style="width:24px;height:24px;border:2.5px solid var(--rule);border-top-color:var(--text);border-radius:50%;animation: spin 800ms linear infinite"></span><span class="mono" style="font-size:10px;color:var(--text-muted)">SPINNER</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><span style="display:flex;gap:4px"><span style="width:6px;height:6px;border-radius:50%;background:var(--text);animation: dotpulse 1.4s ease-in-out infinite"></span><span style="width:6px;height:6px;border-radius:50%;background:var(--text);animation: dotpulse 1.4s ease-in-out 0.16s infinite"></span><span style="width:6px;height:6px;border-radius:50%;background:var(--text);animation: dotpulse 1.4s ease-in-out 0.32s infinite"></span></span><span class="mono" style="font-size:10px;color:var(--text-muted)">DOTS</span></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><div style="width:120px;height:6px;border-radius:3px;background:var(--rule);overflow:hidden;position:relative"><div style="position:absolute;top:0;left:0;width:40%;height:100%;background:var(--text);border-radius:3px;animation: bar-slide 1.4s ease-in-out infinite"></div></div><span class="mono" style="font-size:10px;color:var(--text-muted)">INDETERMINATE BAR</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ TERMINAL / CODE ============ -->
+  <div class="subsection" id="components-code">
+    <div class="subsection-head"><h3>Terminal &amp; code</h3><span class="subsection-tag">ENGINEERING TONE</span></div>
+    <div class="grid-2" style="gap:16px">
+
+      <div class="example example-flush invert" style="background:#0C0C0C">
+        <div style="background:#1a1a1a;padding:10px 16px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #2F2C28">
+          <span style="width:10px;height:10px;border-radius:50%;background:#ff5f57"></span>
+          <span style="width:10px;height:10px;border-radius:50%;background:#febc2e"></span>
+          <span style="width:10px;height:10px;border-radius:50%;background:#28c840"></span>
+          <span style="font-family:var(--font-mono);font-size:11px;color:#888880;margin-left:12px">paperclip — bash</span>
+        </div>
+        <pre style="margin:0;padding:18px;font-family:var(--font-mono);font-size:13px;line-height:1.55;color:#F3E6C4;background:#0C0C0C;overflow:auto"><span style="color:#888880">$</span> npx paperclipai onboard --yes
+
+  <span style="color:#22C55E">✓</span> Embedded postgres started
+  <span style="color:#22C55E">✓</span> Company created: <span style="color:#9CE8A7">note-taking-app</span>
+  <span style="color:#22C55E">✓</span> CEO Hermes online <span style="color:#888880">(claude-sonnet-4-5)</span>
+  <span style="color:#22C55E">✓</span> Dashboard at <span style="color:#7EB6E3">http://localhost:3100</span>
+
+<span style="color:#888880">$</span> <span style="opacity:0.7;animation: blink 1s step-end infinite">▍</span></pre>
+      </div>
+
+      <div class="example example-flush">
+        <div style="padding:10px 16px;background:var(--surface);border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between">
+          <span class="mono" style="font-size:11px;color:var(--text-muted)">paperclip.config.ts</span>
+          <button class="copy-btn" data-copy="export default { /* ... */ }">Copy</button>
+        </div>
+        <pre style="margin:0;padding:18px;font-family:var(--font-mono);font-size:13px;line-height:1.6;background:var(--bg);color:var(--text);overflow:auto"><span style="color:var(--text-muted)">// Self-host config</span>
+<span style="color:var(--blue)">export default</span> {
+  <span style="color:var(--graphite)">company</span>: <span style="color:var(--signal-deep)">'note-taking-app'</span>,
+  <span style="color:var(--graphite)">db</span>: <span style="color:var(--signal-deep)">'postgres://localhost'</span>,
+  <span style="color:var(--graphite)">heartbeat</span>: <span style="color:var(--amber-deep)">4</span>, <span style="color:var(--text-muted)">// hours</span>
+  <span style="color:var(--graphite)">budgets</span>: { <span style="color:var(--signal-deep)">ceo</span>: <span style="color:var(--amber-deep)">60</span> },
+}</pre>
+      </div>
+
+    </div>
+  </div>
+
+  
+
+  <style>
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes dotpulse { 0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); } 40% { opacity: 1; transform: scale(1); } }
+    @keyframes bar-slide { 0% { left: -40%; } 100% { left: 100%; } }
+    @keyframes blink { 50% { opacity: 0; } }
+  </style>
+
+</section>
