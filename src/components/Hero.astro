@@ -146,12 +146,58 @@ const mobileSvg = namespaceSvgIds(mobileSvgRaw, 'm-');
     }
   }
 
+  /* Primary parallax path: compositor-driven scroll-linked animation.
+     Runs smoothly during iOS momentum scrolling because no JS listener
+     is involved. Browsers without support fall through to the JS path
+     below (gated to fine-pointer devices). */
+  @supports (animation-timeline: scroll()) {
+    .hero {
+      view-timeline-name: --hero-timeline;
+      view-timeline-axis: block;
+    }
+
+    .hero-bg {
+      animation: heroBgParallax linear both;
+      animation-timeline: --hero-timeline;
+      animation-range: exit;
+    }
+
+    .hero-inner {
+      animation: heroInnerParallax linear both;
+      animation-timeline: --hero-timeline;
+      animation-range: exit;
+    }
+
+    @keyframes heroBgParallax {
+      from {
+        transform: translateY(var(--hero-bg-y));
+      }
+      to {
+        transform: translateY(calc(var(--hero-bg-y) - 15vh));
+      }
+    }
+
+    @keyframes heroInnerParallax {
+      from {
+        transform: translateY(0);
+      }
+      to {
+        transform: translateY(-45vh);
+      }
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .hero-bg,
     .hero-inner,
     .hero-headline,
     .hero-lede {
       will-change: auto;
+    }
+
+    .hero-bg,
+    .hero-inner {
+      animation: none;
     }
 
     .hero-inner {
@@ -272,9 +318,9 @@ const mobileSvg = namespaceSvgIds(mobileSvgRaw, 'm-');
     }
 
     .hero-bg {
-      /* -220px positions the SVG so the capsule bottoms partially clip
-         the top of the H1's first line, mirroring the desktop crop. */
-      --hero-bg-y: -100px;
+      /* Positions the SVG so the capsule bottoms partially clip the
+         top of the H1's first line, mirroring the desktop crop. */
+      --hero-bg-y: -220px;
     }
 
     .hero-bg-svg-desktop {
@@ -300,11 +346,11 @@ const mobileSvg = namespaceSvgIds(mobileSvgRaw, 'm-');
 
 <script>
   const HERO_BG_PARALLAX_RATE = 0.15;
-  const HERO_INNER_PARALLAX_RATE = 0.55;
+  const HERO_INNER_PARALLAX_RATE = 0.35;
   const mobileMq = window.matchMedia('(max-width: 768px)');
 
   function getHeroBgBaseY() {
-    return mobileMq.matches ? -200 : -310;
+    return mobileMq.matches ? -220 : -310;
   }
 
   let teardownHeroParallax: (() => void) | undefined;
@@ -356,6 +402,24 @@ const mobileSvg = namespaceSvgIds(mobileSvgRaw, 'm-');
     };
   }
 
-  initHeroParallax();
-  document.addEventListener('astro:page-load', initHeroParallax);
+  // Fallback path: only run the JS-driven parallax on browsers that lack
+  // scroll-driven animations (e.g. Firefox as of 2026) AND on devices with
+  // a fine pointer. Skipping it on touch devices avoids the choppy effect
+  // caused by iOS Safari throttling `scroll` events during momentum scroll.
+  const supportsScrollTimeline =
+    typeof CSS !== 'undefined' && CSS.supports('animation-timeline', 'scroll()');
+  const fineHoverMq = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+  function maybeInitHeroParallax() {
+    if (supportsScrollTimeline || !fineHoverMq.matches) {
+      teardownHeroParallax?.();
+      teardownHeroParallax = undefined;
+      return;
+    }
+    initHeroParallax();
+  }
+
+  maybeInitHeroParallax();
+  fineHoverMq.addEventListener('change', maybeInitHeroParallax);
+  document.addEventListener('astro:page-load', maybeInitHeroParallax);
 </script>
