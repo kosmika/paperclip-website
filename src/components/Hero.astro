@@ -148,9 +148,14 @@ const mobileSvg = namespaceSvgIds(mobileSvgRaw, 'm-');
 
   @media (prefers-reduced-motion: reduce) {
     .hero-bg,
+    .hero-inner,
     .hero-headline,
     .hero-lede {
       will-change: auto;
+    }
+
+    .hero-inner {
+      transform: none;
     }
 
     .hero-bg :global(svg) {
@@ -173,6 +178,9 @@ const mobileSvg = namespaceSvgIds(mobileSvgRaw, 'm-');
     z-index: 1;
     max-width: 900px;
     text-align: center;
+    --hero-inner-y: 0px;
+    transform: translateY(var(--hero-inner-y));
+    will-change: transform;
   }
 
   .hero-headline {
@@ -291,25 +299,28 @@ const mobileSvg = namespaceSvgIds(mobileSvgRaw, 'm-');
 </style>
 
 <script>
-  const HERO_BG_PARALLAX_RATE = 0.35;
+  const HERO_BG_PARALLAX_RATE = 0.15;
+  const HERO_INNER_PARALLAX_RATE = 0.55;
   const mobileMq = window.matchMedia('(max-width: 768px)');
 
   function getHeroBgBaseY() {
     return mobileMq.matches ? -200 : -310;
   }
 
-  let teardownHeroBgParallax: (() => void) | undefined;
+  let teardownHeroParallax: (() => void) | undefined;
 
-  function initHeroBgParallax() {
-    teardownHeroBgParallax?.();
+  function initHeroParallax() {
+    teardownHeroParallax?.();
 
     const hero = document.querySelector('.hero');
     const bg = hero?.querySelector('.hero-bg');
-    if (!(hero instanceof HTMLElement) || !(bg instanceof HTMLElement)) return;
+    const inner = hero?.querySelector('.hero-inner');
+    if (!(hero instanceof HTMLElement) || !(bg instanceof HTMLElement) || !(inner instanceof HTMLElement)) return;
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reducedMotion) {
       bg.style.setProperty('--hero-bg-y', `${getHeroBgBaseY()}px`);
+      inner.style.setProperty('--hero-inner-y', '0px');
       return;
     }
 
@@ -317,8 +328,10 @@ const mobileSvg = namespaceSvgIds(mobileSvgRaw, 'm-');
 
     const update = () => {
       const scrolled = Math.max(0, -hero.getBoundingClientRect().top);
-      const y = getHeroBgBaseY() - scrolled * HERO_BG_PARALLAX_RATE;
-      bg.style.setProperty('--hero-bg-y', `${y}px`);
+      const bgY = getHeroBgBaseY() - scrolled * HERO_BG_PARALLAX_RATE;
+      const innerY = -scrolled * HERO_INNER_PARALLAX_RATE;
+      bg.style.setProperty('--hero-bg-y', `${bgY}px`);
+      inner.style.setProperty('--hero-inner-y', `${innerY}px`);
       ticking = false;
     };
 
@@ -336,13 +349,13 @@ const mobileSvg = namespaceSvgIds(mobileSvgRaw, 'm-');
     window.addEventListener('resize', requestUpdate, { passive: true });
     mobileMq.addEventListener('change', onMqChange);
 
-    teardownHeroBgParallax = () => {
+    teardownHeroParallax = () => {
       window.removeEventListener('scroll', requestUpdate);
       window.removeEventListener('resize', requestUpdate);
       mobileMq.removeEventListener('change', onMqChange);
     };
   }
 
-  initHeroBgParallax();
-  document.addEventListener('astro:page-load', initHeroBgParallax);
+  initHeroParallax();
+  document.addEventListener('astro:page-load', initHeroParallax);
 </script>

@@ -1484,83 +1484,25 @@ input[type="range"]::-moz-range-thumb {
 .copy-btn.copied { color: var(--signal-deep); border-color: var(--signal); background: var(--signal-soft); }
 [data-theme="dark"] .copy-btn.copied { color: var(--signal); background: rgba(34,197,94,0.15); }
 
-/* ---------- 14. FOOTER --------------------------------------- */
+/* ---------- 14. FOOTER (marketing site component) -------------- */
 
-.site-footer {
-  background: var(--on-dark-bg);
-  color: var(--on-dark-text);
-  font-family: var(--font-body);
-  padding: var(--space-8) 0 var(--space-7);
-  margin-top: var(--space-9);
+/* Aliases so shared Footer.astro tokens resolve on the brand page. */
+:root,
+[data-theme="dark"] {
+  --ink-t: var(--text);
+  --mono: var(--text-muted);
+  --font-serif: var(--font-display);
+  --font-sans: var(--font-body);
+  --space-sm: var(--space-4);
+  --space-md: var(--space-5);
+  --t-micro: var(--dur-micro);
 }
-.site-footer-inner {
+
+.container {
   max-width: var(--container);
   margin: 0 auto;
-  padding: 0 var(--gutter);
+  padding: 0 var(--space-5);
 }
-.footer-mark {
-  margin: 0 0 48px;
-  color: var(--on-dark-text);
-}
-.footer-wordmark {
-  display: block;
-  height: clamp(48px, 9vw, 128px);
-  width: auto;
-}
-.footer-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 32px;
-  border-top: 1px solid var(--on-dark-rule);
-  padding-top: 32px;
-}
-@media (max-width: 720px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
-.footer-tag {
-  font-family: var(--font-body);
-  font-size: 14px;
-  max-width: 28ch;
-  color: var(--on-dark-text);
-  opacity: 0.85;
-}
-.footer-col h5 {
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--on-dark-muted);
-  margin: 0 0 16px;
-}
-.footer-col a {
-  display: block;
-  color: var(--on-dark-text);
-  font-size: 14px;
-  padding: 4px 0;
-  transition: color var(--dur-short) var(--ease-out);
-}
-.footer-col a:hover { color: #FFFFFF; }
-.footer-bottom {
-  margin-top: var(--space-7);
-  padding-top: 24px;
-  border-top: 1px solid #2F2C28;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-  font-family: var(--font-body);
-  font-size: 12px;
-  color: var(--on-dark-muted);
-}
-.footer-bottom-links {
-  display: flex;
-  gap: 16px;
-}
-.footer-bottom-links a {
-  color: var(--on-dark-muted);
-  transition: color var(--dur-short) var(--ease-out);
-}
-.footer-bottom-links a:hover { color: var(--on-dark-text); }
 
 /* ---------- 15. SWATCH PRIMITIVE ----------------------------- */
 
@@ -1729,6 +1671,141 @@ input[type="range"]::-moz-range-thumb {
   0%   { transform: translateX(0); }
   50%  { transform: translateX(72px); }
   100% { transform: translateX(0); }
+}
+
+/* ── Imagery: responsive motif demos (#imagery) ── */
+
+.imagery-capsule-field {
+  container-type: inline-size;
+  container-name: imagery-capsule-field;
+  height: 200px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.imagery-capsule-field__track {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  flex-shrink: 0;
+  width: 344px; /* 8 × 36px + 7 × 8px gap */
+  transform-origin: bottom center;
+  transform: scale(min(1, 100cqw / 344px));
+}
+
+.imagery-capsule-field__cap {
+  width: 36px;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+.imagery-org-chart {
+  container-type: inline-size;
+  container-name: imagery-org-chart;
+  overflow: hidden;
+}
+
+.imagery-org-chart__inner {
+  --org-row-gap: clamp(8px, 5cqw, 32px);
+  display: grid;
+  justify-items: center;
+  gap: 40px;
+  width: 100%;
+  max-width: 424px;
+  margin-inline: auto;
+}
+
+.imagery-org-chart__ceo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.imagery-org-chart__row {
+  display: flex;
+  gap: var(--org-row-gap);
+  position: relative;
+  width: 100%;
+}
+
+/* Horizontal connector — sits midway in the grid gap, shortens as the row narrows */
+.imagery-org-chart__row::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: calc((100% - 2 * var(--org-row-gap)) / 6);
+  right: calc((100% - 2 * var(--org-row-gap)) / 6);
+  height: 1px;
+  background: var(--rule);
+}
+
+.imagery-org-chart__node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 0;
+  min-width: 72px;
+  max-width: 120px;
+  position: relative;
+}
+
+.imagery-org-chart__stem--down {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 20px;
+  background: var(--rule);
+}
+
+.imagery-org-chart__stem--up {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 20px;
+  background: var(--rule);
+}
+
+.imagery-org-chart__cap--ceo {
+  width: 48px;
+  height: 104px;
+  border-radius: 9999px;
+}
+
+.imagery-org-chart__cap {
+  width: 36px;
+  height: 80px;
+  border-radius: 9999px;
+}
+
+.imagery-org-chart__role {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.imagery-org-chart__name {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+/* Phase 2: uniform scale once nodes hit their minimum width */
+@container imagery-org-chart (max-width: 231px) {
+  .imagery-org-chart__inner {
+    --org-scale: calc(100cqw / 232px);
+    transform: scale(var(--org-scale));
+    transform-origin: top center;
+    margin-bottom: calc(324px * (var(--org-scale) - 1));
+  }
 }
 
 /* Agent heartbeat capsules — alive/waiting pulse; blocked hard-blinks (no alpha tweens) */
