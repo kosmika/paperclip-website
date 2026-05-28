@@ -36,15 +36,17 @@
       <!-- Capsule field -->
       <div class="example invert" style="padding:32px">
         <div class="caption" style="margin-bottom:24px">CAPSULE FIELD — MARKETING MOMENT</div>
-        <div style="display:flex;gap:8px;align-items:flex-end;overflow:hidden;height:200px">
-          <div class="cap-grad-01" style="width:36px;height:120px;border-radius:9999px;flex-shrink:0"></div>
-          <div class="cap-grad-09" style="width:36px;height:170px;border-radius:9999px;flex-shrink:0"></div>
-          <div class="cap-grad-04" style="width:36px;height:90px;border-radius:9999px;flex-shrink:0"></div>
-          <div class="cap-grad-07" style="width:36px;height:200px;border-radius:9999px;flex-shrink:0"></div>
-          <div class="cap-grad-10" style="width:36px;height:150px;border-radius:9999px;flex-shrink:0"></div>
-          <div class="cap-grad-12" style="width:36px;height:110px;border-radius:9999px;flex-shrink:0"></div>
-          <div class="cap-grad-02" style="width:36px;height:175px;border-radius:9999px;flex-shrink:0"></div>
-          <div class="cap-grad-05" style="width:36px;height:130px;border-radius:9999px;flex-shrink:0"></div>
+        <div class="imagery-capsule-field">
+          <div class="imagery-capsule-field__track">
+            <div class="cap-grad-01 imagery-capsule-field__cap" style="height:120px"></div>
+            <div class="cap-grad-09 imagery-capsule-field__cap" style="height:170px"></div>
+            <div class="cap-grad-04 imagery-capsule-field__cap" style="height:90px"></div>
+            <div class="cap-grad-07 imagery-capsule-field__cap" style="height:200px"></div>
+            <div class="cap-grad-10 imagery-capsule-field__cap" style="height:150px"></div>
+            <div class="cap-grad-12 imagery-capsule-field__cap" style="height:110px"></div>
+            <div class="cap-grad-02 imagery-capsule-field__cap" style="height:175px"></div>
+            <div class="cap-grad-05 imagery-capsule-field__cap" style="height:130px"></div>
+          </div>
         </div>
         <p class="body-sm" style="opacity:0.8;margin-top:16px;max-width:36ch">Eight agents. Each its own gradient. Different heights signal cost, status, or output.</p>
       </div>
@@ -52,32 +54,33 @@
       <!-- Org chart -->
       <div class="example" style="padding:32px">
         <div class="caption" style="margin-bottom:24px">ORG CHART NODES</div>
-        <div style="display:grid;justify-items:center;gap:40px">
-          <div style="display:flex;flex-direction:column;align-items:center;gap:8px;position:relative">
-            <div class="cap-grad-05" style="width:48px;height:104px;border-radius:9999px"></div>
-            <div style="font-family:var(--font-body);font-size:12px;font-weight:500">CEO</div>
-            <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted)">Hermes</div>
-            <span style="position:absolute;bottom:-20px;width:1px;height:20px;background:var(--rule)"></span>
-          </div>
-          <div style="display:flex;gap:32px;position:relative">
-            <span style="position:absolute;top:-20px;left:60px;right:60px;height:1px;background:var(--rule)"></span>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;width:120px;position:relative">
-              <span style="position:absolute;top:-20px;left:50%;width:1px;height:20px;background:var(--rule)"></span>
-              <div class="cap-grad-09" style="width:36px;height:80px;border-radius:9999px"></div>
-              <div style="font-family:var(--font-body);font-size:12px;font-weight:500">CTO</div>
-              <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted)">Codex</div>
+        <div class="imagery-org-chart">
+          <div class="imagery-org-chart__inner">
+            <div class="imagery-org-chart__ceo">
+              <div class="cap-grad-05 imagery-org-chart__cap imagery-org-chart__cap--ceo"></div>
+              <div class="imagery-org-chart__role">CEO</div>
+              <div class="imagery-org-chart__name">Hermes</div>
+              <span class="imagery-org-chart__stem imagery-org-chart__stem--down" aria-hidden="true"></span>
             </div>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;width:120px;position:relative">
-              <span style="position:absolute;top:-20px;left:50%;width:1px;height:20px;background:var(--rule)"></span>
-              <div class="cap-grad-04" style="width:36px;height:80px;border-radius:9999px"></div>
-              <div style="font-family:var(--font-body);font-size:12px;font-weight:500">CMO</div>
-              <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted)">OpenClaw</div>
-            </div>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;width:120px;position:relative">
-              <span style="position:absolute;top:-20px;left:50%;width:1px;height:20px;background:var(--rule)"></span>
-              <div class="cap-grad-12" style="width:36px;height:80px;border-radius:9999px"></div>
-              <div style="font-family:var(--font-body);font-size:12px;font-weight:500">COO</div>
-              <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted)">Claude</div>
+            <div class="imagery-org-chart__row">
+              <div class="imagery-org-chart__node">
+                <span class="imagery-org-chart__stem imagery-org-chart__stem--up" aria-hidden="true"></span>
+                <div class="cap-grad-09 imagery-org-chart__cap"></div>
+                <div class="imagery-org-chart__role">CTO</div>
+                <div class="imagery-org-chart__name">Codex</div>
+              </div>
+              <div class="imagery-org-chart__node">
+                <span class="imagery-org-chart__stem imagery-org-chart__stem--up" aria-hidden="true"></span>
+                <div class="cap-grad-04 imagery-org-chart__cap"></div>
+                <div class="imagery-org-chart__role">CMO</div>
+                <div class="imagery-org-chart__name">OpenClaw</div>
+              </div>
+              <div class="imagery-org-chart__node">
+                <span class="imagery-org-chart__stem imagery-org-chart__stem--up" aria-hidden="true"></span>
+                <div class="cap-grad-12 imagery-org-chart__cap"></div>
+                <div class="imagery-org-chart__role">COO</div>
+                <div class="imagery-org-chart__name">Claude</div>
+              </div>
             </div>
           </div>
         </div>
